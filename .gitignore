@@ -1,5 +1,16 @@
 *.local
+
+# Build files
 dist
 dist-ssr
-.DS_Store
+
+#OS specific
+.DS_Store  # macOS Finder metadata files
+Thumbs.db  # Windows Explorer thumbnail cache
+.cache     # Linux cache files
+
+#Dependencies
 node_modules
+
+#Visual Studio Code
+.vscode/
