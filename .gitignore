@@ -12,5 +12,6 @@ Thumbs.db  # Windows Explorer thumbnail cache
 #Dependencies
 node_modules
 
+
 #Visual Studio Code
 .vscode/
