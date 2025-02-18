@@ -4,6 +4,7 @@ import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 
 const prompts = ref([]);
+const randomPrompt = ref("");
 
 onMounted(async () => {
   try {
@@ -15,17 +16,14 @@ onMounted(async () => {
   }
 
   generatePrompt();
+
 });
-const randomPrompt = ref("");
 
 function generatePrompt() {
   const index = Math.floor(Math.random() * prompts.value.length);
   randomPrompt.value = prompts.value[index].prompt;
 }
 
-// computed(() => {
-//   return generatePrompt();
-// });
 </script>
 
 <template>
