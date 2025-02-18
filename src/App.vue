@@ -4,7 +4,7 @@ import PromptGenerator from "./components/PromptGenerator.vue";
 </script>
 
 <template>
-  <RouterLink to='/' class="font-[Special_Elite] text-e">Just Write</RouterLink>
+  <RouterLink to='/'><h1 class="font-[Special_Elite] text-[42px] text-center py-8">Just Write</h1></RouterLink>
   <nav>
     <ul>
       <li>
@@ -12,9 +12,7 @@ import PromptGenerator from "./components/PromptGenerator.vue";
       </li>
     </ul>
   </nav>
-  <main>
     <RouterView />
-  </main>
 </template>
 
 <style>

@@ -5,6 +5,7 @@ import axios from "axios";
 
 const prompts = ref([]);
 const randomPrompt = ref("");
+const hidden = ref(false)
 
 onMounted(async () => {
   try {
@@ -24,12 +25,19 @@ function generatePrompt() {
   randomPrompt.value = prompts.value[index].prompt;
 }
 
+function hidePrompt() {
+  hidden.value = true
+}
+
 </script>
 
 <template>
-  <h1 class="text-2xl">Just write</h1>
+ <div v-show="!hidden">
+  <h2 class="text-xl">Random Prompt</h2>
+  <span class="text-lg p-8 cursor-pointer" @click="hidePrompt">&#x2715</span>
   <p>{{ randomPrompt }}</p>
   <button @click="generatePrompt">Change prompt</button>
+</div>
 </template>
 
 <style></style>
