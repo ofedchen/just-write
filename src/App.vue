@@ -1,16 +1,23 @@
-<script>
-  import CitiesList from "./components/CitiesList.vue";
-  import HelloWorld from "./components/HelloWorld.vue";
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+import PromptGenerator from "./components/PromptGenerator.vue";
 
-  export default {
-    components: {
-      CitiesList,
-      HelloWorld
-    }
-  };
 </script>
 
 <template>
-  <HelloWorld msg="Hello World!" />
-  <CitiesList />
+   <nav>
+    <ul>
+      <li>
+        <!-- <RouterLink to="/">Hem</RouterLink> -->
+      </li>
+    </ul>
+  </nav>
+<PromptGenerator />
+<main>
+    <!-- <RouterView /> -->
+  </main>
 </template>
+
+<style>
+@import "tailwindcss";
+</style>
