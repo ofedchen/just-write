@@ -1,30 +1,35 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed } from "vue";
 
 import axios from "axios";
 
-const prompts = ref([])
+const prompts = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:5000/randomPrompts')
+    const response = await axios.get("http://localhost:5000/randomPrompts");
     prompts.value = response.data;
-    console.log(prompts.value)
+    console.log(prompts.value);
   } catch (error) {
-    console.error('Error fetching prompts', error)
+    console.error("Error fetching prompts", error);
   }
-})
+
+  generatePrompt();
+});
+const randomPrompt = ref("");
 
 function generatePrompt() {
-  const index = Math.floor(Math.random() * prompts.value.length)
-  return prompts.value[index]
+  const index = Math.floor(Math.random() * prompts.value.length);
+  randomPrompt.value = prompts.value[index].prompt;
 }
 
-
+// computed(() => {
+//   return generatePrompt();
+// });
 </script>
 
 <template>
-  <h1 class='text-2xl'>Just write</h1>
+  <h1 class="text-2xl">Just write</h1>
   <p>{{ randomPrompt }}</p>
   <button @click="generatePrompt">Change prompt</button>
 </template>
