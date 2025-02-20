@@ -32,12 +32,14 @@ function hidePrompt() {
 </script>
 
 <template>
- <div v-show="!hidden">
-  <h2 class="text-xl">Random Prompt</h2>
-  <span class="text-lg p-8 cursor-pointer" @click="hidePrompt">&#x2715</span>
-  <p>{{ randomPrompt }}</p>
-  <button @click="generatePrompt">Change prompt</button>
-</div>
+  <div v-show="!hidden" class="relative">
+    <h2 class="text-xl">Random Prompt</h2>
+    <span class="text-lg p-8 cursor-pointer absolute -top-8 right-0" @click="hidePrompt">&#x2715</span>
+    <p class="py-8">{{ randomPrompt }}</p>
+    <button @click="generatePrompt"
+      class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Change
+      prompt</button>
+  </div>
 </template>
 
 <style></style>
