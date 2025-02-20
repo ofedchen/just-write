@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import PromptGenerator from "./components/PromptGenerator.vue";
+import HamburgerMenu from "./components/HamburgerMenu.vue"
 </script>
 
 <template>
@@ -9,11 +10,7 @@ import PromptGenerator from "./components/PromptGenerator.vue";
       <RouterLink to='/mysavedtext'><h2 class="font-[Special_Elite] text-[20px] text-right py-8">My saved text</h2></RouterLink>
     </RouterLink>
     <nav>
-      <ul>
-        <li>
-          <!-- <RouterLink to="/">Hem</RouterLink> -->
-        </li>
-      </ul>
+      <!-- <HamburgerMenu /> -->
     </nav>
     <RouterView />
 </template>
