@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "./views/HomeView.vue";
-import MySavedText from "./views/MySavedText.vue";
+import MySavedTexts from "./views/MySavedTexts.vue";
 
 const router = createRouter( {
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,8 +10,8 @@ const router = createRouter( {
         path: "/",
       },
       {
-        component: MySavedText,
-        path: "/mysavedtext",
+        component: MySavedTexts,
+        path: "/savedtexts",
       },
     ],
   });
