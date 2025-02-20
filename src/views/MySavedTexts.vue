@@ -15,7 +15,7 @@ onMounted(() => {
 
 <template>
     <div class="container mx-auto px-4 py-4" v-for="text in savedTexts">
-        <h2>Writing prompt: <span>{{ text.prompt }} </span></h2>
+        <h2 class="font-[Overpass] text-[18px] font-semibold">Writing prompt: <span>{{ text.prompt }} </span></h2>
         <h3>Date: {{ text.date }} </h3>
         <p>{{ text.text }}</p>
         <!-- ADD Functionality to edit and show short version and expand -->
