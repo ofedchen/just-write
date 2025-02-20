@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import HamburgerMenu from "./components/HamburgerMenu.vue"
 </script>
 
 <template>
@@ -8,11 +9,7 @@ import { RouterLink, RouterView } from "vue-router";
       <RouterLink to='/mysavedtext'><h2 class="font-[Special_Elite] text-[18px] text-right py-4 px-8">My saved writings</h2></RouterLink>
     </RouterLink>
     <nav>
-      <ul>
-        <li>
-          <!-- <RouterLink to="/">Hem</RouterLink> -->
-        </li>
-      </ul>
+      <!-- <HamburgerMenu /> -->
     </nav>
     <RouterView />
 </template>
