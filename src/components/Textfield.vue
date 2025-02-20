@@ -3,11 +3,16 @@ import { ref } from "vue";
 
 const userText = ref("");
 
+const props = defineProps({
+    currentPrompt: String
+})
+
 function saveText() {
     if (!userText.value.trim()) return;
 
     const savedText = {
         id: Date.now(),
+        prompt: props.currentPrompt,
         text: userText.value,
         date: new Date().toLocaleDateString("se-SV"),
     };
