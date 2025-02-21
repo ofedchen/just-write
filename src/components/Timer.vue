@@ -13,7 +13,7 @@ const now = new Date().getTime();
 console.log("now " + now);
 
 const countDownTime = now + 120000;
-console.log(countDownTime);
+console.log("countDownTime " + countDownTime);
 
 const distance = countDownTime - now;
 console.log("distance " + distance);
@@ -30,7 +30,7 @@ console.log("sec " + sec);
 <template>
   <button @click="toggleEvents" type="button">Timer</button>
   <div>
-    {{ min }} + {{ sec }}
+    {{ min }} : {{ sec }}
   </div>
 </template>
 
