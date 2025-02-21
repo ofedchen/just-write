@@ -1,40 +1,47 @@
-<script setup>
-import { defineProps } from "vue";
-// import { ref } from "vue";
+<!-- SOOURCE:
 
-/* 
-sets timer to current time + 2 minutes 
-and converts milliseconds to minutes and seconds
+https://geekiebarbs.hashnode.dev/build-a-countdown-app-with-vuejs-using-composition-api
+
+ -->
 
 
-*/
+ <script setup>
+ import { ref, computed, onMounted, onBeforeUnmount } from "vue";
+ 
+ const now = ref(new Date().getTime());
+ const countDownTime = ref(now.value + 120000); //  milliseconds from now
+ const timeRemaining = ref(countDownTime.value - now.value);
+ 
+ const min = computed(() => Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60)));
+ const sec = computed(() => Math.floor((timeRemaining.value % (1000 * 60)) / 1000));
+ 
+ let interval;
+ 
+ const startTimer = () => {
+   interval = setInterval(() => {
+     now.value = new Date().getTime();
 
-const now = new Date().getTime();
-console.log("now " + now);
+      timeRemaining.value = Math.max(0, countDownTime.value - now.value);  
+ 
 
-const countDownTime = now + 120000;
-console.log("countDownTime " + countDownTime);
+     if (timeRemaining.value <= 0) {
+       clearInterval(interval); 
+     }
+   }, 1000);
+ };
+ // start timer on mount
+ onMounted(startTimer); 
+ 
+ // not necessary, best practice. makes sure countdown stops and does not run i background.
+ onBeforeUnmount(() => {
+   clearInterval(interval);
+ }
 
-const distance = countDownTime - now;
-console.log("distance " + distance);
-
-const min = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-console.log("min " + min)
-
-const sec =Math.floor((distance % (1000 * 60)) / 1000);
-console.log("sec " + sec);
-
-
-</script>
-
-<template>
-  <button @click="toggleEvents" type="button">Timer</button>
-  <div>
-    {{ min }} : {{ sec }}
-  </div>
-
-  
-  
-</template>
-
-
+);
+ </script>
+ 
+ <template>
+   <div>
+     <p>Countdown: {{ min }} min {{ sec }} sec</p>
+   </div>
+ </template>
