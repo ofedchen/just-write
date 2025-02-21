@@ -7,6 +7,7 @@ import axios from "axios";
 
 const prompts = ref([]);
 const randomPrompt = ref(null);
+const hidden = ref(false)
 
 onMounted(async () => {
   try {
@@ -26,13 +27,16 @@ function generatePrompt() {
   randomPrompt.value = prompts.value[index].prompt;
 }
 
+function hidePromptTimer() {
+  hidden.value = true
+}
 
 </script>
 
 <template>
-  <main class="grid grid-cols-1 md:grid-cols-3 gap-4 px-8 py-4">
-    <PromptGenarator @newPrompt="generatePrompt" :currentPrompt="randomPrompt" />
-    <Textfield :currentPrompt="randomPrompt" class="md:col-span-2" />
-    <Timer />
+  <main class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 py-4">
+    <PromptGenarator @newPrompt="generatePrompt" @hidePrompt="hidePromptTimer" :currentPrompt="randomPrompt" :hidden="hidden" />
+    <Textfield :currentPrompt="randomPrompt" :hidden="hidden" class="md:col-span-2 md:row-span-2" />
+    <Timer class="md:col-start-1 md:row-start-2" />
   </main>
 </template>

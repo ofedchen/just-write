@@ -2,24 +2,27 @@
 import { ref } from "vue";
 
 const userText = ref("");
+const storedTexts = ref(null)
 
 const props = defineProps({
-    currentPrompt: String
+    currentPrompt: String,
+    hidden: Boolean
 })
+
 
 function saveText() {
     if (!userText.value.trim()) return;
 
     const savedText = {
         id: Date.now(),
-        prompt: props.currentPrompt,
+        prompt: props.hidden ? "Free writing" : props.currentPrompt,
         text: userText.value,
         date: new Date().toLocaleDateString("se-SV"),
     };
 
-    const storedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
-    storedTexts.push(savedText);
-    localStorage.setItem("savedTexts", JSON.stringify(storedTexts));
+    storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
+    storedTexts.value.push(savedText);
+    localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
     userText.value = "";
 }
 </script>
@@ -30,7 +33,7 @@ function saveText() {
             <textarea v-model="userText"
                 placeholder="Write whatever you want. Your goal is to write for 2 minutes, but don't limit yourself."
                 name="userText" rows="10" cols="1"
-                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+                class="block p-2.5 w-full text-[16px] text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
       </textarea>
         </div>
         <button type="submit" severity="secondary" label="Save text"
