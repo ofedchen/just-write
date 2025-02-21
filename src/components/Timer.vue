@@ -32,13 +32,9 @@ console.log("sec " + sec);
   <div>
     {{ min }} : {{ sec }}
   </div>
+
+  
+  
 </template>
 
-<!--
 
-1. Lägg in en timer
-2. Koppla timern till textfield
-3. När användaren skriver
-
-
--->
