@@ -2,12 +2,12 @@
 import PromptGenarator from "../components/PromptGenerator.vue";
 import Textfield from "../components/Textfield.vue";
 import Timer from "../components/Timer.vue";
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 const prompts = ref([]);
 const randomPrompt = ref(null);
-const hidden = ref(false)
+const hidden = ref(false);
 
 onMounted(async () => {
   try {
@@ -19,7 +19,6 @@ onMounted(async () => {
   }
 
   generatePrompt();
-
 });
 
 function generatePrompt() {
@@ -28,15 +27,30 @@ function generatePrompt() {
 }
 
 function hidePromptTimer() {
-  hidden.value = true
+  hidden.value = true;
 }
 
+const writtenText = ref("");
+
+function handleText(userText) {
+  writtenText.value = userText;
+}
 </script>
 
 <template>
   <main class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 py-4">
-    <PromptGenarator @newPrompt="generatePrompt" @hidePrompt="hidePromptTimer" :currentPrompt="randomPrompt" :hidden="hidden" />
-    <Textfield :currentPrompt="randomPrompt" :hidden="hidden" class="md:col-span-2 md:row-span-2" />
-    <Timer class="md:col-start-1 md:row-start-2" />
+    <PromptGenarator
+      @newPrompt="generatePrompt"
+      @hidePrompt="hidePromptTimer"
+      :currentPrompt="randomPrompt"
+      :hidden="hidden"
+    />
+    <Textfield
+      :currentPrompt="randomPrompt"
+      :hidden="hidden"
+      @textStarted="handleText"
+      class="md:col-span-2 md:row-span-2"
+    />
+    <Timer :userStarted="writtenText" class="md:col-start-1 md:row-start-2" />
   </main>
 </template>
