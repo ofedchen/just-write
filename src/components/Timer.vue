@@ -1,6 +1,9 @@
-<!-- SOOURCE:
+<!-- SOOURCES:
 
 https://geekiebarbs.hashnode.dev/build-a-countdown-app-with-vuejs-using-composition-api
+https://www.w3schools.com/howto/howto_js_countdown.asp
+https://www.w3schools.com/jsref/met_win_setinterval.asp
+https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
  -->
 
@@ -20,13 +23,7 @@ https://geekiebarbs.hashnode.dev/build-a-countdown-app-with-vuejs-using-composit
  const startTimer = () => {
    interval = setInterval(() => {
      now.value = new Date().getTime();
-
       timeRemaining.value = Math.max(0, countDownTime.value - now.value);  
- 
-
-     if (timeRemaining.value <= 0) {
-       clearInterval(interval); 
-     }
    }, 1000);
  };
  // start timer on mount
