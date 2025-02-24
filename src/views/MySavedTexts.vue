@@ -39,26 +39,17 @@ const filtered = computed(() => {
 </script>
 
 <template>
-  <input
-    type="text"
-    name=""
-    id=""
-    v-model="searchValue"
-    placeholder="Search here"
-    class="rounded-md bg-gray-800 text-white p-1"
-  />
+  <input type="text" name="" id="" v-model="searchValue" placeholder="Search here"
+    class="rounded-md bg-gray-50 border border-gray-300 p-[0.3em] w-80 md:w-1/2 md:my-8 md:mx-4 object-center"/>
   <div class="container mx-auto px-4 py-4" v-for="text in filtered">
     <h2 class="font-[Overpass] text-[18px] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>
     <h3>Date: {{ text.date }}</h3>
     <div v-if="!expandedText[text.id]">
-      <p class="w-full max-w-180 py-4">{{ text.text.slice(0, 150) }}</p>
+      <p class="w-full max-w-[80%] py-4">{{ text.text.slice(0, 150) }}</p>
       <!-- read more button -->
-      <button
-        @click="readMoreLess(text.id)"
-        class="underline font-medium text-sm px-4 py-2 me-2 mb-2 cursor-pointer"
-      >
+      <button @click="readMoreLess(text.id)" class="underline font-medium text-sm py-2 me-2 mb-2 cursor-pointer">
         Read more
       </button>
     </div>
@@ -66,10 +57,7 @@ const filtered = computed(() => {
     <!-- close read more -->
     <div v-if="expandedText[text.id]">
       <p class="w-full max-w-180 py-4">{{ text.text }}</p>
-      <button
-        @click="readMoreLess(text.id)"
-        class="underline font-medium text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer"
-      >
+      <button @click="readMoreLess(text.id)" class="underline font-medium text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer">
         Close
       </button>
     </div>
