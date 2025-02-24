@@ -45,8 +45,9 @@ const filtered = computed(() => {
     id=""
     v-model="searchValue"
     placeholder="Search here"
-    class="rounded-md bg-gray-800 text-white p-1"
+    class="rounded-xl text-grey-800 p-1.5 block w-140 m-auto border-solid border-black border-2"
   />
+
   <div class="container mx-auto px-4 py-4" v-for="text in filtered">
     <h2 class="font-[Overpass] text-[18px] font-semibold">
       <span>{{ text.prompt }} </span>
