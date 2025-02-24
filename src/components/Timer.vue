@@ -72,7 +72,7 @@ watch(
     :class="{ 'bg-red-800': timerEnded }"
   >
     <p v-if="!timerEnded">
-      {{ min }}<span class="text-xs text-gray-400">m</span> {{ sec
+      {{ min }}<span class="text-xs text-gray-400">m</span> {{ ": " + sec
       }}<span class="text-xs text-gray-400">s</span>
     </p>
     <p v-if="timerEnded">Time's up!</p>
