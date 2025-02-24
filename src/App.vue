@@ -15,7 +15,7 @@ const isActiveLink = (routePath) => {
   <RouterLink to='/'>
     <h1 class="font-[Special_Elite] text-[42px] text-center py-8">Just Write</h1>
   </RouterLink>
-  <nav class="flex justify-between items-center py-4 px-8 h-auto">
+  <nav class="flex justify-between items-center py-4 lg:py-6 px-8 h-auto">
     <RouterLink to='/' v-show="!isActiveLink('/')">
       <img src="../../assets/left_15315532.png" alt="Go to homepage" class="w-[38px] m-4">
     </RouterLink>
