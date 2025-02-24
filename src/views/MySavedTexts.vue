@@ -56,7 +56,7 @@ const filtered = computed(() => {
 
     <!-- close read more -->
     <div v-if="expandedText[text.id]">
-      <p class="w-full max-w-180 py-4">{{ text.text }}</p>
+      <p class="w-full max-w-[80%] py-4">{{ text.text }}</p>
       <button @click="readMoreLess(text.id)" class="underline font-medium text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer">
         Close
       </button>
