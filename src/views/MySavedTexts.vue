@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router';
 
 const savedTexts = ref([])
 const expandedText = ref({})

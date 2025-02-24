@@ -68,12 +68,12 @@ watch(
 
 <template>
   <div
-    class="font-[Special_Elite] bg-gray-800 text-white text-center rounded-lg text-lg p-1.5 w-auto shadow-lg shadow-gray-900/50"
+    class="font-[Special_Elite] bg-gray-800 text-white text-center rounded-lg text-lg font-semibold p-1.5 w-auto shadow-lg shadow-gray-900/50"
     :class="{ 'bg-red-800': timerEnded }"
   >
     <p v-if="!timerEnded">
-      {{ min }}<span class="text-xs text-gray-400">m</span> {{ ": " + sec
-      }}<span class="text-xs text-gray-400">s</span>
+      {{ min }}<span class="text-sm text-gray-400">m</span> {{ ": " + sec
+      }}<span class="text-sm text-gray-400">s</span>
     </p>
     <p v-if="timerEnded">Time's up!</p>
   </div>
