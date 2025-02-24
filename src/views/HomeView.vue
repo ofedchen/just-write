@@ -12,7 +12,6 @@ const hidden = ref(false);
 onMounted(async () => {
   try {
     const response = await axios.get(`/api/randomPrompts`);
-    console.log(response)
     prompts.value = response.data;
     console.log(prompts.value);
   } catch (error) {
