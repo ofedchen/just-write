@@ -10,6 +10,8 @@ const profileCreated = ref(false);
 const logedIn = ref(false);
 const completeInlog = ref("#E2E8F0");
 const completeInlogBoolean = ref(false);
+const borderRedGreen = ref("");
+const borderWidth = ref("");
 
 const createAccountFilled = ref(false);
 const createAccountFilledColour = ref("#fef08a");
@@ -53,21 +55,35 @@ watch([username, password], ([watchUsername, watchPassword]) => {
   }
 });
 
-// Kolla så att skapat användarnamn och lösenord är längre än 6 tecken
+// Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
 watch(
   [newUsername, newPasswordFirst, newPasswordSecond],
   ([checkUsername, checkPasswordFirst, checkPasswordSecond]) => {
     if (
       checkUsername.length >= 6 &&
       checkPasswordFirst.length >= 6 &&
-      checkUsername.length >= 6 &&
       checkPasswordFirst === checkPasswordSecond
     ) {
-      (createAccountFilled.value = true),
-        (createAccountFilledColour.value = "#eab308");
+      createAccountFilled.value = true;
+      createAccountFilledColour.value = "#eab308";
     } else {
-      (createAccountFilled.value = false),
-        (createAccountFilledColour.value = "#fef08a");
+      createAccountFilled.value = false;
+      createAccountFilledColour.value = "#fef08a";
+    }
+
+    if (checkPasswordFirst && checkPasswordSecond) {
+      if (
+        checkPasswordFirst === checkPasswordSecond &&
+        checkPasswordFirst.length >= 6
+      ) {
+        borderRedGreen.value = "#166534";
+      } else {
+        borderRedGreen.value = "#991b1b";
+      }
+      borderWidth.value = "3px";
+    } else {
+      borderRedGreen.value = "";
+      borderWidth.value = "0px";
     }
   }
 );
@@ -92,6 +108,7 @@ watch(
       name=""
       id=""
       placeholder="Skriv in nytt lösenord"
+      :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
       class="border bg-tellow-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
       v-model="newPasswordFirst"
     />
@@ -100,6 +117,7 @@ watch(
       name=""
       id=""
       placeholder="Skriv in ditt lösenord igen"
+      :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
       class="border bg-tellow-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
       v-model="newPasswordSecond"
     />
