@@ -12,19 +12,17 @@ onMounted(() => {
     localStorage.getItem("savedTexts") &&
     localStorage.getItem("savedTexts") !== null
   ) {
-    savedTexts.value = JSON.parse(localStorage.getItem("savedTexts"));
-    // console.log(savedTexts.value);
+    savedTexts.value = JSON.parse(localStorage.getItem("savedTexts")).toReversed();
   }
 
+  // setting an Object with texts id as keys and false as default value to show short version of text
   for (const text of savedTexts.value) {
     expandedText.value[text.id] = false;
   }
-
-  // console.log(expandedText.value);
 });
 
 function readMoreLess(id) {
-  // function to expand and minimize saved texts EJ KLAR
+  // function to expand and minimize saved texts
   expandedText.value[id] = !expandedText.value[id];
 }
 
@@ -47,7 +45,7 @@ const filtered = computed(() => {
     </h2>
     <h3>Date: {{ text.date }}</h3>
     <div v-if="!expandedText[text.id]">
-      <p class="w-full max-w-[80%] py-4">{{ text.text.slice(0, 150) }}</p>
+      <p class="w-full max-w-[80%] py-4">{{ text.text.length > 150 ? (text.text.slice(0, 150) + "...") : text.text }}</p>
       <!-- read more button -->
       <button @click="readMoreLess(text.id)" class="underline font-medium text-sm py-2 me-2 mb-2 cursor-pointer">
         Read more
