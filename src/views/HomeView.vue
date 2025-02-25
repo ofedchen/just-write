@@ -43,7 +43,7 @@ function handleText(userText) {
       :hidden="hidden">
       <Timer :userStarted="writtenText" />
     </PromptGenarator>
-    <Textfield :currentPrompt="randomPrompt" @textStarted="handleText"
+    <Textfield :currentPrompt="randomPrompt" :hidden="hidden" @textStarted="handleText"
       :class="hidden ? 'md:col-span-3' : 'md:col-span-2 md:row-span-2'" />
   </main>
 </template>
