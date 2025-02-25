@@ -16,7 +16,6 @@ const createProfile = () => {
   profileCreated.value = true;
   console.log(userData.value);
 };
-// console.log(userData);
 
 const username = ref("");
 const password = ref("");
@@ -33,9 +32,6 @@ const loginFunction = () => {
     console.log("Användare är inloggad");
   }
 };
-
-// username.value === userData.value[0].choosenName &&
-//     password.value === userData.value[0].choosenPassword
 </script>
 
 <template>
