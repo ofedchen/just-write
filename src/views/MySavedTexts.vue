@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import SortSearch from "../components/Sort&Search.vue";
-import TextBlock from "../components/TextBlock.vue";
+import TextDisplayed from "../components/TextDisplayed.vue";
 
 const savedTexts = ref([]);
 const expandedText = ref({});
@@ -50,11 +50,11 @@ function onInput(searchTerm) {
 
 <template>
   <SortSearch :sorted="sorted" @sortTexts="sortByDate" @onInput="onInput" />
-  <TextBlock :expandedText="expandedText" :texts="filtered" @expand="readMoreLess">
+  <TextDisplayed :expandedText="expandedText" :texts="filtered" @expand="readMoreLess">
     <!-- edit button -->
     <!-- <button class="relative focus:outline-none text-[#FFFFFF]
         bg-gray-800 hover:bg-gray-900 focus:ring-2 font-medium rounded-lg
         text-sm px-5 py-2.5 me-2 mb-2 cursor-pointer">Edit</button> -->
     <!-- ADD Functionality to edit and show short version and expand -->
-  </TextBlock>
+  </TextDisplayed>
 </template>
