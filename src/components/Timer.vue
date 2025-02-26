@@ -9,12 +9,16 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
 <script setup>
 import { ref, computed, onBeforeUnmount, watch } from "vue";
-const startTime = 120200;
+const startTime = 10200;//20200;
 const now = ref(0);
 const countDownTime = ref(startTime);
 const timeRemaining = ref(startTime);
 const timerStarted = ref(false);
 const timerEnded = ref(false);
+
+console.log("now: " + now.value); // ✅ Correct: Outputs "now: 0"
+console.log("timeRemaining " + timeRemaining.value);
+
 
 const min = computed(() =>
   Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60))
@@ -35,9 +39,15 @@ const startTimer = () => {
     now.value = new Date().getTime();
     timeRemaining.value = Math.max(0, countDownTime.value - now.value);
   }, 1000);
+
 };
 
-// not necessary, best practice. makes sure countdown stops and does not run i background.
+const elapsedTime = computed(() => {
+  return now.value - (countDownTime.value - startTime);
+});
+
+
+// not necessary, best practice. prevent countdown running in background
 onBeforeUnmount(() => {
   clearInterval(interval);
 });
@@ -76,5 +86,7 @@ watch(
       }}<span class="text-sm text-gray-400">s</span>
     </p>
     <p v-if="timerEnded">Time's up!</p>
+    <p>Elapsed Time: {{ elapsedTime }} ms</p>
+
   </div>
 </template>
