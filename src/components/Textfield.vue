@@ -46,7 +46,7 @@ function checkText() {
       <textarea @input="checkText" v-model="userText"
         placeholder="Write whatever you want. Your goal is to write for 2 minutes, but don't limit yourself."
         name="userText" rows="13" cols="1"
-        class="block p-2.5 w-full text-[16px] text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
+        class="block p-2.5 w-full text-[1.1em] text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500">
       </textarea>
     </div>
     <button type="submit" severity="secondary" label="Save text"

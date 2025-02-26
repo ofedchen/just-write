@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { RouterLink } from "vue-router";
 
 const savedTexts = ref([]);
 const expandedText = ref({});
 const searchValue = ref("");
+const sorted = ref(false)
 
 onMounted(() => {
   // function to sync saved texts with the local storage
@@ -34,12 +34,26 @@ const filtered = computed(() => {
       text.date.toLowerCase().includes(searchValue.value.toLowerCase())
   );
 });
+
+function sortTexts() {
+  savedTexts.value.reverse()
+  sorted.value = !sorted.value
+}
+
 </script>
 
 <template>
-  <input type="text" name="" id="" v-model="searchValue" placeholder="Search here"
-    class="rounded-md border border-gray-400 p-[0.3em] block m-auto w-72 md:w-1/2 mb-8 lg:-mt-19" />
-  <div class="container mx-auto px-4 py-4" v-for="text in filtered">
+  <div class="container mx-12 flex flex-wrap gap-4 justify-start items-center w-full lg:-mt-2 lg:w-3/5 mb-8">
+    <div class="cursor-pointer p-4">
+      <i class="pi pi-sort-alt" style="font-size: 1rem" @click="sortTexts">
+        <span class="font-medium font-sans font-stretch-50%" v-show="!sorted"> Sorted: newest first</span>
+        <span class="font-medium font-sans font-stretch-50%" v-show="sorted"> Sorted: oldest first</span>
+      </i>
+    </div>
+    <input type="text" name="" id="" v-model="searchValue" placeholder="Search here"
+      class="rounded-md border border-gray-400 p-[0.3em] block mx-4 w-3/4" />
+  </div>
+  <div class="container mx-12 px-4 py-4" v-for="text in filtered">
     <h2 class="font-[Overpass] text-[18px] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>
@@ -47,7 +61,8 @@ const filtered = computed(() => {
     <div v-if="!expandedText[text.id]">
       <p class="w-full max-w-[80%] py-4">{{ text.text.length > 150 ? (text.text.slice(0, 150) + "...") : text.text }}</p>
       <!-- read more button -->
-      <button v-if="text.text.length > 150" @click="readMoreLess(text.id)" class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
+      <button v-if="text.text.length > 150" @click="readMoreLess(text.id)"
+        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
         Read more
       </button>
     </div>
@@ -55,7 +70,8 @@ const filtered = computed(() => {
     <!-- close read more -->
     <div v-if="expandedText[text.id]">
       <p class="w-full max-w-[80%] py-4">{{ text.text }}</p>
-      <button @click="readMoreLess(text.id)" class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
+      <button @click="readMoreLess(text.id)"
+        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
         Close
       </button>
     </div>
