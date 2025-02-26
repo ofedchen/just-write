@@ -12,12 +12,12 @@ const newPasswordSecond = ref("");
 const toast = useToast();
 
 const inlog = useInlogStatus();
-const userData = ref([]);
 const profileCreated = ref(false);
 const completeInlog = ref("#E2E8F0");
 const completeInlogBoolean = ref(false);
 const borderRedGreen = ref("");
 const borderWidth = ref("1");
+const jsonUserData = ref([]);
 
 const createAccountFilled = ref(false);
 const createAccountFilledColour = ref("#fef08a");
@@ -42,20 +42,11 @@ async function sendUserData() {
   }
 }
 // spara användardata även lokalt
-const localUser = () => {
-  userData.value.push({
-    userId: "user_" + new Date().getTime(),
-    choosenUserName: newUsername.value,
-    choosenPassword: newPasswordSecond.value,
-  });
-};
 
 const createProfile = () => {
   localUser();
   sendUserData();
   profileCreated.value = true;
-  console.log(userData.value);
-  console.log(newUsername.value);
   console.log(newPasswordSecond.value);
 };
 
@@ -66,11 +57,24 @@ const skipCreate = () => {
 const username = ref("");
 const password = ref("");
 
+// hämta användardata från json
+
+const fetchUserData = async () => {
+  try {
+    const response = await axios.get(`/api/userInfo`);
+    jsonUserData.value = response.data;
+    console.log(jsonUserData.value);
+  } catch (error) {
+    console.error("Error fetching userData", error);
+  }
+};
+
 const loginFunction = () => {
-  const userDataCheck = userData.value.some(
+  fetchUserData();
+
+  const userDataCheck = jsonUserData.value.some(
     (user) =>
-      user.choosenUserName === username.value &&
-      user.choosenPassword === password.value
+      user.username === username.value && user.password === password.value
   );
 
   if (userDataCheck) {
@@ -123,6 +127,8 @@ watch(
     }
   }
 );
+
+console.log(inlog.user);
 </script>
 
 <template>
