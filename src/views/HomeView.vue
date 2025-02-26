@@ -4,13 +4,13 @@ import Textfield from "../components/Textfield.vue";
 import Timer from "../components/Timer.vue";
 import { ref, onMounted, watch } from "vue";
 import axios from "axios";
-import { useInlogStatus } from "../store/";
+// import { useInlogStatus } from "../store/";
 import { useToast } from "vue-toastification";
 
 const prompts = ref([]);
 const randomPrompt = ref(null);
 const hidden = ref(false);
-const inlog = useInlogStatus();
+// const inlog = useInlogStatus();
 
 const toast = useToast();
 

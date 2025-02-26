@@ -205,10 +205,17 @@
       "id": "6f9e"
     }
   ],
-  "userInfo": [],
+  "userInfo": [
+    {
+      "id": "c8e4",
+      "userId": "user_1740590310639",
+      "username": "rasmus",
+      "password": "admin1"
+    }
+  ],
   "publishedTexts": [
     {
-      "id": 1740587149635,
+      "id": "1740587149635",
       "text": "kkgl djnu efn ",
       "date": "2/26/2025"
     }

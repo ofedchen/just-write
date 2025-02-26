@@ -2,11 +2,14 @@
 import { ref, watch } from "vue";
 import { useInlogStatus } from "../store/";
 import { useRouter } from "vue-router";
+import axios from "axios";
+import { useToast } from "vue-toastification";
 
 const router = useRouter();
 const newUsername = ref("");
 const newPasswordFirst = ref("");
 const newPasswordSecond = ref("");
+const toast = useToast();
 
 const inlog = useInlogStatus();
 const userData = ref([]);
@@ -19,14 +22,41 @@ const borderWidth = ref("1");
 const createAccountFilled = ref(false);
 const createAccountFilledColour = ref("#fef08a");
 
-const createProfile = () => {
+// Här skapar vi profil
+
+// skicka data till json
+
+async function sendUserData() {
+  const users = {
+    userId: "user_" + new Date().getTime(),
+    username: newUsername.value,
+    password: newPasswordSecond.value,
+  };
+
+  try {
+    const response = await axios.post(`/api/userInfo`, users);
+    toast.success("You have created a profile");
+  } catch (error) {
+    console.error("Error creating profile", error);
+    toast.error("Profile has not been created");
+  }
+}
+// spara användardata även lokalt
+const localUser = () => {
   userData.value.push({
     userId: "user_" + new Date().getTime(),
     choosenUserName: newUsername.value,
     choosenPassword: newPasswordSecond.value,
   });
+};
+
+const createProfile = () => {
+  localUser();
+  sendUserData();
   profileCreated.value = true;
   console.log(userData.value);
+  console.log(newUsername.value);
+  console.log(newPasswordSecond.value);
 };
 
 const skipCreate = () => {
