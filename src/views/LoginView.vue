@@ -44,7 +44,6 @@ async function sendUserData() {
 // spara användardata även lokalt
 
 const createProfile = () => {
-  localUser();
   sendUserData();
   profileCreated.value = true;
   console.log(newPasswordSecond.value);
@@ -128,6 +127,7 @@ watch(
   }
 );
 
+// fixa så att inloggad användare får welcome plus användarnnamn
 console.log(inlog.user);
 </script>
 
