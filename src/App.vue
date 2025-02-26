@@ -24,13 +24,13 @@ const isActiveLink = (routePath) => {
         class="w-[38px] m-4"
       />
     </RouterLink>
-    <RouterLink to="/savedtexts" class="ml-auto">
+    <!-- <RouterLink to="/savedtexts" class="ml-auto">
       <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
-    </RouterLink>
-    <!-- <HamburgerMenu /> -->
-    <RouterLink to="/login" class="ml-auto">
+    </RouterLink> -->
+    <HamburgerMenu />
+    <!-- <RouterLink to="/login" class="ml-auto">
       <h2 class="font-[Overpass] text-[20px]">Profil</h2>
-    </RouterLink>
+    </RouterLink> -->
   </nav>
   <RouterView />
 </template>
