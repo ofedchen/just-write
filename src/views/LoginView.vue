@@ -11,15 +11,15 @@ const logedIn = ref(false);
 const completeInlog = ref("#E2E8F0");
 const completeInlogBoolean = ref(false);
 const borderRedGreen = ref("");
-const borderWidth = ref("");
+const borderWidth = ref("1");
 
 const createAccountFilled = ref(false);
 const createAccountFilledColour = ref("#fef08a");
 
 const createProfile = () => {
   userData.value.push({
-    choosenName: newUsername,
-    choosenPassword: newPasswordSecond,
+    choosenName: newUsername.value,
+    choosenPassword: newPasswordSecond.value,
   });
   profileCreated.value = true;
   console.log(userData.value);
@@ -44,7 +44,7 @@ const loginFunction = () => {
     console.log("Användare är inloggad");
   }
 };
-
+// Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
 watch([username, password], ([watchUsername, watchPassword]) => {
   if (watchUsername.length >= 6 && watchPassword.length >= 6) {
     completeInlog.value = "#2d3748";
@@ -55,7 +55,7 @@ watch([username, password], ([watchUsername, watchPassword]) => {
   }
 });
 
-// Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
+// Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
 watch(
   [newUsername, newPasswordFirst, newPasswordSecond],
   ([checkUsername, checkPasswordFirst, checkPasswordSecond]) => {
@@ -83,7 +83,7 @@ watch(
       borderWidth.value = "3px";
     } else {
       borderRedGreen.value = "";
-      borderWidth.value = "0px";
+      borderWidth.value = "1px";
     }
   }
 );
@@ -100,7 +100,7 @@ watch(
       name=""
       id=""
       placeholder="Skriv in nytt användarnamn"
-      class="border bg-gray-200 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="border bg-gray-200 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="newUsername"
     />
     <input
@@ -109,7 +109,7 @@ watch(
       id=""
       placeholder="Skriv in nytt lösenord"
       :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-      class="border bg-tellow-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="border p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="newPasswordFirst"
     />
     <input
@@ -118,14 +118,14 @@ watch(
       id=""
       placeholder="Skriv in ditt lösenord igen"
       :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-      class="border bg-tellow-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="border p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="newPasswordSecond"
     />
 
     <button
       :disabled="!createAccountFilled"
       :style="{ backgroundColor: createAccountFilledColour }"
-      class="cursor-pointer p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="cursor-pointer p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
     >
       Sign up!
     </button>
@@ -148,7 +148,7 @@ watch(
       name=""
       id=""
       placeholder="Användarnamn"
-      class="border border-gray-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="border border-gray-400 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="username"
     />
     <input
@@ -156,18 +156,18 @@ watch(
       name=""
       id=""
       placeholder="Lösenord"
-      class="border border-gray-400 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="border border-gray-400 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="password"
     />
     <button
-      class="p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       :disabled="!completeInlogBoolean"
       :style="{ backgroundColor: completeInlog }"
       v-if="!logedIn"
     >
       Sign in</button
     ><button
-      class="bg-green-800 p-[0.3em] w-72 md:w-1/2 mb-8 lg:-mt-19 m-auto"
+      class="bg-green-800 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       v-if="logedIn"
     >
       Logged in
