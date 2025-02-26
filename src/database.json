@@ -217,6 +217,12 @@
       "userId": "user_1740591665916",
       "username": "ofedchen",
       "password": "Pass1234%"
+    },
+    {
+      "id": "2dfb",
+      "userId": "user_1740594457770",
+      "username": "testuser",
+      "password": "testuser"
     }
   ],
   "publishedTexts": [
