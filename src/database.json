@@ -211,6 +211,12 @@
       "userId": "user_1740590310639",
       "username": "rasmus",
       "password": "admin1"
+    },
+    {
+      "id": "6794",
+      "userId": "user_1740591665916",
+      "username": "ofedchen",
+      "password": "Pass1234%"
     }
   ],
   "publishedTexts": [
