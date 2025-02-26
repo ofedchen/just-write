@@ -43,7 +43,7 @@ function sortTexts() {
 </script>
 
 <template>
-  <div class="container mx-12 flex flex-wrap gap-4 justify-start items-center w-full lg:-mt-2 lg:w-3/5 mb-8">
+  <div class="container mx-6 lg:mx-12 flex flex-wrap gap-4 justify-start items-center w-full lg:-mt-2 lg:w-3/5 mb-8">
     <div class="cursor-pointer p-4">
       <i class="pi pi-sort-alt" style="font-size: 1rem" @click="sortTexts">
         <span class="font-medium font-sans font-stretch-50%" v-show="!sorted"> Sorted: newest first</span>
@@ -53,8 +53,8 @@ function sortTexts() {
     <input type="text" name="" id="" v-model="searchValue" placeholder="Search here"
       class="rounded-md border border-gray-400 p-[0.3em] block mx-4 w-3/4" />
   </div>
-  <div class="container mx-12 px-4 py-4" v-for="text in filtered">
-    <h2 class="font-[Overpass] text-[18px] font-semibold">
+  <div class="container mx-6 lg:mx-12 px-4 py-4" v-for="text in filtered">
+    <h2 class="font-[Overpass] text-[1.2em] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>
     <h3>Date: {{ text.date }}</h3>
@@ -62,7 +62,7 @@ function sortTexts() {
       <p class="w-full max-w-[80%] py-4">{{ text.text.length > 150 ? (text.text.slice(0, 150) + "...") : text.text }}</p>
       <!-- read more button -->
       <button v-if="text.text.length > 150" @click="readMoreLess(text.id)"
-        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
+        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-[1.05em] me-2 mb-2 cursor-pointer">
         Read more
       </button>
     </div>
@@ -71,7 +71,7 @@ function sortTexts() {
     <div v-if="expandedText[text.id]">
       <p class="w-full max-w-[80%] py-4">{{ text.text }}</p>
       <button @click="readMoreLess(text.id)"
-        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-sm me-2 mb-2 cursor-pointer">
+        class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-[1.05em] me-2 mb-2 cursor-pointer">
         Close
       </button>
     </div>

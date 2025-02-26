@@ -38,12 +38,12 @@ function handleText(userText) {
 </script>
 
 <template>
-  <main class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 px-4 md:px-[0.5em] mx-4">
+  <main class="grid grid-cols-1 lg:grid-cols-3 gap-4 py-4 px-4 lg:px-[0.5em] lg:mx-4">
     <PromptGenarator @newPrompt="generatePrompt" @hidePrompt="hidePromptTimer" :currentPrompt="randomPrompt"
       :hidden="hidden">
       <Timer :userStarted="writtenText" />
     </PromptGenarator>
     <Textfield :currentPrompt="randomPrompt" :hidden="hidden" @textStarted="handleText"
-      :class="hidden ? 'md:col-span-3' : 'md:col-span-2 md:row-span-2'" />
+      :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'" />
   </main>
 </template>
