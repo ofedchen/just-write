@@ -38,7 +38,7 @@ function handleText(userText) {
 </script>
 
 <template>
-  <main class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 px-4 md:px-[0.5em]">
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4 px-4 md:px-[0.5em] mx-4">
     <PromptGenarator @newPrompt="generatePrompt" @hidePrompt="hidePromptTimer" :currentPrompt="randomPrompt"
       :hidden="hidden">
       <Timer :userStarted="writtenText" />

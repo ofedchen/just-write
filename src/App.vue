@@ -19,9 +19,9 @@ const isActiveLink = (routePath) => {
   <nav class="flex justify-between items-center py-4 lg:py-6 px-8 h-auto">
     <RouterLink to="/" v-show="!isActiveLink('/')">
       <img
-        src="../../assets/left_15315532.png"
+        src="../../assets/arrow.png"
         alt="Go to homepage"
-        class="w-[38px] m-4"
+        class="w-[50px] m-4"
       />
     </RouterLink>
     <!-- <RouterLink to="/savedtexts" class="ml-auto">
@@ -38,4 +38,5 @@ const isActiveLink = (routePath) => {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Special+Elite&display=swap");
 @import "tailwindcss";
+@import 'primeicons/primeicons.css';
 </style>
