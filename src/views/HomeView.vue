@@ -2,12 +2,14 @@
 import PromptGenarator from "../components/PromptGenerator.vue";
 import Textfield from "../components/Textfield.vue";
 import Timer from "../components/Timer.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import axios from "axios";
+import { useInlogStatus } from "../store/";
 
 const prompts = ref([]);
 const randomPrompt = ref(null);
 const hidden = ref(false);
+const inlog = useInlogStatus();
 
 onMounted(async () => {
   try {

@@ -1,13 +1,14 @@
 <script setup>
 import { ref, watch } from "vue";
+import { useInlogStatus } from "../store/";
 
 const newUsername = ref("");
 const newPasswordFirst = ref("");
 const newPasswordSecond = ref("");
 
+const inlog = useInlogStatus();
 const userData = ref([]);
 const profileCreated = ref(false);
-const logedIn = ref(false);
 const completeInlog = ref("#E2E8F0");
 const completeInlogBoolean = ref(false);
 const borderRedGreen = ref("");
@@ -18,7 +19,8 @@ const createAccountFilledColour = ref("#fef08a");
 
 const createProfile = () => {
   userData.value.push({
-    choosenName: newUsername.value,
+    userId: "user_" + new Date().getTime(),
+    choosenUserName: newUsername.value,
     choosenPassword: newPasswordSecond.value,
   });
   profileCreated.value = true;
@@ -35,12 +37,12 @@ const password = ref("");
 const loginFunction = () => {
   const userDataCheck = userData.value.some(
     (user) =>
-      user.choosenName === username.value &&
+      user.choosenUserName === username.value &&
       user.choosenPassword === password.value
   );
 
   if (userDataCheck) {
-    logedIn.value = true;
+    inlog.logIn();
     console.log("Användare är inloggad");
   }
 };
@@ -163,12 +165,12 @@ watch(
       class="p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
       :disabled="!completeInlogBoolean"
       :style="{ backgroundColor: completeInlog }"
-      v-if="!logedIn"
+      v-if="!inlog.status"
     >
       Sign in</button
     ><button
       class="bg-green-800 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      v-if="logedIn"
+      v-if="inlog.status"
     >
       Logged in
     </button>
