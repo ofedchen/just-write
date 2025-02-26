@@ -58,7 +58,20 @@ const logOutFunction = () => {
       class="flex flex-col absolute bg-gray-800 text-white p-2"
     >
       <RouterLink to="/login" class="ml-auto">
-        <h2 class="font-[Overpass] text-[20px] text-left flex">Profile</h2>
+        <h2
+          class="font-[Overpass] text-[20px] text-left flex"
+          v-if="!inlog.status"
+        >
+          Profile (före inlogg)
+        </h2>
+      </RouterLink>
+      <RouterLink to="/profile" class="ml-auto">
+        <h2
+          v-if="inlog.status"
+          class="font-[Overpass] text-[20px] text-left flex"
+        >
+          Profile (efter inlogg)
+        </h2>
       </RouterLink>
       <RouterLink to="/savedtexts" class="ml-auto">
         <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>

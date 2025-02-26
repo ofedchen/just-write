@@ -1,7 +1,9 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useInlogStatus } from "../store/";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const newUsername = ref("");
 const newPasswordFirst = ref("");
 const newPasswordSecond = ref("");
@@ -42,7 +44,9 @@ const loginFunction = () => {
   );
 
   if (userDataCheck) {
+    router.push({ path: "profile" });
     inlog.logIn();
+
     console.log("Användare är inloggad");
   }
 };
