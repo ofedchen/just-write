@@ -1,7 +1,7 @@
 <script setup>
   import PromptGenarator from "../components/PromptGenerator.vue";
-  import Textfield from "../components/Textfield.vue";
-  import Timer from "../components/Timer.vue";
+  import TextField from "../components/TextField.vue";
+  import TimerComponent from "../components/TimerComponent.vue";
   import { ref, onMounted, watch } from "vue";
   import axios from "axios";
   // import { useInlogStatus } from "../store/";
@@ -69,9 +69,9 @@
       :current-prompt="randomPrompt"
       :hidden="hidden"
     >
-      <Timer :user-started="writtenText" />
+      <TimerComponent :user-started="writtenText" />
     </PromptGenarator>
-    <Textfield
+    <TextField
       :current-prompt="randomPrompt"
       :hidden="hidden"
       @text-started="handleText"
