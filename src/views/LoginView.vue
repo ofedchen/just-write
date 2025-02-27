@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, watch } from "vue";
+  import { ref, watch, onMounted } from "vue";
   import { useInlogStatus } from "../store/";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -35,7 +35,7 @@
 
     try {
       const response = await axios.post(`/api/userInfo`, users);
-      toast.success("You have created a profile");
+      toast.success("You have successfully created a profile");
     } catch (error) {
       console.error("Error creating profile", error);
       toast.error("Profile has not been created");
@@ -46,7 +46,7 @@
   const createProfile = () => {
     sendUserData();
     profileCreated.value = true;
-    console.log(newPasswordSecond.value);
+    console.log(newUsername.value);
   };
 
   const skipCreate = () => {
@@ -82,6 +82,7 @@
 
       console.log("Användare är inloggad");
     }
+    inlog.user = username.value;
   };
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
   watch([username, password], ([watchUsername, watchPassword]) => {
@@ -128,7 +129,9 @@
   );
 
   // fixa så att inloggad användare får welcome plus användarnnamn
-  console.log(inlog.user);
+  onMounted(() => {
+    console.log(inlog.user);
+  });
 </script>
 
 <template>

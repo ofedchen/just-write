@@ -78,7 +78,7 @@
       <RouterLink to="/savedtexts" class="ml-auto">
         <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
       </RouterLink>
-      <p v-if="inlog.status" class="mt-10">Welcome user...</p>
+      <p v-if="inlog.status" class="mt-10">Welcome {{ inlog.user }}!</p>
       <button
         v-if="inlog.status"
         @click="logOutFunction"

@@ -223,6 +223,12 @@
       "userId": "user_1740594457770",
       "username": "testuser",
       "password": "testuser"
+    },
+    {
+      "id": "07bd",
+      "userId": "user_1740650829217",
+      "username": "newaccount",
+      "password": "newaccount"
     }
   ],
   "publishedTexts": [
