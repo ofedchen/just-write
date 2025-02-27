@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, defineEmits, watch, onMounted, onBeforeUnmount } from "vue";
+  import { ref, defineEmits, watch, onMounted } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -58,26 +58,21 @@
       emit("textStarted", userText.value);
     }
   }
-  // watch(
-  //   () => props.clearTextField,
-  //   (newTextPublished) => {
-  //     if (newTextPublished === true) {
-  //       userText.value = "";
-  //     }
-  //   }
-  // );
 
   async function publishText() {
+    if (!userText.value.trim()) {
+      toast.error("There's nothing to publish!");
+      return;
+    }
+    const savedText = {
+      name: inlog.user,
+      prompt: props.hidden ? "Free writing" : props.currentPrompt,
+      text: userText.value,
+      date: new Date().toLocaleDateString("se-SV")
+    };
     if (inlog.status) {
-      const newText = {
-        name: inlog.name,
-        prompt: props.hidden ? "Free writing" : props.currentPrompt,
-        text: userText.value,
-        date: new Date().toLocaleDateString("se-SV")
-      };
-
       try {
-        const response = await axios.post(`/api/publishedTexts`, newText);
+        const response = await axios.post(`/api/publishedTexts`, savedText);
         // router.push(`/published`);
         toast.success("Your text has been published successfully");
       } catch (error) {
@@ -94,9 +89,10 @@
     }
   }
   onMounted(() => {
-    if (inlog.stashedText && !hasStashedText.value) {
-      userText.value = inlog.stashedText;
-      hasStashedText.value = true;
+    const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+    if (sessionText.length > 0) {
+      userText.value = sessionText[0].text;
+      sessionStorage.removeItem("savedTexts");
     }
   });
 </script>
