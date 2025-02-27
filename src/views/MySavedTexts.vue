@@ -1,6 +1,6 @@
 <script setup>
   import { ref, onMounted, computed } from "vue";
-  import SortSearch from "../components/Sort&Search.vue";
+  import SortAndSearch from "../components/SortAndSearch.vue";
   import TextDisplayed from "../components/TextDisplayed.vue";
 
   const savedTexts = ref([]);
@@ -50,7 +50,11 @@
 </script>
 
 <template>
-  <SortSearch :sorted="sorted" @sort-texts="sortByDate" @on-input="onInput" />
+  <SortAndSearch
+    :sorted="sorted"
+    @sort-texts="sortByDate"
+    @on-input="onInput"
+  />
   <TextDisplayed
     :expanded-text="expandedText"
     :texts="filtered"
