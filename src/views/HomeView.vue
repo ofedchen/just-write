@@ -1,60 +1,60 @@
 <script setup>
-  import PromptGenarator from '../components/PromptGenerator.vue'
-  import Textfield from '../components/Textfield.vue'
-  import Timer from '../components/Timer.vue'
-  import { ref, onMounted, watch } from 'vue'
-  import axios from 'axios'
+  import PromptGenarator from "../components/PromptGenerator.vue";
+  import Textfield from "../components/Textfield.vue";
+  import Timer from "../components/Timer.vue";
+  import { ref, onMounted, watch } from "vue";
+  import axios from "axios";
   // import { useInlogStatus } from "../store/";
-  import { useToast } from 'vue-toastification'
+  import { useToast } from "vue-toastification";
 
-  const prompts = ref([])
-  const randomPrompt = ref(null)
-  const hidden = ref(false)
+  const prompts = ref([]);
+  const randomPrompt = ref(null);
+  const hidden = ref(false);
   // const inlog = useInlogStatus();
 
-  const toast = useToast()
+  const toast = useToast();
 
   onMounted(async () => {
     try {
-      const response = await axios.get(`/api/randomPrompts`)
-      prompts.value = response.data
-      console.log(prompts.value)
+      const response = await axios.get(`/api/randomPrompts`);
+      prompts.value = response.data;
+      console.log(prompts.value);
     } catch (error) {
-      console.error('Error fetching prompts', error)
+      console.error("Error fetching prompts", error);
     }
 
-    generatePrompt()
-  })
+    generatePrompt();
+  });
 
   function generatePrompt() {
-    const index = Math.floor(Math.random() * prompts.value.length)
-    randomPrompt.value = prompts.value[index].prompt
+    const index = Math.floor(Math.random() * prompts.value.length);
+    randomPrompt.value = prompts.value[index].prompt;
   }
 
   function hidePromptTimer() {
-    hidden.value = true
+    hidden.value = true;
   }
 
-  const writtenText = ref('')
+  const writtenText = ref("");
 
   function handleText(userText) {
-    writtenText.value = userText
+    writtenText.value = userText;
   }
 
   async function publishText() {
     const newText = {
       id: Date.now(),
       text: writtenText.value,
-      date: new Date().toLocaleDateString('se-SV')
-    }
+      date: new Date().toLocaleDateString("se-SV")
+    };
 
     try {
-      const response = await axios.post(`/api/publishedTexts`, newText)
+      const response = await axios.post(`/api/publishedTexts`, newText);
       // router.push(`/published`);
-      toast.success('Your text has been published successfully')
+      toast.success("Your text has been published successfully");
     } catch (error) {
-      console.error('Error publishing text', error)
-      toast.error("Text hasn't been published")
+      console.error("Error publishing text", error);
+      toast.error("Text hasn't been published");
     }
   }
 </script>

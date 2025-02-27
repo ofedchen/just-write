@@ -1,33 +1,33 @@
 <script setup>
-  import { ref, onMounted, computed } from 'vue'
-  import SortSearch from '../components/Sort&Search.vue'
-  import TextDisplayed from '../components/TextDisplayed.vue'
+  import { ref, onMounted, computed } from "vue";
+  import SortSearch from "../components/Sort&Search.vue";
+  import TextDisplayed from "../components/TextDisplayed.vue";
 
-  const savedTexts = ref([])
-  const expandedText = ref({})
-  const searchValue = ref('')
-  const sorted = ref(false)
+  const savedTexts = ref([]);
+  const expandedText = ref({});
+  const searchValue = ref("");
+  const sorted = ref(false);
 
   onMounted(() => {
     // function to sync saved texts with the local storage
     if (
-      localStorage.getItem('savedTexts') &&
-      localStorage.getItem('savedTexts') !== null
+      localStorage.getItem("savedTexts") &&
+      localStorage.getItem("savedTexts") !== null
     ) {
       savedTexts.value = JSON.parse(
-        localStorage.getItem('savedTexts')
-      ).toReversed()
+        localStorage.getItem("savedTexts")
+      ).toReversed();
     }
 
     // setting an Object with texts id as keys and false as default value to show short version of text
     for (const text of savedTexts.value) {
-      expandedText.value[text.id] = false
+      expandedText.value[text.id] = false;
     }
-  })
+  });
 
   function readMoreLess(id) {
     // function to expand and minimize saved texts
-    expandedText.value[id] = !expandedText.value[id]
+    expandedText.value[id] = !expandedText.value[id];
   }
 
   const filtered = computed(() => {
@@ -36,16 +36,16 @@
         text.prompt.toLowerCase().includes(searchValue.value.toLowerCase()) ||
         text.text.toLowerCase().includes(searchValue.value.toLowerCase()) ||
         text.date.toLowerCase().includes(searchValue.value.toLowerCase())
-    )
-  })
+    );
+  });
 
   function sortByDate() {
-    savedTexts.value.reverse()
-    sorted.value = !sorted.value
+    savedTexts.value.reverse();
+    sorted.value = !sorted.value;
   }
 
   function onInput(searchTerm) {
-    searchValue.value = searchTerm
+    searchValue.value = searchTerm;
   }
 </script>
 

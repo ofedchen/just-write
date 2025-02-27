@@ -8,73 +8,73 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
  -->
 
 <script setup>
-  import { ref, computed, onBeforeUnmount, watch } from 'vue'
-  const startTime = 120200
-  const now = ref(0)
-  const countDownTime = ref(startTime)
-  const timeRemaining = ref(startTime)
-  const timerStarted = ref(false)
-  const timerEnded = ref(false)
+  import { ref, computed, onBeforeUnmount, watch } from "vue";
+  const startTime = 120200;
+  const now = ref(0);
+  const countDownTime = ref(startTime);
+  const timeRemaining = ref(startTime);
+  const timerStarted = ref(false);
+  const timerEnded = ref(false);
 
   const countDownMin = computed(() =>
     Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60))
-  )
+  );
   const countDownSec = computed(() =>
     Math.floor((timeRemaining.value % (1000 * 60)) / 1000)
-  )
+  );
 
-  let interval
+  let interval;
 
   const startTimer = () => {
-    now.value = new Date().getTime()
-    timeRemaining.value = startTime
+    now.value = new Date().getTime();
+    timeRemaining.value = startTime;
 
-    countDownTime.value = now.value + startTime
+    countDownTime.value = now.value + startTime;
 
     interval = setInterval(() => {
-      now.value = new Date().getTime()
-      timeRemaining.value = Math.max(0, countDownTime.value - now.value)
-    }, 1000)
-  }
+      now.value = new Date().getTime();
+      timeRemaining.value = Math.max(0, countDownTime.value - now.value);
+    }, 1000);
+  };
 
   const totalElapsedTime = computed(() => {
-    return now.value - (countDownTime.value - startTime)
-  })
+    return now.value - (countDownTime.value - startTime);
+  });
 
   const totalElapsedMin = computed(() =>
     Math.floor((totalElapsedTime.value % (1000 * 60 * 60)) / (1000 * 60))
-  )
+  );
   const totalElapsedSec = computed(() =>
     Math.floor((totalElapsedTime.value % (1000 * 60)) / 1000)
-  )
+  );
 
   // not necessary, best practice. prevent countdown running in background
   onBeforeUnmount(() => {
-    clearInterval(interval)
-  })
+    clearInterval(interval);
+  });
 
   // Här hämtar vi props från App.vue
   const props = defineProps({
     userStarted: { type: String }
-  })
+  });
 
   watch(
     () => props.userStarted,
     (newValue) => {
       if (newValue && !timerStarted.value) {
-        startTimer()
+        startTimer();
       }
-      timerStarted.value = true
+      timerStarted.value = true;
     }
-  )
+  );
   watch(
     () => timeRemaining.value,
     (newTimeRemaining) => {
       if (newTimeRemaining === 0) {
-        timerEnded.value = true
+        timerEnded.value = true;
       }
     }
-  )
+  );
 </script>
 
 <template>
@@ -84,7 +84,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   >
     <p v-if="!timerEnded" class="text-[1.12em]">
       {{ countDownMin }}<span class="text-sm text-gray-400">m</span>
-      {{ ': ' + countDownSec }}<span class="text-sm text-gray-400">s</span>
+      {{ ": " + countDownSec }}<span class="text-sm text-gray-400">s</span>
     </p>
     <p v-if="timerEnded">Time's up!</p>
 

@@ -1,20 +1,20 @@
 <script setup>
-  import { ref } from 'vue'
-  import { useInlogStatus } from '/src/store/'
-  import { useRouter } from 'vue-router'
+  import { ref } from "vue";
+  import { useInlogStatus } from "/src/store/";
+  import { useRouter } from "vue-router";
 
-  const isMenuOpen = ref(false)
-  const router = useRouter()
+  const isMenuOpen = ref(false);
+  const router = useRouter();
   function toggleMenu() {
-    isMenuOpen.value = !isMenuOpen.value
+    isMenuOpen.value = !isMenuOpen.value;
   }
 
-  const inlog = useInlogStatus()
+  const inlog = useInlogStatus();
 
   const logOutFunction = () => {
-    inlog.logOut()
-    router.push('/')
-  }
+    inlog.logOut();
+    router.push("/");
+  };
 </script>
 
 <template>

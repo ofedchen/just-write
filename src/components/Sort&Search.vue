@@ -1,21 +1,21 @@
 <script setup>
-  import { ref } from 'vue'
+  import { ref } from "vue";
 
   defineProps({
     sorted: Boolean
-  })
+  });
 
-  const searchValue = ref('')
+  const searchValue = ref("");
 
-  const emit = defineEmits(['sortTexts', 'onImput'])
+  const emit = defineEmits(["sortTexts", "onImput"]);
 
   const sortTexts = () => {
-    emit('sortTexts')
-  }
+    emit("sortTexts");
+  };
 
   const onInput = () => {
-    emit('onInput', searchValue.value)
-  }
+    emit("onInput", searchValue.value);
+  };
 </script>
 
 <template>

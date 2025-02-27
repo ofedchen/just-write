@@ -1,13 +1,7 @@
 <script setup>
-
-function editText() {
-
-}
+  function editText() {}
 </script>
 
 <template>
-  <div>
-
-  </div>
-
+  <div />
 </template>

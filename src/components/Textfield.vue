@@ -1,41 +1,41 @@
 <script setup>
-  import { ref, defineEmits } from 'vue'
-  import { useToast } from 'vue-toastification'
+  import { ref, defineEmits } from "vue";
+  import { useToast } from "vue-toastification";
 
-  const userText = ref('')
-  const storedTexts = ref(null)
+  const userText = ref("");
+  const storedTexts = ref(null);
 
   const props = defineProps({
     currentPrompt: String,
     hidden: Boolean
-  })
+  });
 
-  const toast = useToast()
+  const toast = useToast();
 
   function saveText() {
     if (!userText.value.trim()) {
-      toast.error("There's nothing to save yet - keep writing!")
-      return
+      toast.error("There's nothing to save yet - keep writing!");
+      return;
     }
     const savedText = {
       id: Date.now(),
-      prompt: props.hidden ? 'Free writing' : props.currentPrompt,
+      prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString('se-SV')
-    }
+      date: new Date().toLocaleDateString("se-SV")
+    };
 
-    storedTexts.value = JSON.parse(localStorage.getItem('savedTexts')) || []
-    storedTexts.value.push(savedText)
-    localStorage.setItem('savedTexts', JSON.stringify(storedTexts.value))
-    toast.success('Your text is now saved!')
-    userText.value = ''
+    storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
+    storedTexts.value.push(savedText);
+    localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+    toast.success("Your text is now saved!");
+    userText.value = "";
   }
 
-  const emit = defineEmits(['textStarted'])
+  const emit = defineEmits(["textStarted"]);
 
   function checkText() {
     if (userText.value.trim()) {
-      emit('textStarted', userText.value)
+      emit("textStarted", userText.value);
     }
   }
 </script>

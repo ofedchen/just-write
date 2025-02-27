@@ -2,12 +2,12 @@
   defineProps({
     texts: Array,
     expandedText: Object
-  })
+  });
 
-  const emit = defineEmits(['expand'])
+  const emit = defineEmits(["expand"]);
 
   function expand(id) {
-    emit('expand', id)
+    emit("expand", id);
   }
 </script>
 
@@ -24,7 +24,7 @@
     <div v-if="!expandedText[text.id]">
       <p class="w-full max-w-[80%] py-4">
         {{
-          text.text.length > 150 ? text.text.slice(0, 150) + '...' : text.text
+          text.text.length > 150 ? text.text.slice(0, 150) + "..." : text.text
         }}
       </p>
       <!-- read more button -->

@@ -1,13 +1,13 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
-  import HamburgerMenu from './components/HamburgerMenu.vue'
+  import { RouterLink, RouterView } from "vue-router";
+  import HamburgerMenu from "./components/HamburgerMenu.vue";
 
-  import { useRoute } from 'vue-router'
+  import { useRoute } from "vue-router";
 
   const isActiveLink = (routePath) => {
-    const route = useRoute()
-    return route.path === routePath
-  }
+    const route = useRoute();
+    return route.path === routePath;
+  };
 </script>
 
 <template>
@@ -38,7 +38,7 @@
 </template>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Special+Elite&display=swap');
-  @import 'tailwindcss';
-  @import 'primeicons/primeicons.css';
+  @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Special+Elite&display=swap");
+  @import "tailwindcss";
+  @import "primeicons/primeicons.css";
 </style>

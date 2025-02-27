@@ -2,17 +2,17 @@
   defineProps({
     currentPrompt: String,
     hidden: Boolean
-  })
+  });
 
-  const emit = defineEmits(['newPrompt', 'hidePrompt'])
+  const emit = defineEmits(["newPrompt", "hidePrompt"]);
 
   const newPrompt = () => {
-    emit('newPrompt')
-  }
+    emit("newPrompt");
+  };
 
   const hidePrompt = () => {
-    emit('hidePrompt')
-  }
+    emit("hidePrompt");
+  };
 </script>
 
 <template>
