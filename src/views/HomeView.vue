@@ -4,13 +4,16 @@
   import TimerComponent from "../components/TimerComponent.vue";
   import { ref, onMounted, watch } from "vue";
   import axios from "axios";
-  // import { useInlogStatus } from "../store/";
   import { useToast } from "vue-toastification";
+  import { useInlogStatus } from "../store/";
+  import { useRouter } from "vue-router";
 
+  const textPublished = ref(false);
+  const router = useRouter();
   const prompts = ref([]);
   const randomPrompt = ref(null);
   const hidden = ref(false);
-  // const inlog = useInlogStatus();
+  const inlog = useInlogStatus();
 
   const toast = useToast();
 
@@ -42,20 +45,25 @@
   }
 
   async function publishText() {
-    const newText = {
-      id: Date.now(),
-      text: writtenText.value,
-      date: new Date().toLocaleDateString("se-SV")
-    };
+    if (inlog.status) {
+      const newText = {
+        id: Date.now(),
+        text: writtenText.value,
+        date: new Date().toLocaleDateString("se-SV")
+      };
 
-    try {
-      const response = await axios.post(`/api/publishedTexts`, newText);
-      // router.push(`/published`);
-      toast.success("Your text has been published successfully");
-    } catch (error) {
-      console.error("Error publishing text", error);
-      toast.error("Text hasn't been published");
+      try {
+        const response = await axios.post(`/api/publishedTexts`, newText);
+        // router.push(`/published`);
+        toast.success("Your text has been published successfully");
+      } catch (error) {
+        console.error("Error publishing text", error);
+        toast.error("Text hasn't been published");
+      }
+    } else {
+      router.push({ path: "login" });
     }
+    textPublished.value = true;
   }
 </script>
 
@@ -76,6 +84,7 @@
       <TimerComponent :user-started="writtenText" />
     </PromptGenarator>
     <TextField
+      :clear-text-field="textPublished"
       :current-prompt="randomPrompt"
       :hidden="hidden"
       @text-started="handleText"

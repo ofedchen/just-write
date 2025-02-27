@@ -1,13 +1,19 @@
 <script setup>
-  import { ref, defineEmits } from "vue";
+  import { ref, defineEmits, watch } from "vue";
   import { useToast } from "vue-toastification";
+  import { useRouter } from "vue-router";
+
+  import { useInlogStatus } from "../store/";
 
   const userText = ref("");
   const storedTexts = ref(null);
+  const inlog = useInlogStatus();
+  const router = useRouter();
 
   const props = defineProps({
     currentPrompt: String,
-    hidden: Boolean
+    hidden: Boolean,
+    clearTextField: Boolean
   });
 
   const toast = useToast();
@@ -17,18 +23,22 @@
       toast.error("There's nothing to save yet - keep writing!");
       return;
     }
-    const savedText = {
-      id: Date.now(),
-      prompt: props.hidden ? "Free writing" : props.currentPrompt,
-      text: userText.value,
-      date: new Date().toLocaleDateString("se-SV")
-    };
+    if (inlog.status) {
+      const savedText = {
+        id: Date.now(),
+        prompt: props.hidden ? "Free writing" : props.currentPrompt,
+        text: userText.value,
+        date: new Date().toLocaleDateString("se-SV")
+      };
 
-    storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
-    storedTexts.value.push(savedText);
-    localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
-    toast.success("Your text is now saved!");
-    userText.value = "";
+      storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
+      storedTexts.value.push(savedText);
+      localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+      toast.success("Your text is now saved!");
+      userText.value = "";
+    } else {
+      router.push({ path: "login" });
+    }
   }
 
   const emit = defineEmits(["textStarted"]);
@@ -38,6 +48,15 @@
       emit("textStarted", userText.value);
     }
   }
+  console.log(props.clearTextField);
+  watch(
+    () => props.clearTextField,
+    (newTextPublished) => {
+      if (newTextPublished === true) {
+        userText.value = "";
+      }
+    }
+  );
 </script>
 
 <template>
