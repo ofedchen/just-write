@@ -1,14 +1,15 @@
 <script setup>
-  import { ref, defineEmits, watch } from "vue";
+  import { ref, defineEmits, watch, onMounted, onBeforeUnmount } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
+  import axios from "axios";
 
   import { useInlogStatus } from "../store/";
 
   const userText = ref("");
   const storedTexts = ref(null);
   const inlog = useInlogStatus();
-
+  const hasStashedText = ref(false);
   const router = useRouter();
   const toast = useToast();
 
@@ -32,14 +33,20 @@
       text: userText.value,
       date: new Date().toLocaleDateString("se-SV")
     };
-    storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
-    storedTexts.value.push(savedText);
-    localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
     if (inlog.status) {
+      storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
+      storedTexts.value.push(savedText);
+      localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+
       toast.success("Your text is now saved!");
       userText.value = "";
     } else {
+      const sessionText =
+        JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+      sessionText.push(savedText);
+      sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
       router.push({ path: "/login" });
     }
   }
@@ -51,15 +58,14 @@
       emit("textStarted", userText.value);
     }
   }
-  console.log(props.clearTextField);
-  watch(
-    () => props.clearTextField,
-    (newTextPublished) => {
-      if (newTextPublished === true) {
-        userText.value = "";
-      }
-    }
-  );
+  // watch(
+  //   () => props.clearTextField,
+  //   (newTextPublished) => {
+  //     if (newTextPublished === true) {
+  //       userText.value = "";
+  //     }
+  //   }
+  // );
 
   async function publishText() {
     if (inlog.status) {
@@ -79,10 +85,20 @@
         toast.error("Text hasn't been published");
       }
     } else {
+      const sessionText =
+        JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+      sessionText.push(savedText);
+      sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
       router.push({ path: "/login" });
     }
-    textPublished.value = true;
   }
+  onMounted(() => {
+    if (inlog.stashedText && !hasStashedText.value) {
+      userText.value = inlog.stashedText;
+      hasStashedText.value = true;
+    }
+  });
 </script>
 
 <template>
