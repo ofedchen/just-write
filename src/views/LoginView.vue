@@ -1,30 +1,52 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useInlogStatus } from "../store/";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import { useToast } from "vue-toastification";
 
+const router = useRouter();
 const newUsername = ref("");
 const newPasswordFirst = ref("");
 const newPasswordSecond = ref("");
+const toast = useToast();
 
 const inlog = useInlogStatus();
-const userData = ref([]);
 const profileCreated = ref(false);
 const completeInlog = ref("#E2E8F0");
 const completeInlogBoolean = ref(false);
 const borderRedGreen = ref("");
 const borderWidth = ref("1");
+const jsonUserData = ref([]);
 
 const createAccountFilled = ref(false);
 const createAccountFilledColour = ref("#fef08a");
 
-const createProfile = () => {
-  userData.value.push({
+// Här skapar vi profil
+
+// skicka data till json
+
+async function sendUserData() {
+  const users = {
     userId: "user_" + new Date().getTime(),
-    choosenUserName: newUsername.value,
-    choosenPassword: newPasswordSecond.value,
-  });
+    username: newUsername.value,
+    password: newPasswordSecond.value,
+  };
+
+  try {
+    const response = await axios.post(`/api/userInfo`, users);
+    toast.success("You have created a profile");
+  } catch (error) {
+    console.error("Error creating profile", error);
+    toast.error("Profile has not been created");
+  }
+}
+// spara användardata även lokalt
+
+const createProfile = () => {
+  sendUserData();
   profileCreated.value = true;
-  console.log(userData.value);
+  console.log(newPasswordSecond.value);
 };
 
 const skipCreate = () => {
@@ -34,15 +56,30 @@ const skipCreate = () => {
 const username = ref("");
 const password = ref("");
 
+// hämta användardata från json
+
+const fetchUserData = async () => {
+  try {
+    const response = await axios.get(`/api/userInfo`);
+    jsonUserData.value = response.data;
+    console.log(jsonUserData.value);
+  } catch (error) {
+    console.error("Error fetching userData", error);
+  }
+};
+
 const loginFunction = () => {
-  const userDataCheck = userData.value.some(
+  fetchUserData();
+
+  const userDataCheck = jsonUserData.value.some(
     (user) =>
-      user.choosenUserName === username.value &&
-      user.choosenPassword === password.value
+      user.username === username.value && user.password === password.value
   );
 
   if (userDataCheck) {
+    router.push({ path: "profile" });
     inlog.logIn();
+
     console.log("Användare är inloggad");
   }
 };
@@ -89,6 +126,9 @@ watch(
     }
   }
 );
+
+// fixa så att inloggad användare får welcome plus användarnnamn
+console.log(inlog.user);
 </script>
 
 <template>

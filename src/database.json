@@ -1,0 +1,235 @@
+{
+  "randomPrompts": [
+    {
+      "prompt": "Describe a day in the life of someone living in a futuristic city where robots and humans coexist.",
+      "id": "0873"
+    },
+    {
+      "prompt": "Write a letter from a time traveler stuck in the past, trying to get back home.",
+      "id": "1412"
+    },
+    {
+      "prompt": "Create a story about a person who discovers a hidden portal in their basement.",
+      "id": "d979"
+    },
+    {
+      "prompt": "Describe the first contact between humans and an alien species.",
+      "id": "b655"
+    },
+    {
+      "prompt": "Write a journal entry from the perspective of a villain reflecting on their biggest regret.",
+      "id": "ef24"
+    },
+    {
+      "prompt": "Tell the story of a lost artifact that grants its holder a mysterious power.",
+      "id": "8974"
+    },
+    {
+      "prompt": "Imagine a world where dreams can be recorded and shared—what happens when someone steals a dream?",
+      "id": "f78e"
+    },
+    {
+      "prompt": "Describe a conversation between two strangers who are the only survivors of a plane crash.",
+      "id": "158d"
+    },
+    {
+      "prompt": "Write about a small-town mystery that everyone is too afraid to talk about.",
+      "id": "98d2"
+    },
+    {
+      "prompt": "Create a dialogue between two characters who meet every year on the same day for a secret reason.",
+      "id": "eaa5"
+    },
+    {
+      "prompt": "Tell the story of a robot who begins to develop human emotions.",
+      "id": "abbd"
+    },
+    {
+      "prompt": "Describe a heist planned by a group of misfits with unique abilities.",
+      "id": "3bf8"
+    },
+    {
+      "prompt": "Write about a scientist who accidentally opens a portal to a parallel universe.",
+      "id": "6199"
+    },
+    {
+      "prompt": "Imagine a future where memories can be bought and sold—how does this change society?",
+      "id": "0622"
+    },
+    {
+      "prompt": "Tell the story of a person who wakes up with no memory in a world they don't recognize.",
+      "id": "ea1d"
+    },
+    {
+      "prompt": "Describe a competition where contestants must survive on a mysterious, uncharted island.",
+      "id": "3593"
+    },
+    {
+      "prompt": "Write about a magical library where every book holds a real, living world inside it.",
+      "id": "aafb"
+    },
+    {
+      "prompt": "Imagine a city where people are born with the ability to control a single element—how do they use it?",
+      "id": "ea64"
+    },
+    {
+      "prompt": "Describe a reunion between childhood friends who now live on opposite sides of a war.",
+      "id": "5bab"
+    },
+    {
+      "prompt": "Write a story where someone receives a letter from their future self.",
+      "id": "f76f"
+    },
+    {
+      "prompt": "Tell the tale of an ancient curse and the person brave enough to break it.",
+      "id": "a3d4"
+    },
+    {
+      "prompt": "Describe a detective solving a case where the only witness is a ghost.",
+      "id": "fbbc"
+    },
+    {
+      "prompt": "Write about an inventor who creates a machine that can read minds.",
+      "id": "1c9e"
+    },
+    {
+      "prompt": "Imagine a society where people are matched with their soulmates by an algorithm—but one person refuses to follow it.",
+      "id": "a6c3"
+    },
+    {
+      "prompt": "Tell the story of a guardian tasked with protecting a magical kingdom's greatest secret.",
+      "id": "394e"
+    },
+    {
+      "prompt": "Describe a world where everyone has a unique superpower—but no one knows their power until they turn 18.",
+      "id": "b78a"
+    },
+    {
+      "prompt": "Write about a character who discovers they can rewind time—but only by five minutes.",
+      "id": "14e4"
+    },
+    {
+      "prompt": "Imagine an underground society hidden beneath a bustling metropolis.",
+      "id": "c7a6"
+    },
+    {
+      "prompt": "Describe a post-apocalyptic world where music has become a form of currency.",
+      "id": "7668"
+    },
+    {
+      "prompt": "Write a fairy tale with an unexpected twist.",
+      "id": "795c"
+    },
+    {
+      "prompt": "Tell the story of a person who inherits a haunted mansion—and decides to stay.",
+      "id": "0c1e"
+    },
+    {
+      "prompt": "Imagine a world where humans share the Earth with mythological creatures.",
+      "id": "ab13"
+    },
+    {
+      "prompt": "Describe the journey of a lost astronaut trying to find their way back to Earth.",
+      "id": "add9"
+    },
+    {
+      "prompt": "Write a story from the perspective of a villain who believes they are the hero.",
+      "id": "e432"
+    },
+    {
+      "prompt": "Tell the tale of a mysterious traveler who grants wishes—but at a cost.",
+      "id": "e853"
+    },
+    {
+      "prompt": "Describe a future where artificial intelligence governs the world—and one human dares to rebel.",
+      "id": "0696"
+    },
+    {
+      "prompt": "Imagine a town where every citizen has a magical ability—but one person has none.",
+      "id": "f3ae"
+    },
+    {
+      "prompt": "Write about a detective who solves crimes by entering victims' dreams.",
+      "id": "64a1"
+    },
+    {
+      "prompt": "Describe a magical market that appears once every hundred years.",
+      "id": "3c7a"
+    },
+    {
+      "prompt": "Tell the story of a scientist who accidentally brings a mythical creature to life.",
+      "id": "fb9e"
+    },
+    {
+      "prompt": "Write a journal entry from someone living in a world where emotions can be programmed.",
+      "id": "3af3"
+    },
+    {
+      "prompt": "Imagine a secret society that protects humanity from supernatural threats.",
+      "id": "16a5"
+    },
+    {
+      "prompt": "Describe a dystopian world where books are forbidden—but one person dares to write.",
+      "id": "c491"
+    },
+    {
+      "prompt": "Write a story about a magical object that chooses its owner.",
+      "id": "17fe"
+    },
+    {
+      "prompt": "Imagine a world where humans can live underwater—how does society function?",
+      "id": "1953"
+    },
+    {
+      "prompt": "Tell the tale of a lost kingdom hidden in the clouds.",
+      "id": "5c4a"
+    },
+    {
+      "prompt": "Describe a competition where the winner receives the ability to alter reality.",
+      "id": "3d71"
+    },
+    {
+      "prompt": "Write about a person who wakes up to find they are the last human on Earth.",
+      "id": "9f39"
+    },
+    {
+      "prompt": "Imagine a magical school where students train to control dreams.",
+      "id": "d4f7"
+    },
+    {
+      "prompt": "Describe the journey of a cursed traveler searching for redemption.",
+      "id": "969d"
+    },
+    {
+      "prompt": "Write a story where reality starts to glitch—and only one person notices.",
+      "id": "6f9e"
+    }
+  ],
+  "userInfo": [
+    {
+      "id": "c8e4",
+      "userId": "user_1740590310639",
+      "username": "rasmus",
+      "password": "admin1"
+    },
+    {
+      "id": "6794",
+      "userId": "user_1740591665916",
+      "username": "ofedchen",
+      "password": "Pass1234%"
+    },
+    {
+      "id": "2dfb",
+      "userId": "user_1740594457770",
+      "username": "testuser",
+      "password": "testuser"
+    }
+  ],
+  "publishedTexts": [
+    {
+      "id": "1740587149635",
+      "text": "kkgl djnu efn ",
+      "date": "2/26/2025"
+    }
+  ]
+}

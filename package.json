@@ -20,7 +20,7 @@
     "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "server": "json-server --watch src/prompts.json --port 5000"
+    "server": "json-server --watch src/database.json --port 5000"
   },
   "version": "0.0.0",
   "type": "module"

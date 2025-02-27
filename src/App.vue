@@ -3,41 +3,27 @@ import { RouterLink, RouterView } from "vue-router";
 import HamburgerMenu from "./components/HamburgerMenu.vue";
 
 import { useRoute } from "vue-router";
-import { useInlogStatus } from "/src/store/";
 
 const isActiveLink = (routePath) => {
   const route = useRoute();
   return route.path === routePath;
 };
-
-const inlog = useInlogStatus();
-
-const logOutFunction = () => {
-  inlog.logOut();
-};
 </script>
 
 <template>
-    <p v-if="inlog.status">Welcome user...</p>
-  <button v-if="inlog.status" @click="logOutFunction" class="bg-blue-800">
-    Log out
-  </button>
-  <RouterLink to="/login" class="ml-auto">
-    <button v-if="!inlog.status" @click="logOutFunction" class="bg-blue-800">
-      Log in
-    </button>
-  </RouterLink>
   <header class="py-8">
-
-
-  <RouterLink to="/">
-      <h1 class="font-[Special_Elite] text-[42px] text-center">
-        Just Write
-      </h1>
+    <RouterLink to="/">
+      <h1 class="font-[Special_Elite] text-[42px] text-center">Just Write</h1>
     </RouterLink>
-    <nav class="flex justify-between items-center py-2 md:pb-12 px-8 h-auto -mt-5">
+    <nav
+      class="flex justify-between items-center py-2 md:pb-12 px-8 h-auto -mt-5"
+    >
       <RouterLink to="/" v-show="!isActiveLink('/')">
-        <img src="../../assets/arrow.png" alt="Go to homepage" class="w-[50px] m-4" />
+        <img
+          src="../../assets/arrow.png"
+          alt="Go to homepage"
+          class="w-[50px] m-4"
+        />
       </RouterLink>
       <!-- <RouterLink to="/savedtexts" class="ml-auto">
         <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
@@ -54,5 +40,5 @@ const logOutFunction = () => {
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&family=Special+Elite&display=swap");
 @import "tailwindcss";
-@import 'primeicons/primeicons.css';
+@import "primeicons/primeicons.css";
 </style>
