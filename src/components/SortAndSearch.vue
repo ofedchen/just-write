@@ -7,7 +7,7 @@
 
   const searchValue = ref("");
 
-  const emit = defineEmits(["sortTexts", "onImput"]);
+  const emit = defineEmits(["sortTexts", "onInput"]);
 
   const sortTexts = () => {
     emit("sortTexts");

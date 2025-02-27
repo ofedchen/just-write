@@ -1,7 +1,15 @@
 <script setup>
   defineProps({
-    texts: Array,
-    expandedText: Object
+    texts: {
+      type: Array,
+      required: true,
+      default: null
+    },
+    expandedText: {
+      type: Object,
+      required: true,
+      default: null
+    }
   });
 
   const emit = defineEmits(["expand"]);

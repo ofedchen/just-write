@@ -8,14 +8,16 @@
   import { useInlogStatus } from "../store/";
   import { useRouter } from "vue-router";
 
-  const textPublished = ref(false);
   const router = useRouter();
+
+  const textPublished = ref(false);
   const prompts = ref([]);
   const randomPrompt = ref(null);
   const hidden = ref(false);
+  const writtenText = ref("");
   const inlog = useInlogStatus();
 
-  const toast = useToast();
+  // const toast = useToast();
 
   onMounted(async () => {
     try {
@@ -38,32 +40,8 @@
     hidden.value = true;
   }
 
-  const writtenText = ref("");
-
   function handleText(userText) {
     writtenText.value = userText;
-  }
-
-  async function publishText() {
-    if (inlog.status) {
-      const newText = {
-        id: Date.now(),
-        text: writtenText.value,
-        date: new Date().toLocaleDateString("se-SV")
-      };
-
-      try {
-        const response = await axios.post(`/api/publishedTexts`, newText);
-        // router.push(`/published`);
-        toast.success("Your text has been published successfully");
-      } catch (error) {
-        console.error("Error publishing text", error);
-        toast.error("Text hasn't been published");
-      }
-    } else {
-      router.push({ path: "login" });
-    }
-    textPublished.value = true;
   }
 </script>
 
@@ -90,6 +68,5 @@
       @text-started="handleText"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
     />
-    <button @click="publishText">Publish</button>
   </main>
 </template>
