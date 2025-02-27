@@ -81,12 +81,6 @@
 
       inlog.user = username.value;
 
-      const sessionText =
-        JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-      if (sessionText.length > 0) {
-        inlog.stashedText = sessionText[0].text;
-        sessionStorage.removeItem("savedTexts");
-      }
       router.push({ path: "/" });
     }
   };
