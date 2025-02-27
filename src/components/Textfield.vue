@@ -38,6 +38,14 @@
       emit("textStarted", userText.value);
     }
   }
+
+  /*
+  todo 
+    $emit from Textfield
+      to parent
+    props in Timer
+      to stop timer
+  */
 </script>
 
 <template>
