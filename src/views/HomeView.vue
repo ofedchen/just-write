@@ -60,6 +60,10 @@
 </script>
 
 <template>
+  <p class="font-[Special_Elite] text-[14px] text-center w-md text-gray-600">
+    “Small habits, when repeated consistently, lead to remarkable results.” -
+    James Clear
+  </p>
   <main
     class="grid grid-cols-1 lg:grid-cols-3 gap-4 py-4 px-4 lg:px-[0.5em] lg:mx-4"
   >
