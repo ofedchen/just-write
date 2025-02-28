@@ -7,6 +7,13 @@
   const router = useRouter();
   const inlog = useInlogStatus();
 
+  defineProps({
+    isActiveLink: {
+      type: Boolean,
+      default: true
+    }
+  });
+
   function toggleMenu() {
     isMenuOpen.value = !isMenuOpen.value;
   }
@@ -71,7 +78,12 @@
       <!-- Profile
         </h2>
       </RouterLink> -->
-      <RouterLink to="/" class="ml-0" @click="toggleMenu">
+      <RouterLink
+        v-show="!isActiveLink('/')"
+        to="/"
+        class="ml-0"
+        @click="toggleMenu"
+      >
         <h2
           class="font-[Overpass] text-[18px] hover:bg-gray-200 hover:text-gray-800 p-1"
         >
