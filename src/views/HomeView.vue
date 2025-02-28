@@ -18,18 +18,14 @@
   const inlog = useInlogStatus();
   const stopTimer = ref(false);
 
-  // const toast = useToast();
-
   onMounted(async () => {
     try {
       const response = await axios.get(`/api/randomPrompts`);
       prompts.value = response.data;
-      console.log(prompts.value);
+      generatePrompt();
     } catch (error) {
       console.error("Error fetching prompts", error);
     }
-
-    generatePrompt();
   });
 
   function generatePrompt() {
@@ -74,14 +70,14 @@
   >
     <p
       v-show="!inlog.status"
-      class="font-[Special_Elite] text-[14px] text-left w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
+      class="font-[Special_Elite] text-[14px] text-left w-[80%] lg:w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
     >
       “Small habits, when repeated consistently, lead to remarkable results.” -
       James Clear
     </p>
     <p
       v-show="inlog.status"
-      class="font-[Special_Elite] text-[18px] text-left w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
+      class="font-[Special_Elite] text-[18px] text-left w-[80] lg:w-[60%] text-gray-600 px-4 py-6 md:pb-8 md:pt-0 lg:col-span-3"
     >
       Hi there, <span class="bg-yellow-300">{{ inlog.user }}</span> and welcome
       to day <span class="font-black text-[20px]">{{ daysWriting }}</span> of
