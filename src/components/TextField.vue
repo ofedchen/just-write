@@ -51,7 +51,7 @@
     }
   }
 
-  const emit = defineEmits(["textStarted"]);
+  const emit = defineEmits(["textStarted", "stopTimer"]);
 
   function checkText() {
     if (userText.value.trim()) {
@@ -87,6 +87,8 @@
 
       router.push({ path: "/login" });
     }
+    // emit placed here to emit/stop timer when Save OR Publish button is clicked
+    emit("stopTimer");
   }
   onMounted(() => {
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
