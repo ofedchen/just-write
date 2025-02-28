@@ -1,12 +1,12 @@
 <script setup>
   import { ref, watch, onMounted } from "vue";
   import { useInlogStatus } from "../store/";
-  import { useRouter } from "vue-router";
+  import { useRouter, useRoute } from "vue-router";
   import axios from "axios";
   import { useToast } from "vue-toastification";
-  import TextField from "../components/TextField.vue";
 
   const router = useRouter();
+  const route = useRoute();
   const newUsername = ref("");
   const newPasswordFirst = ref("");
   const newPasswordSecond = ref("");
@@ -80,8 +80,8 @@
       inlog.logIn();
 
       inlog.user = username.value;
-
-      router.push({ path: "/" });
+      const toPage = route.query.endpoint ? "/savedtexts" : "/";
+      router.push({ path: toPage });
     }
   };
 

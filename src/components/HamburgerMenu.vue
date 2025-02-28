@@ -98,7 +98,11 @@
         </h2>
       </RouterLink>
       <RouterLink
-        :to="inlog.status ? '/savedtexts' : '/login'"
+        :to="
+          inlog.status
+            ? '/savedtexts'
+            : { path: '/login', query: { endpoint: 'savedtexts' } }
+        "
         class="ml-0"
         @click="toggleMenu"
       >
