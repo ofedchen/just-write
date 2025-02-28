@@ -23,7 +23,7 @@
     clearTextField: Boolean
   });
 
-  function saveText(toast) {
+  function saveText() {
     if (!userText.value.trim()) {
       toast.error("There's nothing to save yet - keep writing!");
       return;
@@ -40,7 +40,7 @@
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
-      if (toast) toast.success("Your text is now saved!");
+      if (showToast.value) toast.success("Your text is now saved!");
       userText.value = "";
 
       console.log("emitting from saveText");
@@ -105,11 +105,13 @@
       userText.value = sessionText[0].text;
       sessionStorage.removeItem("savedTexts");
     }
+
+    showToast.value = true;
   });
 </script>
 
 <template>
-  <form @submit.prevent="saveText(showToast)" class="flex flex-col gap-4">
+  <form @submit.prevent="saveText" class="flex flex-col gap-4">
     <textarea
       @input="checkText"
       v-model="userText"
