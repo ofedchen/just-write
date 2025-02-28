@@ -108,7 +108,9 @@
           My saved writings
         </h2>
       </RouterLink>
-      <p v-if="inlog.status" class="mt-10">Welcome {{ inlog.user }}!</p>
+      <p v-if="inlog.status" class="mt-10 text-yellow-400">
+        Welcome {{ inlog.user }}!
+      </p>
       <RouterLink
         v-if="inlog.status"
         to="/profile"
