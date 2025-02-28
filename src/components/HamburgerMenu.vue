@@ -9,8 +9,8 @@
 
   defineProps({
     isActiveLink: {
-      type: Boolean,
-      default: true
+      type: Function,
+      default: null
     }
   });
 

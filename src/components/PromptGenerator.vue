@@ -1,6 +1,9 @@
 <script setup>
   defineProps({
-    currentPrompt: String,
+    currentPrompt: {
+      type: String,
+      default: null
+    },
     hidden: Boolean
   });
 
