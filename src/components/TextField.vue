@@ -12,6 +12,7 @@
   const hasStashedText = ref(false);
   const router = useRouter();
   const toast = useToast();
+  const showToast = ref(true);
 
   const props = defineProps({
     currentPrompt: {
@@ -22,7 +23,7 @@
     clearTextField: Boolean
   });
 
-  function saveText() {
+  function saveText(toast) {
     if (!userText.value.trim()) {
       toast.error("There's nothing to save yet - keep writing!");
       return;
@@ -38,7 +39,8 @@
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
-      toast.success("Your text is now saved!");
+
+      if (toast) toast.success("Your text is now saved!");
       userText.value = "";
 
       console.log("emitting from saveText");
@@ -67,6 +69,8 @@
   }
 
   async function publishText() {
+    showToast.value = false;
+
     if (!userText.value.trim()) {
       toast.error("There's nothing to publish!");
       return;
@@ -105,7 +109,7 @@
 </script>
 
 <template>
-  <form @submit.prevent="saveText" class="flex flex-col gap-4">
+  <form @submit.prevent="saveText(showToast)" class="flex flex-col gap-4">
     <textarea
       @input="checkText"
       v-model="userText"
