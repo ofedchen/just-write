@@ -5,11 +5,11 @@
 
   const isMenuOpen = ref(false);
   const router = useRouter();
+  const inlog = useInlogStatus();
+
   function toggleMenu() {
     isMenuOpen.value = !isMenuOpen.value;
   }
-
-  const inlog = useInlogStatus();
 
   const logOutFunction = () => {
     inlog.logOut();
@@ -60,37 +60,59 @@
 
     <div
       v-if="isMenuOpen"
-      class="flex flex-col absolute bg-gray-800 text-white p-2 top-35 right-5"
+      class="flex flex-col absolute bg-gray-800 text-white p-4 top-35 right-5"
     >
-      <RouterLink to="/login" class="ml-0" @click="toggleMenu">
+      <!-- <RouterLink to="/login" class="ml-0" @click="toggleMenu">
         <h2
           class="font-[Overpass] text-[20px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
           v-if="!inlog.status"
+        > -->
+      <!-- (före inlogg) -->
+      <!-- Profile
+        </h2>
+      </RouterLink> -->
+      <RouterLink to="/" class="ml-0" @click="toggleMenu">
+        <h2
+          class="font-[Overpass] text-[18px] hover:bg-gray-200 hover:text-gray-800 p-1"
         >
-          <!-- (före inlogg) -->
-          Profile
+          Writing prompt
         </h2>
       </RouterLink>
-      <RouterLink to="/profile" class="ml-0" @click="toggleMenu">
+      <RouterLink to="/published" class="ml-0" @click="toggleMenu">
         <h2
-          v-if="inlog.status"
-          class="font-[Overpass] text-[20px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
+          class="font-[Overpass] text-[18px] hover:bg-gray-200 hover:text-gray-800 p-1"
         >
-          Profile (efter inlogg)
+          Published by community
         </h2>
       </RouterLink>
-      <RouterLink to="/savedtexts" class="ml-0" @click="toggleMenu">
+      <RouterLink
+        :to="inlog.status ? '/savedtexts' : '/login'"
+        class="ml-0"
+        @click="toggleMenu"
+      >
         <h2
-          class="font-[Overpass] text-[20px] hover:bg-gray-200 hover:text-gray-800 p-1"
+          class="font-[Overpass] text-[18px] hover:bg-gray-200 hover:text-gray-800 p-1"
         >
           My saved writings
         </h2>
       </RouterLink>
       <p v-if="inlog.status" class="mt-10">Welcome {{ inlog.user }}!</p>
+      <RouterLink
+        v-if="inlog.status"
+        to="/profile"
+        class="ml-0"
+        @click="toggleMenu"
+      >
+        <h2
+          class="font-[Overpass] text-[18px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
+        >
+          Profile
+        </h2>
+      </RouterLink>
       <button
         v-if="inlog.status"
         @click="logOutFunction"
-        class="bg-white mt-10 text-gray-800 hover:bg-gray-100 rounded-lg p-1.5 cursor-pointer"
+        class="bg-white mt-4 text-gray-800 hover:bg-gray-100 rounded-lg p-1.5 cursor-pointer"
       >
         Log out
       </button>
@@ -98,7 +120,7 @@
         <button
           v-if="!inlog.status"
           @click="logOutFunction"
-          class="bg-white mt-10 text-gray-800 hover:bg-gray-200 rounded-lg p-2 cursor-pointer"
+          class="bg-white mt-6 font-medium text-gray-800 hover:bg-gray-200 rounded-lg py-2 px-8 cursor-pointer"
         >
           Log in
         </button>
