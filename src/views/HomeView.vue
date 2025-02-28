@@ -51,6 +51,7 @@
     ) {
       const savedTexts = JSON.parse(localStorage.getItem("savedTexts"));
       const days = savedTexts.map((text) => text.date);
+      days.push(new Date().toLocaleDateString("se-SV"));
       let counter = 0;
       days.forEach((day, index) => {
         if (index === days.lastIndexOf(day)) counter++;
@@ -77,7 +78,8 @@
       class="font-[Special_Elite] text-[18px] text-left w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
     >
       Hi there, <span class="bg-yellow-300">{{ inlog.user }}</span> and welcome
-      to day {{ daysWriting }} of your writing journey!
+      to day <span class="font-black text-[20px]">{{ daysWriting }}</span> of
+      your writing journey!
     </p>
     <PromptGenarator
       @new-prompt="generatePrompt"
