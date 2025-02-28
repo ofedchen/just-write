@@ -28,7 +28,7 @@
 
   async function sendUserData() {
     const users = {
-      userId: "user_" + new Date().getTime(),
+      // userId: "user_" + new Date().getTime(),
       username: newUsername.value,
       password: newPasswordSecond.value
     };
@@ -84,6 +84,7 @@
       router.push({ path: "/" });
     }
   };
+
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
   watch([username, password], ([watchUsername, watchPassword]) => {
     if (watchUsername.length >= 6 && watchPassword.length >= 6) {
@@ -213,8 +214,7 @@
       Sign in
     </button>
     <p class="m-auto">
-      By continuing, you agree to the Terms of Sale, Terms of Service, and
-      Privacy Policy.
+      By continuing, you agree to the Terms of Service, and Privacy Policy.
     </p>
   </form>
 </template>

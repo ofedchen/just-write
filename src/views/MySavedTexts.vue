@@ -17,6 +17,7 @@
       savedTexts.value = JSON.parse(
         localStorage.getItem("savedTexts")
       ).toReversed();
+      console.log(savedTexts.value);
     }
 
     // setting an Object with texts id as keys and false as default value to show short version of text

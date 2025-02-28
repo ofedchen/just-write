@@ -38,9 +38,9 @@
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
-
       toast.success("Your text is now saved!");
       userText.value = "";
+      router.push({ path: "/savedtexts" });
     } else {
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
@@ -73,8 +73,8 @@
     if (inlog.status) {
       try {
         const response = await axios.post(`/api/publishedTexts`, savedText);
-        // router.push(`/published`);
         toast.success("Your text has been published successfully");
+        router.push({ path: "/published" });
       } catch (error) {
         console.error("Error publishing text", error);
         toast.error("Text hasn't been published");

@@ -2,7 +2,7 @@
   import PromptGenarator from "../components/PromptGenerator.vue";
   import TextField from "../components/TextField.vue";
   import TimerComponent from "../components/TimerComponent.vue";
-  import { ref, onMounted, watch } from "vue";
+  import { ref, onMounted, watch, computed } from "vue";
   import axios from "axios";
   import { useToast } from "vue-toastification";
   import { useInlogStatus } from "../store/";
@@ -43,16 +43,42 @@
   function handleText(userText) {
     writtenText.value = userText;
   }
+
+  const daysWriting = computed(() => {
+    if (
+      localStorage.getItem("savedTexts") &&
+      localStorage.getItem("savedTexts") !== null
+    ) {
+      const savedTexts = JSON.parse(localStorage.getItem("savedTexts"));
+      const days = savedTexts.map((text) => text.date);
+      let counter = 0;
+      days.forEach((day, index) => {
+        if (index === days.lastIndexOf(day)) counter++;
+      });
+      return counter;
+    }
+    return 1;
+  });
 </script>
 
 <template>
-  <p class="font-[Special_Elite] text-[14px] text-center w-md text-gray-600">
-    “Small habits, when repeated consistently, lead to remarkable results.” -
-    James Clear
-  </p>
   <main
     class="grid grid-cols-1 lg:grid-cols-3 gap-4 py-4 px-4 lg:px-[0.5em] lg:mx-4"
   >
+    <p
+      v-show="!inlog.status"
+      class="font-[Special_Elite] text-[14px] text-left w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
+    >
+      “Small habits, when repeated consistently, lead to remarkable results.” -
+      James Clear
+    </p>
+    <p
+      v-show="inlog.status"
+      class="font-[Special_Elite] text-[18px] text-left w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
+    >
+      Hi there, <span class="bg-yellow-300">{{ inlog.user }}</span> and welcome
+      to day {{ daysWriting }} of your writing journey!
+    </p>
     <PromptGenarator
       @new-prompt="generatePrompt"
       @hide-prompt="hidePromptTimer"
