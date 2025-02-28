@@ -20,7 +20,10 @@
 <template>
   <nav>
     <div>
-      <button @click="toggleMenu" class="cursor-pointer m-4">
+      <button
+        @click="toggleMenu"
+        class="cursor-pointer m-4 absolute top-20 right-5"
+      >
         <svg
           v-if="!isMenuOpen"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +31,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="size-10 cursor-pointer"
+          class="size-10"
         >
           <path
             stroke-linecap="round"
@@ -57,26 +60,31 @@
 
     <div
       v-if="isMenuOpen"
-      class="flex flex-col absolute bg-gray-800 text-white p-2"
+      class="flex flex-col absolute bg-gray-800 text-white p-2 top-35 right-5"
     >
-      <RouterLink to="/login" class="ml-auto">
+      <RouterLink to="/login" class="ml-0" @click="toggleMenu">
         <h2
-          class="font-[Overpass] text-[20px] text-left flex"
+          class="font-[Overpass] text-[20px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
           v-if="!inlog.status"
         >
-          Profile (före inlogg)
+          <!-- (före inlogg) -->
+          Profile
         </h2>
       </RouterLink>
-      <RouterLink to="/profile" class="ml-auto">
+      <RouterLink to="/profile" class="ml-0" @click="toggleMenu">
         <h2
           v-if="inlog.status"
-          class="font-[Overpass] text-[20px] text-left flex"
+          class="font-[Overpass] text-[20px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
         >
           Profile (efter inlogg)
         </h2>
       </RouterLink>
-      <RouterLink to="/savedtexts" class="ml-auto">
-        <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
+      <RouterLink to="/savedtexts" class="ml-0" @click="toggleMenu">
+        <h2
+          class="font-[Overpass] text-[20px] hover:bg-gray-200 hover:text-gray-800 p-1"
+        >
+          My saved writings
+        </h2>
       </RouterLink>
       <p v-if="inlog.status" class="mt-10">Welcome {{ inlog.user }}!</p>
       <button
@@ -86,11 +94,11 @@
       >
         Log out
       </button>
-      <RouterLink to="/login" class="ml-auto">
+      <RouterLink to="/login" class="m-auto" @click="toggleMenu">
         <button
           v-if="!inlog.status"
           @click="logOutFunction"
-          class="bg-white mt-10 text-gray-800 hover:bg-gray-100 rounded-lg p-1.5 cursor-pointer"
+          class="bg-white mt-10 text-gray-800 hover:bg-gray-200 rounded-lg p-2 cursor-pointer"
         >
           Log in
         </button>

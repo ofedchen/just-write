@@ -4,6 +4,7 @@
   import { useRouter } from "vue-router";
   import axios from "axios";
   import { useToast } from "vue-toastification";
+  import TextField from "../components/TextField.vue";
 
   const router = useRouter();
   const newUsername = ref("");
@@ -18,7 +19,6 @@
   const borderRedGreen = ref("");
   const borderWidth = ref("1");
   const jsonUserData = ref([]);
-
   const createAccountFilled = ref(false);
   const createAccountFilledColour = ref("#fef08a");
 
@@ -77,12 +77,12 @@
     );
 
     if (userDataCheck) {
-      router.push({ path: "profile" });
       inlog.logIn();
 
-      console.log("Användare är inloggad");
+      inlog.user = username.value;
+
+      router.push({ path: "/" });
     }
-    inlog.user = username.value;
   };
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
   watch([username, password], ([watchUsername, watchPassword]) => {

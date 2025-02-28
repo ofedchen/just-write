@@ -4,15 +4,20 @@
   import TimerComponent from "../components/TimerComponent.vue";
   import { ref, onMounted, watch } from "vue";
   import axios from "axios";
-  // import { useInlogStatus } from "../store/";
   import { useToast } from "vue-toastification";
+  import { useInlogStatus } from "../store/";
+  import { useRouter } from "vue-router";
 
+  const router = useRouter();
+
+  const textPublished = ref(false);
   const prompts = ref([]);
   const randomPrompt = ref(null);
   const hidden = ref(false);
-  // const inlog = useInlogStatus();
+  const writtenText = ref("");
+  const inlog = useInlogStatus();
 
-  const toast = useToast();
+  // const toast = useToast();
 
   onMounted(async () => {
     try {
@@ -35,27 +40,8 @@
     hidden.value = true;
   }
 
-  const writtenText = ref("");
-
   function handleText(userText) {
     writtenText.value = userText;
-  }
-
-  async function publishText() {
-    const newText = {
-      id: Date.now(),
-      text: writtenText.value,
-      date: new Date().toLocaleDateString("se-SV")
-    };
-
-    try {
-      const response = await axios.post(`/api/publishedTexts`, newText);
-      // router.push(`/published`);
-      toast.success("Your text has been published successfully");
-    } catch (error) {
-      console.error("Error publishing text", error);
-      toast.error("Text hasn't been published");
-    }
   }
 </script>
 
@@ -76,11 +62,11 @@
       <TimerComponent :user-started="writtenText" />
     </PromptGenarator>
     <TextField
+      :clear-text-field="textPublished"
       :current-prompt="randomPrompt"
       :hidden="hidden"
       @text-started="handleText"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
     />
-    <button @click="publishText">Publish</button>
   </main>
 </template>
