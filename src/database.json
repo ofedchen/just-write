@@ -328,6 +328,13 @@
       "prompt": "Write about a character who discovers they can rewind time—but only by five minutes.",
       "text": "s",
       "date": "2025-02-28"
+    },
+    {
+      "id": "2bd1",
+      "name": "testuser",
+      "prompt": "Imagine a city where people are born with the ability to control a single element—how do they use it?",
+      "text": "d",
+      "date": "2025-02-28"
     }
   ]
 }

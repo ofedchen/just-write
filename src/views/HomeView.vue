@@ -16,6 +16,7 @@
   const hidden = ref(false);
   const writtenText = ref("");
   const inlog = useInlogStatus();
+  const stopTimer = ref(false);
 
   // const toast = useToast();
 
@@ -60,6 +61,11 @@
     }
     return 1;
   });
+
+  function handleStopTimer() {
+    console.log("Received stopTimer event in HomeView from TextField");
+    stopTimer.value = true;
+  }
 </script>
 
 <template>
@@ -87,13 +93,14 @@
       :current-prompt="randomPrompt"
       :hidden="hidden"
     >
-      <TimerComponent :user-started="writtenText" />
+      <TimerComponent :user-started="writtenText" :stop-timer="stopTimer" />
     </PromptGenarator>
     <TextField
       :clear-text-field="textPublished"
       :current-prompt="randomPrompt"
       :hidden="hidden"
       @text-started="handleText"
+      @stop-timer="handleStopTimer"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
     />
   </main>
