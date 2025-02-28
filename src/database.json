@@ -335,6 +335,27 @@
       "prompt": "Imagine a city where people are born with the ability to control a single element—how do they use it?",
       "text": "d",
       "date": "2025-02-28"
+    },
+    {
+      "id": "ab27",
+      "name": "testuser",
+      "prompt": "Imagine a world where humans share the Earth with mythological creatures.",
+      "text": "sa",
+      "date": "2025-02-28"
+    },
+    {
+      "id": "edc3",
+      "name": "testuser",
+      "prompt": "Imagine a future where memories can be bought and sold—how does this change society?",
+      "text": "sd",
+      "date": "2025-02-28"
+    },
+    {
+      "id": "06b1",
+      "name": "testuser",
+      "prompt": "Describe a future where artificial intelligence governs the world—and one human dares to rebel.",
+      "text": "sd",
+      "date": "2025-02-28"
     }
   ]
 }

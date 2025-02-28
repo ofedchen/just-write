@@ -40,12 +40,19 @@
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
       toast.success("Your text is now saved!");
       userText.value = "";
+
+      console.log("emitting from saveText");
+      emit("stopTimer");
+
       router.push({ path: "/savedtexts" });
     } else {
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
+      console.log("emitting from saveText");
+      emit("stopTimer");
 
       router.push({ path: "/login" });
     }
@@ -87,8 +94,6 @@
 
       router.push({ path: "/login" });
     }
-    // emit placed here to emit/stop timer when Save OR Publish button is clicked
-    emit("stopTimer");
   }
   onMounted(() => {
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];

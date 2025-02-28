@@ -55,7 +55,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
   // Här hämtar vi props från App.vue
   const props = defineProps({
-    userStarted: { type: String }
+    userStarted: { type: String },
+    stopTimer: Boolean
   });
 
   watch(
@@ -71,6 +72,17 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
     () => timeRemaining.value,
     (newTimeRemaining) => {
       if (newTimeRemaining === 0) {
+        timerEnded.value = true;
+      }
+    }
+  );
+
+  watch(
+    () => props.stopTimer,
+    (newValue) => {
+      if (newValue) {
+        console.log("timer stopped");
+        clearInterval(interval);
         timerEnded.value = true;
       }
     }
