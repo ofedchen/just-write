@@ -43,20 +43,18 @@
       if (showToast.value) toast.success("Your text is now saved!");
       userText.value = "";
 
-      console.log("emitting from saveText");
       emit("stopTimer");
 
-      router.push({ path: "/savedtexts" });
+      /*       router.push({ path: "/savedtexts" }); */
     } else {
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
 
-      console.log("emitting from saveText");
       emit("stopTimer");
 
-      router.push({ path: "/login" });
+      /*       router.push({ path: "/login" }); */
     }
   }
 
@@ -85,7 +83,7 @@
       try {
         const response = await axios.post(`/api/publishedTexts`, savedText);
         toast.success("Your text has been published successfully");
-        router.push({ path: "/published" });
+        /*         router.push({ path: "/published" }); */
       } catch (error) {
         console.error("Error publishing text", error);
         toast.error("Text hasn't been published");
@@ -96,7 +94,7 @@
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
 
-      router.push({ path: "/login" });
+      /*       router.push({ path: "/login" }); */
     }
   }
   onMounted(() => {
