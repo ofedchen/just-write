@@ -58,7 +58,7 @@
   >
     Published by community
   </h2>
-  <main>
+  <main class="mb-8">
     <SortAndSearch
       :sorted="sorted"
       @sort-texts="sortByDate"

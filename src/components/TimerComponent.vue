@@ -104,4 +104,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   <p v-show="showTotalElapsedTime">
     Congrats you wrote for {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
   </p>
+  <!-- instead of a pop up as an option to display it more visible - from primevue -->
+  <!-- <div class="card">
+        <Message closable>Closable Message</Message>
+    </div> -->
 </template>
