@@ -99,11 +99,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
       {{ countDownMin }}<span class="text-sm text-gray-400">m</span>
       {{ ": " + countDownSec }}<span class="text-sm text-gray-400">s</span>
     </p>
-    <p v-if="timerEnded">Congrats you wrote for</p>
-
-    <!-- TO BE HIDDEN -->
+    <p v-if="timerEnded">Times up</p>
   </div>
   <p v-show="showTotalElapsedTime">
-    {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
+    Congrats you wrote for {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
   </p>
 </template>
