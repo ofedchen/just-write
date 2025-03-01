@@ -15,6 +15,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   const timeRemaining = ref(startTime);
   const timerStarted = ref(false);
   const timerEnded = ref(false);
+  const showTotalElapsedTime = ref(false);
 
   const countDownMin = computed(() =>
     Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60))
@@ -80,6 +81,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
     () => props.stopTimer,
     (newValue) => {
       if (newValue) {
+        showTotalElapsedTime.value = true;
         console.log("timer stopped");
         clearInterval(interval);
         timerEnded.value = true;
@@ -97,9 +99,11 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
       {{ countDownMin }}<span class="text-sm text-gray-400">m</span>
       {{ ": " + countDownSec }}<span class="text-sm text-gray-400">s</span>
     </p>
-    <p v-if="timerEnded">Time's up!</p>
+    <p v-if="timerEnded">Congrats you wrote for</p>
 
     <!-- TO BE HIDDEN -->
   </div>
-  <p>Elapsed Time: {{ totalElapsedMin }} min {{ totalElapsedSec }} sec</p>
+  <p v-show="showTotalElapsedTime">
+    {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
+  </p>
 </template>
