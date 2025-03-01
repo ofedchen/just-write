@@ -110,10 +110,10 @@
   >
     Published by community
   </h2>
-  <div
+  <main
     class="grid grid-cols-1 lg:grid-cols-4 gap-4 px-4 lg:px-[0.5em] mx-4 lg:mx-10"
   >
-    <main class="py-8 bg-gray-50 mb-4 lg:col-span-3">
+    <section class="py-8 bg-gray-50 mb-4 lg:col-span-3">
       <SortAndSearch
         :sorted="sorted"
         @sort-texts="sortByDate"
@@ -124,7 +124,7 @@
         :texts="filtered"
         @expand="readMoreLess"
       />
-    </main>
+    </section>
     <aside class="py-8 bg-gray-50 mb-4">
       <h3 class="py-2 px-4 font-medium text-[1.2em]">Published in 2025</h3>
       <ul class="list-disc list-inside px-2">
@@ -144,5 +144,5 @@
         All texts
       </h4>
     </aside>
-  </div>
+  </main>
 </template>

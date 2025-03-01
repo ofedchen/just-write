@@ -20,7 +20,7 @@
 </script>
 
 <template>
-  <section class="container px-4 py-4" v-for="text in texts" :key="text.id">
+  <article class="container px-4 py-4" v-for="text in texts" :key="text.id">
     <h2 class="font-[Overpass] text-[1.2em] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>
@@ -53,5 +53,5 @@
       </button>
     </div>
     <slot />
-  </section>
+  </article>
 </template>
