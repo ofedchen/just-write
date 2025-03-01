@@ -17,6 +17,8 @@
   const writtenText = ref("");
   const inlog = useInlogStatus();
   const stopTimer = ref(false);
+  const elapsedMinutes = ref(null);
+  const elapsedSeconds = ref(null);
 
   onMounted(async () => {
     try {
@@ -62,6 +64,18 @@
     console.log("Received stopTimer event in HomeView from TextField");
     stopTimer.value = true;
   }
+
+  function handleTimerStopped({ minutes, seconds }) {
+    console.log(
+      "Timer stopped with elapsed time:",
+      minutes,
+      "min",
+      seconds,
+      "sec"
+    );
+    elapsedMinutes.value = minutes;
+    elapsedSeconds.value = seconds;
+  }
 </script>
 
 <template>
@@ -89,7 +103,11 @@
       :current-prompt="randomPrompt"
       :hidden="hidden"
     >
-      <TimerComponent :user-started="writtenText" :stop-timer="stopTimer" />
+      <TimerComponent
+        :user-started="writtenText"
+        :stop-timer="stopTimer"
+        @timer-stopped="handleTimerStopped"
+      />
     </PromptGenarator>
     <TextField
       :clear-text-field="textPublished"

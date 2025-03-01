@@ -9,6 +9,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
 <script setup>
   import { ref, computed, onBeforeUnmount, watch } from "vue";
+
+  const emit = defineEmits(["timerStopped"]);
+
   const startTime = 120200;
   const now = ref(0);
   const countDownTime = ref(startTime);
@@ -85,6 +88,11 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
         console.log("timer stopped");
         clearInterval(interval);
         timerEnded.value = true;
+
+        emit("timerStopped", {
+          minutes: totalElapsedMin.value,
+          seconds: totalElapsedSec.value
+        });
       }
     }
   );

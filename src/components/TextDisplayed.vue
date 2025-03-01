@@ -9,6 +9,17 @@
       type: Object,
       required: true,
       default: null
+    },
+
+    totalElapsedMin: {
+      type: Number,
+      required: false,
+      default: null
+    },
+    totalElapsedSec: {
+      type: Number,
+      required: false,
+      default: null
     }
   });
 
@@ -29,6 +40,9 @@
       <span>{{ text.prompt }} </span>
     </h2>
     <h3 class="text-gray-600">Date: {{ text.date }}</h3>
+    <h3 class="text-gray-600">
+      Time Writing: {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
+    </h3>
     <h3 v-if="text.name">Author: {{ text.name }}</h3>
     <div v-if="!expandedText[text.id]">
       <p class="w-full max-w-[80%] py-4">
