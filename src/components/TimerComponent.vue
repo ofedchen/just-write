@@ -53,10 +53,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
     clearInterval(interval);
   });
 
-  // Här hämtar vi props från App.vue
   const props = defineProps({
-    userStarted: { type: String },
-    stopTimer: Boolean
+    userStarted: { type: String, default: "" },
+    stopTimer: { type: Boolean, default: false }
   });
 
   watch(
