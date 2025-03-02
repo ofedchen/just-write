@@ -14,12 +14,12 @@
     totalElapsedMin: {
       type: Number,
       required: false,
-      default: null
+      default: 0
     },
     totalElapsedSec: {
       type: Number,
       required: false,
-      default: null
+      default: 0
     }
   });
 

@@ -17,8 +17,8 @@
   const writtenText = ref("");
   const inlog = useInlogStatus();
   const stopTimer = ref(false);
-  const elapsedMinutes = ref(null);
-  const elapsedSeconds = ref(null);
+  const elapsedMinutes = ref(0);
+  const elapsedSeconds = ref(0);
 
   onMounted(async () => {
     try {
@@ -61,7 +61,6 @@
   });
 
   function handleStopTimer() {
-    console.log("Received stopTimer event in HomeView from TextField");
     stopTimer.value = true;
   }
 
