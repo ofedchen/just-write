@@ -122,14 +122,14 @@
     <div class="flex flex-row gap-4">
       <button
         @click="publishText"
-        class="w-1/2 px-5 py-2.5 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 rounded-lg cursor-pointer"
+        class="w-1/2 px-5 py-2.5 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-300 rounded-lg cursor-pointer"
       >
         Publish
       </button>
       <button
         type="submit"
         label="Save text"
-        class="w-1/2 px-5 py-2.5 text-sm font-medium text-gray-800 bg-white border border-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-400 rounded-lg cursor-pointer"
+        class="w-1/2 px-5 py-2.5 text-sm font-medium text-gray-800 bg-white border border-gray-400 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-400 rounded-lg cursor-pointer"
       >
         Save text
       </button>
