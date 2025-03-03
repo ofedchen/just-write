@@ -76,6 +76,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
     (newTimeRemaining) => {
       if (newTimeRemaining === 0) {
         timerEnded.value = true;
+
+        let audio = new Audio("public/sounds/singing-bowl.wav");
+        audio.play();
       }
     }
   );
