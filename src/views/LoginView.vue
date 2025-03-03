@@ -27,6 +27,8 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
+  const firstname = ref("");
+  const surname = ref("");
 
   // Här skapar vi profil
 
@@ -34,9 +36,10 @@
 
   async function sendUserData() {
     const users = {
-      // userId: "user_" + new Date().getTime(),
       username: newUsername.value,
-      password: newPasswordSecond.value
+      password: newPasswordSecond.value,
+      firstname: firstname.value,
+      surname: surname.value
     };
 
     try {
@@ -52,7 +55,6 @@
   const createProfile = async () => {
     await sendUserData();
     profileCreated.value = true;
-    console.log(newUsername.value);
   };
 
   const skipCreate = () => {
@@ -68,7 +70,16 @@
     try {
       const response = await axios.get(`/api/userInfo`);
       jsonUserData.value = response.data;
-      console.log(jsonUserData.value);
+      const foundUser = jsonUserData.value.find(
+        (user) =>
+          user.username === username.value && user.password === password.value
+      );
+
+      if (foundUser) {
+        inlog.user = foundUser.username;
+        inlog.firstname = foundUser.firstname;
+        inlog.surname = foundUser.surname;
+      }
     } catch (error) {
       console.error("Error fetching userData", error);
     }
@@ -86,6 +97,7 @@
       inlog.logIn();
 
       inlog.user = username.value;
+
       const toPage = route.query.endpoint ? "/savedtexts" : "/";
       router.push({ path: toPage });
     } else {
@@ -233,8 +245,26 @@
       type="text"
       name=""
       id=""
-      placeholder="Enter your new username here"
+      placeholder="Enter your firstname here"
       class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
+      v-model="firstname"
+    />
+
+    <input
+      type="text"
+      name=""
+      id=""
+      placeholder="Enter your surname here"
+      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
+      v-model="surname"
+    />
+
+    <input
+      type="text"
+      name=""
+      id=""
+      placeholder="Enter your new username here"
+      class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="newUsername"
     />
 

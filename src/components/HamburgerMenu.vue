@@ -67,7 +67,7 @@
 
     <div
       v-if="isMenuOpen"
-      class="flex flex-col absolute bg-gray-800 text-white p-4 top-35 right-5"
+      class="flex flex-col absolute z-1 bg-gray-800 text-white p-4 top-35 right-5"
     >
       <!-- <RouterLink to="/login" class="ml-0" @click="toggleMenu">
         <h2
