@@ -1,4 +1,6 @@
 <script setup>
+  import LikeVote from "../components/LikeVote.vue";
+
   defineProps({
     texts: {
       type: Array,
@@ -32,6 +34,7 @@
 
 <template>
   <article class="container px-4 py-4" v-for="text in texts" :key="text.id">
+    <LikeVote :text="text" />
     <h2 class="font-[Overpass] text-[1.2em] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>

@@ -77,7 +77,8 @@
       name: inlog.user,
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString("se-SV")
+      date: new Date().toLocaleDateString("se-SV"),
+      likesList: []
     };
     if (inlog.status) {
       try {
@@ -113,7 +114,7 @@
     <textarea
       @input="checkText"
       v-model="userText"
-      placeholder="Write whatever you want. Your goal is to write for 2 minutes, but don't limit yourself."
+      placeholder="Just start writing — anything at all. Aim for two minutes, and if you get into the flow, keep going!"
       name="userText"
       rows="13"
       cols="1"
