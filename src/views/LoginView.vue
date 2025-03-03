@@ -49,8 +49,8 @@
   }
   // spara användardata även lokalt
 
-  const createProfile = () => {
-    sendUserData();
+  const createProfile = async () => {
+    await sendUserData();
     profileCreated.value = true;
     console.log(newUsername.value);
   };
@@ -74,8 +74,8 @@
     }
   };
 
-  const loginFunction = () => {
-    fetchUserData();
+  const loginFunction = async () => {
+    await fetchUserData();
 
     const userDataCheck = jsonUserData.value.some(
       (user) =>
@@ -169,16 +169,19 @@
   <form
     v-if="profileCreated"
     @submit.prevent="loginFunction"
-    class="flex flex-col max-w-md mb-8 space-y-4 m-auto flex items-center"
+    class="flex flex-col max-w-md mb-8 space-y-4 m-auto flex"
   >
+    <p class="text-blue-800 mb-1" v-if="username">Username</p>
+
     <input
       type="text"
       name=""
       id=""
-      placeholder="Användarnamn"
-      class="w-[80vw] lg:w-full border-b border-gray-400 p-[0.3em] max-w-md mb-8 space-y-4 m-auto"
+      placeholder="Username"
+      class="w-[80vw] lg:w-full border-b border-gray-400 p-[0.3em] max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="username"
     />
+    <p class="text-blue-800 mb-1" v-if="password">Password</p>
 
     <div
       class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
@@ -187,8 +190,8 @@
         :type="!passwordIsVisible ? 'password' : 'text'"
         name=""
         id=""
-        placeholder="Lösenord"
-        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        placeholder="Password"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
         v-model="password"
       />
       <button
@@ -230,8 +233,8 @@
       type="text"
       name=""
       id=""
-      placeholder="Skriv in nytt användarnamn"
-      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto"
+      placeholder="Enter your new username here"
+      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="newUsername"
     />
 
@@ -242,9 +245,9 @@
         :type="!passwordIsVisible ? 'password' : 'text'"
         name=""
         id=""
-        placeholder="Skriv in nytt lösenord"
+        placeholder="Enter your password here"
         :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
         v-model="newPasswordFirst"
       />
 
@@ -264,9 +267,9 @@
         :type="!passwordIsVisible ? 'password' : 'text'"
         name=""
         id=""
-        placeholder="Skriv in ditt lösenord igen"
+        placeholder="Enter your password again"
         :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
         v-model="newPasswordSecond"
       />
       <button
