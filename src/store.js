@@ -16,6 +16,8 @@ export const useInlogStatus = defineStore(
     const logOut = () => {
       status.value = false;
       user.value = "";
+      firstname.value = "";
+      surname.value = "";
     };
 
     return { status, user, firstname, surname, logIn, logOut };

@@ -96,8 +96,6 @@
     if (userDataCheck) {
       inlog.logIn();
 
-      inlog.user = username.value;
-
       const toPage = route.query.endpoint ? "/savedtexts" : "/";
       router.push({ path: toPage });
     } else {
@@ -127,9 +125,17 @@
 
   // Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
   watch(
-    [newUsername, newPasswordFirst, newPasswordSecond],
-    ([checkUsername, checkPasswordFirst, checkPasswordSecond]) => {
+    [firstname, surname, newUsername, newPasswordFirst, newPasswordSecond],
+    ([
+      checkFirstname,
+      checkSurname,
+      checkUsername,
+      checkPasswordFirst,
+      checkPasswordSecond
+    ]) => {
       if (
+        checkFirstname.length > 0 &&
+        checkSurname.length > 0 &&
         checkUsername.length >= 6 &&
         checkPasswordFirst.length >= 6 &&
         checkPasswordFirst === checkPasswordSecond
