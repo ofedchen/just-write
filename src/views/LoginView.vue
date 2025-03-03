@@ -4,6 +4,8 @@
   import { useRouter, useRoute } from "vue-router";
   import axios from "axios";
   import { useToast } from "vue-toastification";
+  import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
+  import { EyeIcon } from "@heroicons/vue/24/solid";
 
   const router = useRouter();
   const route = useRoute();
@@ -13,7 +15,7 @@
   const toast = useToast();
 
   const inlog = useInlogStatus();
-  const profileCreated = ref(false);
+  const profileCreated = ref(true);
   const completeInlog = ref("#E2E8F0");
   const completeInlogBoolean = ref(false);
   const borderRedGreen = ref("");
@@ -21,6 +23,10 @@
   const jsonUserData = ref([]);
   const createAccountFilled = ref(false);
   const createAccountFilledColour = ref("#fef08a");
+  const termsChecked = ref(false);
+  const textColor = ref("");
+  const loginError = ref(false);
+  const passwordIsVisible = ref(false);
 
   // Här skapar vi profil
 
@@ -82,19 +88,30 @@
       inlog.user = username.value;
       const toPage = route.query.endpoint ? "/savedtexts" : "/";
       router.push({ path: toPage });
+    } else {
+      loginError.value = true;
     }
   };
 
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
-  watch([username, password], ([watchUsername, watchPassword]) => {
-    if (watchUsername.length >= 6 && watchPassword.length >= 6) {
-      completeInlog.value = "#2d3748";
-      completeInlogBoolean.value = true;
-    } else {
-      completeInlog.value = "#E2E8F0";
-      completeInlogBoolean.value = false;
+  watch(
+    [username, password, termsChecked],
+    ([watchUsername, watchPassword, watchTerms]) => {
+      if (
+        watchUsername.length >= 6 &&
+        watchPassword.length >= 6 &&
+        watchTerms
+      ) {
+        completeInlog.value = "#2d3748";
+        completeInlogBoolean.value = true;
+        textColor.value = "white";
+      } else {
+        completeInlog.value = "#E2E8F0";
+        completeInlogBoolean.value = false;
+        textColor.value = "black";
+      }
     }
-  });
+  );
 
   // Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
   watch(
@@ -109,7 +126,7 @@
         createAccountFilledColour.value = "#eab308";
       } else {
         createAccountFilled.value = false;
-        createAccountFilledColour.value = "#fef08a";
+        createAccountFilledColour.value = "#fef9c3";
       }
 
       if (checkPasswordFirst && checkPasswordSecond) {
@@ -129,13 +146,81 @@
     }
   );
 
-  // fixa så att inloggad användare får welcome plus användarnnamn
-  onMounted(() => {
-    console.log(inlog.user);
-  });
+  const skipToCreateProfile = () => {
+    profileCreated.value = false;
+    loginError.value = false;
+  };
+
+  const togglePasswordVisibility = () => {
+    if (!passwordIsVisible.value) {
+      passwordIsVisible.value = true;
+    } else if (passwordIsVisible.value) passwordIsVisible.value = false;
+  };
 </script>
 
 <template>
+  <div
+    v-if="loginError"
+    class="flex items-center m-auto gap-3 border-b border-red-800 bg-red-100 p-4 shadow-md w-md mb-5"
+  >
+    <ExclamationCircleIcon class="w-8 h-8 text-red-800" />
+    <p class="font-medium text-red-800">Invalid username or password</p>
+  </div>
+  <form
+    v-if="profileCreated"
+    @submit.prevent="loginFunction"
+    class="flex flex-col max-w-md mb-8 space-y-4 m-auto flex items-center"
+  >
+    <input
+      type="text"
+      name=""
+      id=""
+      placeholder="Användarnamn"
+      class="w-[80vw] lg:w-full border-b border-gray-400 p-[0.3em] max-w-md mb-8 space-y-4 m-auto"
+      v-model="username"
+    />
+
+    <div
+      class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
+    >
+      <input
+        :type="!passwordIsVisible ? 'password' : 'text'"
+        name=""
+        id=""
+        placeholder="Lösenord"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        v-model="password"
+      />
+      <button
+        type="button"
+        @click="togglePasswordVisibility"
+        class="cursor-pointer"
+      >
+        <EyeIcon class="w-8 h-8 mb-4" />
+      </button>
+    </div>
+
+    <button
+      class="p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto cursor-pointer"
+      :disabled="!completeInlogBoolean"
+      :style="{ backgroundColor: completeInlog, color: textColor }"
+      v-if="!inlog.status"
+    >
+      Sign in
+    </button>
+    <p class="m-auto pr-3 pl-3">
+      <input type="checkbox" v-model="termsChecked" />
+      By continuing, you agree to the Terms of Service, and Privacy Policy.
+    </p>
+
+    <p
+      @click="skipToCreateProfile"
+      class="text-blue-800 cursor-pointer m-auto mt-8 pr-2 pl-2 mb-50"
+    >
+      Not yet a member? Create your profile here!
+    </p>
+  </form>
+
   <form
     v-if="!profileCreated"
     @submit.prevent="createProfile"
@@ -146,75 +231,66 @@
       name=""
       id=""
       placeholder="Skriv in nytt användarnamn"
-      class="border bg-gray-200 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
+      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto"
       v-model="newUsername"
     />
-    <input
-      type="password"
-      name=""
-      id=""
-      placeholder="Skriv in nytt lösenord"
-      :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-      class="border p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      v-model="newPasswordFirst"
-    />
-    <input
-      type="password"
-      name=""
-      id=""
-      placeholder="Skriv in ditt lösenord igen"
-      :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-      class="border p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      v-model="newPasswordSecond"
-    />
+
+    <div
+      class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
+    >
+      <input
+        :type="!passwordIsVisible ? 'password' : 'text'"
+        name=""
+        id=""
+        placeholder="Skriv in nytt lösenord"
+        :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        v-model="newPasswordFirst"
+      />
+
+      <button
+        type="button"
+        @click="togglePasswordVisibility"
+        class="cursor-pointer"
+      >
+        <EyeIcon class="w-8 h-8 mb-4" />
+      </button>
+    </div>
+
+    <div
+      class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
+    >
+      <input
+        :type="!passwordIsVisible ? 'password' : 'text'"
+        name=""
+        id=""
+        placeholder="Skriv in ditt lösenord igen"
+        :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
+        class="border-b border-gray-400 p-[0.3em] w-full -mr-10"
+        v-model="newPasswordSecond"
+      />
+      <button
+        type="button"
+        @click="togglePasswordVisibility"
+        class="cursor-pointer"
+      >
+        <EyeIcon class="w-8 h-8 mb-4" />
+      </button>
+    </div>
 
     <button
       :disabled="!createAccountFilled"
       :style="{ backgroundColor: createAccountFilledColour }"
-      class="cursor-pointer p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
+      class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
     >
       Sign up!
     </button>
-    <p
-      v-if="!profileCreated"
-      @click="skipCreate"
-      class="text-blue-800 cursor-pointer m-auto"
-    >
-      Already have an account?
-    </p>
-  </form>
 
-  <form
-    v-if="profileCreated"
-    @submit.prevent="loginFunction"
-    class="flex flex-col"
-  >
-    <input
-      type="text"
-      name=""
-      id=""
-      placeholder="Användarnamn"
-      class="border border-gray-400 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      v-model="username"
-    />
-    <input
-      type="password"
-      name=""
-      id=""
-      placeholder="Lösenord"
-      class="border border-gray-400 p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      v-model="password"
-    />
-    <button
-      class="p-[0.3em] w-full max-w-md mb-8 space-y-4 m-auto"
-      :disabled="!completeInlogBoolean"
-      :style="{ backgroundColor: completeInlog }"
-      v-if="!inlog.status"
+    <p
+      @click="skipCreate"
+      class="text-blue-800 cursor-pointer m-auto pr-3 pl-3 mb-50"
     >
-      Sign in
-    </button>
-    <p class="m-auto">
-      By continuing, you agree to the Terms of Service, and Privacy Policy.
+      Already a member? Sign in here!
     </p>
   </form>
 </template>
