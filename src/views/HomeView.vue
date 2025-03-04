@@ -85,6 +85,8 @@
     }
     elapsedMinutes.value = minutes;
     elapsedSeconds.value = seconds;
+    inlog.minutes = elapsedMinutes.value;
+    inlog.seconds = elapsedSeconds.value;
   }
 </script>
 
@@ -126,7 +128,6 @@
       @text-started="handleText"
       @stop-timer="handleStopTimer"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
-      :time-pushed-login="elapsedMinutes"
     />
   </main>
 </template>

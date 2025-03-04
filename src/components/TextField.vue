@@ -9,7 +9,6 @@
   const userText = ref("");
   const storedTexts = ref(null);
   const inlog = useInlogStatus();
-  const hasStashedText = ref(false);
   const router = useRouter();
   const toast = useToast();
   const showToast = ref(true);
@@ -33,7 +32,9 @@
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString("se-SV")
+      date: new Date().toLocaleDateString("se-SV"),
+      timedMinutes: inlog.minutes,
+      timedSeconds: inlog.seconds
     };
 
     if (inlog.status) {
@@ -46,6 +47,8 @@
 
       emit("stopTimer");
       inlog.userReturned = false;
+      // inlog.minutes = "10";
+      // inlog.seconds = "";
 
       router.push({ path: "/savedtexts" });
     } else {

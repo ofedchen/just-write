@@ -9,6 +9,8 @@ export const useInlogStatus = defineStore(
     const firstname = ref("");
     const surname = ref("");
     const userReturned = ref(false);
+    const minutes = ref("");
+    const seconds = ref("");
 
     const logIn = () => {
       status.value = true;
@@ -21,7 +23,17 @@ export const useInlogStatus = defineStore(
       surname.value = "";
     };
 
-    return { status, user, firstname, surname, userReturned, logIn, logOut };
+    return {
+      status,
+      user,
+      firstname,
+      surname,
+      userReturned,
+      minutes,
+      seconds,
+      logIn,
+      logOut
+    };
   },
   {
     persist: true

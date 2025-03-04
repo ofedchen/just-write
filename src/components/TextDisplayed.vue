@@ -19,18 +19,18 @@
       type: Object,
       required: true,
       default: null
-    },
-
-    totalElapsedMin: {
-      type: Number,
-      required: false,
-      default: 0
-    },
-    totalElapsedSec: {
-      type: Number,
-      required: false,
-      default: 0
     }
+
+    // totalElapsedMin: {
+    //   type: Number,
+    //   required: false,
+    //   default: 0
+    // },
+    // totalElapsedSec: {
+    //   type: Number,
+    //   required: false,
+    //   default: 0
+    // }
   });
 
   const emit = defineEmits(["expand"]);
@@ -52,7 +52,7 @@
     </h2>
     <h3 class="text-gray-600">Date: {{ text.date }}</h3>
     <h3 v-if="!isActiveLink('/published')" class="text-gray-600">
-      Time Writing: {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
+      Time Writing: {{ text.timedMinutes }} min {{ text.timedSeconds }} sec
     </h3>
     <h3 v-if="text.name">Author: {{ text.name }}</h3>
     <div v-if="!expandedText[text.id]">
