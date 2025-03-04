@@ -235,6 +235,13 @@
       "userId": "user_1740657202668",
       "username": "richard",
       "password": "1234567"
+    },
+    {
+      "id": "2294",
+      "username": "kajsaduvet",
+      "password": "123456789",
+      "firstname": "Kajsa",
+      "surname": "Palmén"
     }
   ],
   "publishedTexts": [
@@ -276,7 +283,7 @@
       "prompt": "Describe a competition where contestants must survive on a mysterious, uncharted island.",
       "text": "island? can't believe my eyes - it's Maldives! well that's just magical, I don't mind such competition.\nNaive thoughts were racing in her head on day one. Day 8 - none left. Getting drinking water is a challenge, seafood is basically the only food you can get. And don't get her started on the dementors.\nOk, maybe not the dementors, but those weird creatures are terrifying!",
       "date": "2/28/2025",
-      "likesList": ["testuser"]
+      "likesList": ["testuser", "kajsaduvet"]
     },
     {
       "id": "617b",
@@ -309,6 +316,14 @@
       "text": "m,fxmkkfmkf",
       "date": "3/4/2025",
       "likesList": ["ofedchen"]
+    },
+    {
+      "id": "393e",
+      "name": "kajsaduvet",
+      "prompt": "Imagine a secret society that protects humanity from supernatural threats.",
+      "text": "Ge mig massa stjärnor tack",
+      "date": "2025-03-04",
+      "likesList": ["kajsaduvet"]
     }
   ]
 }
