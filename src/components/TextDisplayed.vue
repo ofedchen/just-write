@@ -1,5 +1,11 @@
 <script setup>
   import LikeVote from "../components/LikeVote.vue";
+  import { useRoute } from "vue-router";
+
+  const isActiveLink = (routePath) => {
+    const route = useRoute();
+    return route.path === routePath;
+  };
 
   defineProps({
     texts: {
@@ -34,7 +40,7 @@
 
 <template>
   <article class="container px-4 py-4" v-for="text in texts" :key="text.id">
-    <LikeVote :text="text" />
+    <LikeVote v-if="!isActiveLink('/savedtexts')" :text="text" />
     <h2 class="font-[Overpass] text-[1.2em] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>

@@ -2,9 +2,8 @@
   import { RouterLink, RouterView } from "vue-router";
   import HamburgerMenu from "./components/HamburgerMenu.vue";
   import { useInlogStatus } from "./store/";
-  import { useRouter } from "vue-router";
+  import { useRouter, useRoute } from "vue-router";
 
-  import { useRoute } from "vue-router";
   import { UserIcon } from "@heroicons/vue/24/solid";
 
   const inlog = useInlogStatus();
