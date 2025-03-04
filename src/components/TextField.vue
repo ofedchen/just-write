@@ -20,7 +20,8 @@
       default: null
     },
     hidden: Boolean,
-    clearTextField: Boolean
+    clearTextField: Boolean,
+    timePushedLogin: { type: Number, default: null }
   });
 
   function saveText() {
@@ -44,8 +45,9 @@
       userText.value = "";
 
       emit("stopTimer");
+      inlog.userReturned = false;
 
-      /*       router.push({ path: "/savedtexts" }); */
+      router.push({ path: "/savedtexts" });
     } else {
       emit("stopTimer");
       const sessionText =
@@ -80,15 +82,22 @@
       likesList: []
     };
     if (inlog.status) {
+      inlog.userReturned = true;
+
       try {
         const response = await axios.post(`/api/publishedTexts`, savedText);
         toast.success("Your text has been published successfully");
+
         /*         router.push({ path: "/published" }); */
       } catch (error) {
         console.error("Error publishing text", error);
         toast.error("Text hasn't been published");
       }
     } else {
+      emit("stopTimer");
+
+      // console.log(props.timePushedLogin);
+
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
@@ -101,7 +110,10 @@
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
+      inlog.userReturned = true;
       sessionStorage.removeItem("savedTexts");
+      sessionStorage.removeItem("savedMinutes");
+      sessionStorage.removeItem("savedSeconds");
     }
 
     showToast.value = true;

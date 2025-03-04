@@ -72,6 +72,17 @@
       seconds,
       "sec"
     );
+
+    if (!inlog.user) {
+      const sessionMinutes =
+        JSON.parse(sessionStorage.getItem("savedMinutes")) || [];
+      sessionMinutes.push(minutes);
+      sessionStorage.setItem("savedMinutes", JSON.stringify(sessionMinutes));
+      const sessionSeconds =
+        JSON.parse(sessionStorage.getItem("savedSeconds")) || [];
+      sessionSeconds.push(seconds);
+      sessionStorage.setItem("savedSeconds", JSON.stringify(sessionSeconds));
+    }
     elapsedMinutes.value = minutes;
     elapsedSeconds.value = seconds;
   }
@@ -115,6 +126,7 @@
       @text-started="handleText"
       @stop-timer="handleStopTimer"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
+      :time-pushed-login="elapsedMinutes"
     />
   </main>
 </template>

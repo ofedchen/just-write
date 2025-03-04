@@ -9,6 +9,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
 <script setup>
   import { ref, computed, onBeforeUnmount, watch } from "vue";
+  import { useInlogStatus } from "../store/";
 
   const emit = defineEmits(["timerStopped"]);
 
@@ -19,6 +20,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   const timerStarted = ref(false);
   const timerEnded = ref(false);
   const showTotalElapsedTime = ref(false);
+  const inlog = useInlogStatus();
 
   const countDownMin = computed(() =>
     Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60))
@@ -99,6 +101,11 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
       }
     }
   );
+
+  const sessionMinutes =
+    JSON.parse(sessionStorage.getItem("savedMinutes")) || [];
+  const sessionSeconds =
+    JSON.parse(sessionStorage.getItem("savedSeconds")) || [];
 </script>
 
 <template>
@@ -114,6 +121,10 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   </div>
   <p v-show="showTotalElapsedTime">
     Congrats you wrote for {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
+  </p>
+  <p v-if="inlog.userReturned">
+    Congrats you wrote for {{ sessionMinutes[0] }} min
+    {{ sessionSeconds[0] }} sec
   </p>
   <!-- instead of a pop up as an option to display it more visible - from primevue -->
   <!-- <div class="card">
