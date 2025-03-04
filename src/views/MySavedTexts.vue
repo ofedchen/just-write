@@ -48,10 +48,6 @@
   function onInput(searchTerm) {
     searchValue.value = searchTerm;
   }
-
-  function goToEdit(id) {
-    router.push("/edit/:id");
-  }
 </script>
 
 <template>
@@ -65,13 +61,6 @@
       :expanded-text="expandedText"
       :texts="filtered"
       @expand="readMoreLess"
-      ><!-- Edit-button, navigates to EditTextView -->
-      <button
-        @click="goToEdit(text.id)"
-        class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
-      >
-        Edit
-      </button>
-    </TextDisplayed>
+    />
   </main>
 </template>
