@@ -54,7 +54,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
   // not necessary, best practice. prevent countdown running in background
   onBeforeUnmount(() => {
-    clearInterval(interval);
+    // clearInterval(interval);
   });
 
   const props = defineProps({

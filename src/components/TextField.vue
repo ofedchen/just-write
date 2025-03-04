@@ -47,14 +47,13 @@
 
       /*       router.push({ path: "/savedtexts" }); */
     } else {
+      emit("stopTimer");
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
 
-      emit("stopTimer");
-
-      /*       router.push({ path: "/login" }); */
+      router.push({ path: "/login" });
     }
   }
 
@@ -95,7 +94,7 @@
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
 
-      /*       router.push({ path: "/login" }); */
+      router.push({ path: "/login" });
     }
   }
   onMounted(() => {

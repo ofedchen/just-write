@@ -322,6 +322,14 @@
         "testuser",
         "ofedchen"
       ]
+    },
+    {
+      "id": "fbba",
+      "name": "ofedchen",
+      "prompt": "Write about a detective who solves crimes by entering victims' dreams.",
+      "text": "m,fxmkkfmkf",
+      "date": "3/4/2025",
+      "likesList": []
     }
   ]
 }
