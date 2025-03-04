@@ -1,11 +1,13 @@
 <script setup>
   import LikeVote from "../components/LikeVote.vue";
-  import { useRoute } from "vue-router";
+  import { useRoute, useRouter } from "vue-router";
 
   const isActiveLink = (routePath) => {
     const route = useRoute();
     return route.path === routePath;
   };
+
+  const router = useRouter();
 
   defineProps({
     texts: {
@@ -35,6 +37,10 @@
 
   function expand(id) {
     emit("expand", id);
+  }
+
+  function goToEdit(id) {
+    router.push(`/edit/${id}`);
   }
 </script>
 
@@ -75,6 +81,13 @@
         Close
       </button>
     </div>
-    <slot />
+    <!-- Edit-button, navigates to EditTextView -->
+    <button
+      v-if="!isActiveLink('/published')"
+      @click="goToEdit(text.id)"
+      class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
+    >
+      Edit
+    </button>
   </article>
 </template>

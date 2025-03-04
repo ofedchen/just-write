@@ -1,17 +1,26 @@
 <script setup>
   import { ref, onMounted } from "vue";
+  import { useRouter, useRoute } from "vue-router";
 
-  const textId = route.params.id;
+  const route = useRoute();
+  const router = useRouter();
+
+  const textId = Number(route.params.id);
   const editedText = ref("");
   const textData = ref(null);
 
+  console.log(textId);
+
   onMounted(() => {
     const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
+    console.log(savedTexts);
     textData.value = savedTexts.find((t) => t.id === textId);
+    console.log(textData.value);
     if (textData.value) {
       editedText.value = textData.value.text;
+      console.log(editedText.value);
     } else {
-      router.push("/savedtexts"); // If error
+      // router.push("/savedtexts"); // If error
     }
   });
 
@@ -26,6 +35,7 @@
   }
 </script>
 
+<!-- använd samma writing component som för home -->
 <template>
   <div class="container mx-auto max-w-lg py-10">
     <h2 class="text-2xl font-semibold">Edit Text</h2>
