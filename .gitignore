@@ -16,3 +16,4 @@ node_modules
 #Visual Studio Code
 .vscode/
 database\ copy.json
+database.json
