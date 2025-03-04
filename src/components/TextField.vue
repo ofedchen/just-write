@@ -3,6 +3,7 @@
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
+  import { nextTick } from "vue";
 
   import { useInlogStatus } from "../store/";
 
@@ -19,47 +20,50 @@
       default: null
     },
     hidden: Boolean,
-    clearTextField: Boolean,
-    timePushedLogin: { type: Number, default: null }
+    clearTextField: Boolean
   });
 
   function saveText() {
+    emit("stopTimer");
+
     if (!userText.value.trim()) {
       toast.error("There's nothing to save yet - keep writing!");
       return;
     }
-    const savedText = {
-      id: Date.now(),
-      prompt: props.hidden ? "Free writing" : props.currentPrompt,
-      text: userText.value,
-      date: new Date().toLocaleDateString("se-SV"),
-      timedMinutes: inlog.minutes,
-      timedSeconds: inlog.seconds
-    };
+    nextTick(() => {
+      const savedText = {
+        id: Date.now(),
+        prompt: props.hidden ? "Free writing" : props.currentPrompt,
+        text: userText.value,
+        date: new Date().toLocaleDateString("se-SV"),
+        timedMinutes: inlog.minutes,
+        timedSeconds: inlog.seconds
+      };
 
-    if (inlog.status) {
-      storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
-      storedTexts.value.push(savedText);
-      localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+      if (inlog.status) {
+        storedTexts.value =
+          JSON.parse(localStorage.getItem("savedTexts")) || [];
+        storedTexts.value.push(savedText);
+        localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
-      if (showToast.value) toast.success("Your text is now saved!");
-      userText.value = "";
+        if (showToast.value) toast.success("Your text is now saved!");
+        userText.value = "";
 
-      emit("stopTimer");
-      inlog.userReturned = false;
-      // inlog.minutes = "10";
-      // inlog.seconds = "";
+        inlog.userReturned = false;
+        // inlog.minutes = null;
+        // inlog.seconds = null;
 
-      router.push({ path: "/savedtexts" });
-    } else {
-      emit("stopTimer");
-      const sessionText =
-        JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-      sessionText.push(savedText);
-      sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+        router.push({ path: "/savedtexts" });
+      } else {
+        emit("stopTimer");
+        const sessionText =
+          JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+        sessionText.push(savedText);
+        sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
 
-      router.push({ path: "/login" });
-    }
+        router.push({ path: "/login" });
+      }
+    });
   }
 
   const emit = defineEmits(["textStarted", "stopTimer"]);

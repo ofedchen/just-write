@@ -73,7 +73,7 @@
       "sec"
     );
 
-    if (!inlog.user) {
+    if (!inlog.status) {
       const sessionMinutes =
         JSON.parse(sessionStorage.getItem("savedMinutes")) || [];
       sessionMinutes.push(minutes);
@@ -83,10 +83,12 @@
       sessionSeconds.push(seconds);
       sessionStorage.setItem("savedSeconds", JSON.stringify(sessionSeconds));
     }
+
     elapsedMinutes.value = minutes;
     elapsedSeconds.value = seconds;
-    inlog.minutes = elapsedMinutes.value;
-    inlog.seconds = elapsedSeconds.value;
+
+    inlog.minutes = minutes;
+    inlog.seconds = seconds;
   }
 </script>
 
