@@ -45,7 +45,7 @@
       <span>{{ text.prompt }} </span>
     </h2>
     <h3 class="text-gray-600">Date: {{ text.date }}</h3>
-    <h3 class="text-gray-600">
+    <h3 v-if="!isActiveLink('/published')" class="text-gray-600">
       Time Writing: {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
     </h3>
     <h3 v-if="text.name">Author: {{ text.name }}</h3>

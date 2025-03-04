@@ -29,7 +29,7 @@
       const index = likes.indexOf(inlog.user);
       console.log(index);
 
-      if (index > 0) likes.splice(index, 1);
+      if (index >= 0) likes.splice(index, 1);
       else likes.push(inlog.user);
 
       try {
