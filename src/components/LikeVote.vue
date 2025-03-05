@@ -3,13 +3,12 @@
   import axios from "axios";
   import { useToast } from "vue-toastification";
 
-  import Message from "primevue/message";
+  import Popover from "primevue/popover";
   import { useInlogStatus } from "../store/";
 
   const inlog = useInlogStatus();
-  const toast = useToast();
-  // const likeInfo = ref(null);
-  const cantVote = ref(null);
+  // const toast = useToast();
+  const cantVote = ref(false);
 
   const props = defineProps({
     text: {
@@ -21,13 +20,10 @@
 
   console.log(inlog.user);
 
-  const addRemoveLike = async (id) => {
-    console.log("addRemove");
+  const addRemoveLike = async (id, event) => {
     if (inlog.status) {
-      console.log("logged in");
       const likes = props.text.likesList;
       const index = likes.indexOf(inlog.user);
-      console.log(index);
 
       if (index >= 0) likes.splice(index, 1);
       else likes.push(inlog.user);
@@ -44,22 +40,32 @@
         console.error("Error sending like", error);
       }
     } else {
-      cantVote.value = true;
-      toast.info("Log in to vote");
+      togglePopover(event);
     }
   };
+
+  function togglePopover(event) {
+    cantVote.value.toggle(event);
+  }
 </script>
 
 <template>
-  <Message v-if="cantVote" severity="info">Log in to rate text</Message>
+  <Popover ref="cantVote" @click="togglePopover"
+    ><span class="w-20 bg-yellow-200 p-4 rounded-lg shadow-lg z-10"
+      >Log in to star text</span
+    ></Popover
+  >
   <figure
-    @click="addRemoveLike(text.id)"
-    :class="
-      text.likesList.includes(inlog.user) ? 'bg-yellow-400' : 'bg-gray-50'
-    "
+    @click="addRemoveLike(text.id, $event)"
+    :class="[
+      text.likesList.includes(inlog.user) ? 'bg-yellow-400' : 'bg-gray-50',
+      'flex items-center justify-center w-8 h-8 rounded-full cursor-pointer'
+    ]"
   >
     <i
-      :class="text.likesList.includes(inlog.user) ? 'pi-star-fill' : 'pi-star'"
+      :class="
+        text.likesList.includes(inlog.user) ? 'pi pi-star-fill' : 'pi pi-star'
+      "
     />
   </figure>
 </template>

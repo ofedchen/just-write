@@ -45,8 +45,22 @@
 </script>
 
 <template>
-  <article class="container px-4 py-4" v-for="text in texts" :key="text.id">
-    <LikeVote v-if="!isActiveLink('/savedtexts')" :text="text" />
+  <article
+    :class="[
+      'container px-4 py-4',
+      isActiveLink('/published')
+        ? 'grid grid-cols-[40px_1fr] grid-rows-[auto]'
+        : ''
+    ]"
+    v-for="text in texts"
+    :key="text.id"
+  >
+    <div
+      v-if="!isActiveLink('/savedtexts')"
+      class="row-span-4 place-items-start"
+    >
+      <LikeVote :text="text" />
+    </div>
     <h2 class="font-[Overpass] text-[1.2em] font-semibold">
       <span>{{ text.prompt }} </span>
     </h2>
@@ -73,7 +87,7 @@
 
     <!-- close read more -->
     <div v-if="expandedText[text.id]">
-      <p class="w-full py-4">{{ text.text }}</p>
+      <p class="w-full py-4 col-span-2">{{ text.text }}</p>
       <button
         @click="expand(text.id)"
         class="underline bg-yellow-400 hover:bg-yellow-500 font-medium text-[1.05em] me-2 mb-2 cursor-pointer"
