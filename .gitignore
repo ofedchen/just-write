@@ -17,3 +17,5 @@ node_modules
 .vscode/
 database\ copy.json
 database.json
+src/database.json
+src/database_backup.json
