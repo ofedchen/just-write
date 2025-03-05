@@ -23,6 +23,20 @@
     clearTextField: Boolean
   });
 
+  onMounted(() => {
+    const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+    if (sessionText.length > 0) {
+      userText.value = sessionText[0].text;
+      inlog.userReturned = true;
+      // sessionStorage.removeItem("savedTexts");
+      sessionStorage.removeItem("savedMinutes");
+      sessionStorage.removeItem("savedSeconds");
+    }
+
+    showToast.value = true;
+  });
+
+  // SAVE TEXT
   function saveText() {
     if (!userText.value.trim()) {
       if (showToast.value)
@@ -65,14 +79,7 @@
     }
   }
 
-  const emit = defineEmits(["textStarted", "stopTimer"]);
-
-  function checkText() {
-    if (userText.value.trim()) {
-      emit("textStarted", userText.value);
-    }
-  }
-
+  //PUBLISH TEXT
   async function publishText() {
     showToast.value = false;
 
@@ -88,13 +95,12 @@
       likesList: []
     };
     if (inlog.status) {
-      inlog.userReturned = true;
-
       try {
         const response = await axios.post(`/api/publishedTexts`, savedText);
         toast.success("Your text has been published successfully");
 
         router.push({ path: "/published" });
+        inlog.userReturned = false;
         sessionStorage.removeItem("savedTexts");
       } catch (error) {
         console.error("Error publishing text", error);
@@ -111,18 +117,20 @@
       router.push({ path: "/login" });
     }
   }
-  onMounted(() => {
-    const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-    if (sessionText.length > 0) {
-      userText.value = sessionText[0].text;
-      inlog.userReturned = true;
-      // sessionStorage.removeItem("savedTexts");
-      sessionStorage.removeItem("savedMinutes");
-      sessionStorage.removeItem("savedSeconds");
-    }
 
-    showToast.value = true;
-  });
+  const emit = defineEmits(["textStarted", "stopTimer"]);
+
+  function checkText() {
+    if (userText.value.trim()) {
+      emit("textStarted", userText.value);
+    }
+  }
+
+  function clearAll() {
+    sessionStorage.removeItem("savedTexts");
+    userText.value = "";
+    inlog.userReturned = false;
+  }
 </script>
 
 <template>
@@ -150,6 +158,14 @@
       >
         Save text
       </button>
+    </div>
+    <div
+      v-if="inlog.userReturned"
+      @click="clearAll"
+      class="cursor-pointer flex items-center"
+    >
+      <p class="underline underline-offset-2 text-sm">Clear text and prompt</p>
+      <i class="pi pi-times text-sm px-2" />
     </div>
   </form>
 </template>
