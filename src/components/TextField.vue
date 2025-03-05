@@ -164,7 +164,7 @@
       @click="clearAll"
       class="cursor-pointer flex items-center"
     >
-      <p class="underline underline-offset-2 text-sm">Clear text and prompt</p>
+      <p class="underline underline-offset-2 text-sm">Clear text</p>
       <i class="pi pi-times text-sm px-2" />
     </div>
   </form>
