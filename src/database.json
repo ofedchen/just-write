@@ -242,6 +242,20 @@
       "password": "123456789",
       "firstname": "Kajsa",
       "surname": "Palmén"
+    },
+    {
+      "id": "f3a5",
+      "username": "rasmus",
+      "password": "admin1",
+      "firstname": "Rasmus",
+      "surname": "Hanzén"
+    },
+    {
+      "id": "68b2",
+      "username": "rasmus",
+      "password": "password",
+      "firstname": "Rasmus",
+      "surname": "Hanzén"
     }
   ],
   "publishedTexts": [
