@@ -48,7 +48,7 @@
   <article
     :class="[
       'container px-4 py-4',
-      isActiveLink('/published')
+      !isActiveLink('/savedtexts')
         ? 'grid grid-cols-[45px_1fr] grid-rows-[auto] gap-x-2'
         : ''
     ]"
@@ -65,7 +65,7 @@
       <span>{{ text.prompt }} </span>
     </h2>
     <h3 class="text-gray-600">Date: {{ text.date }}</h3>
-    <h3 v-if="!isActiveLink('/published')" class="text-gray-600">
+    <h3 v-if="isActiveLink('/savedtexts')" class="text-gray-600">
       Time Writing: {{ text.timedMinutes }} min {{ text.timedSeconds }} sec
     </h3>
     <h3 v-if="text.name">Author: {{ text.name }}</h3>
@@ -97,7 +97,7 @@
     </div>
     <!-- Edit-button, navigates to EditTextView -->
     <button
-      v-if="!isActiveLink('/published' || '/profile')"
+      v-if="isActiveLink('/savedtexts')"
       @click="goToEdit(text.id)"
       class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
     >
