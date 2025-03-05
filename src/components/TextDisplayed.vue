@@ -49,7 +49,7 @@
     :class="[
       'container px-4 py-4',
       isActiveLink('/published')
-        ? 'grid grid-cols-[40px_1fr] grid-rows-[auto]'
+        ? 'grid grid-cols-[45px_1fr] grid-rows-[auto] gap-x-2'
         : ''
     ]"
     v-for="text in texts"

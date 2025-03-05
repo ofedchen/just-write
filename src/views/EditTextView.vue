@@ -37,20 +37,24 @@
 
 <!-- använd samma writing component som för home -->
 <template>
-  <div class="container mx-auto max-w-lg py-10">
-    <h2 class="text-2xl font-semibold">Edit Text</h2>
-    <textarea v-model="editedText" class="border w-full h-40 p-2 mt-4" />
+  <div class="flex center flex-col max-w-220 m-auto">
+    <textarea
+      v-model="editedText"
+      rows="13"
+      cols="1"
+      class="border w-full h-auto p-4 text-[1.1em] text-gray-900 bg-gray-50 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500 block"
+    />
 
     <div class="mt-4 flex space-x-2">
       <button
         @click="saveEdit"
-        class="bg-blue-600 text-white px-4 py-2 rounded"
+        class="w-1/2 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
       >
-        Save
+        Save changes
       </button>
       <button
         @click="router.push('/savedtexts')"
-        class="bg-gray-600 text-white px-4 py-2 rounded"
+        class="w-1/2 border border-solid border-gray-400 text-gray px-4 py-2 rounded hover:bg-gray-100"
       >
         Cancel
       </button>
