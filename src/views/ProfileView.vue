@@ -1,38 +1,41 @@
 <script setup>
   import { RouterLink, RouterView } from "vue-router";
-  import { onMounted, ref, computed } from "vue";
+  import { onMounted, ref, watch } from "vue";
   // import { useRoute } from "vue-router";
   import { UserIcon } from "@heroicons/vue/24/solid";
   import axios from "axios";
   import { useInlogStatus } from "/src/store/";
   import { useProfileStore } from "/src/storeProfile/";
+  import TextDisplayed from "../components/TextDisplayed.vue";
 
   const inlog = useInlogStatus();
   const profile = useProfileStore();
-  const publishedTexts = ref("");
+  const publishedTexts = ref([]);
+  const likedTexts = ref([]);
+  const expandedText = ref({});
   const bioText = ref("");
   const authorText = ref("");
   const genreText = ref("");
   const bioSaved = ref(false);
+  const displayLikedTexts = ref(false);
 
   onMounted(async () => {
     bioSaved.value = true;
-    // function to fetch published texts from json
+
     try {
       const response = await axios.get(`/api/publishedTexts`);
       publishedTexts.value = response.data;
-
-      console.log("publicerade texter" + publishedTexts.value);
-      console.log("publicerade texter" + publishedTexts.value[0]);
-      const filtered = computed(() => {
-        return publishedTexts.value.filter((text) =>
-          text.published.likesList().includes(inlog.user)
-        );
-      });
-      console.log(filtered);
+      console.log(publishedTexts.value);
     } catch (error) {
       console.error("Error fetching texts", error);
     }
+  });
+
+  watch(publishedTexts, (newPublishedTexts) => {
+    likedTexts.value = newPublishedTexts.filter((text) =>
+      text.likesList.includes(inlog.user)
+    );
+    console.log("Filtered texts:", likedTexts.value);
   });
 
   const saveBio = () => {
@@ -44,6 +47,14 @@
   const editBio = () => {
     bioSaved.value = false;
   };
+  function readMoreLess(id) {
+    // function to expand and minimize saved texts
+    expandedText.value[id] = !expandedText.value[id];
+  }
+
+  function showLikedTexts() {
+    displayLikedTexts.value = !displayLikedTexts.value;
+  }
 </script>
 
 <template>
@@ -83,14 +94,16 @@
     </button>
   </div>
 
-  <!-- <div>
-      <h2>Gillade texter</h2>
-      <ol>
-        <li />
-      </ol>
-    </div>
+  <button @click="showLikedTexts" class="text-lg">Look at liked texts</button>
 
-    <RouterLink to="/savedtexts" class="ml-auto">
+  <TextDisplayed
+    v-if="displayLikedTexts"
+    :expanded-text="expandedText"
+    :texts="likedTexts"
+    @expand="readMoreLess"
+  />
+
+  <!-- <RouterLink to="/savedtexts" class="ml-auto">
       <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
     </RouterLink> -->
 </template>
