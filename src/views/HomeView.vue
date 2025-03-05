@@ -1,10 +1,9 @@
 <script setup>
-  import PromptGenarator from "../components/PromptGenerator.vue";
+  import PromptGenerator from "../components/PromptGenerator.vue";
   import TextField from "../components/TextField.vue";
   import TimerComponent from "../components/TimerComponent.vue";
-  import { ref, onMounted, watch, computed } from "vue";
+  import { ref, onMounted, computed } from "vue";
   import axios from "axios";
-  import { useToast } from "vue-toastification";
   import { useInlogStatus } from "../store/";
   import { useRouter } from "vue-router";
 
@@ -21,17 +20,18 @@
   const elapsedSeconds = ref(0);
 
   onMounted(async () => {
-    const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-    if (sessionText.length > 0) {
-      randomPrompt.value = sessionText[0].prompt;
-    } else {
-      try {
-        const response = await axios.get(`/api/randomPrompts`);
-        prompts.value = response.data;
+    try {
+      const response = await axios.get(`/api/randomPrompts`);
+      prompts.value = response.data;
+      const sessionText =
+        JSON.parse(sessionStorage.getItem("savedTexts")) || null;
+      if (sessionText) {
+        randomPrompt.value = sessionText[0].prompt;
+      } else {
         generatePrompt();
-      } catch (error) {
-        console.error("Error fetching prompts", error);
       }
+    } catch (error) {
+      console.error("Error fetching prompts", error);
     }
   });
 
@@ -116,7 +116,7 @@
       to day <span class="font-black text-[20px]">{{ daysWriting }}</span> of
       your writing journey!
     </p>
-    <PromptGenarator
+    <PromptGenerator
       @new-prompt="generatePrompt"
       @hide-prompt="hidePromptTimer"
       :current-prompt="randomPrompt"
@@ -127,7 +127,7 @@
         :stop-timer="stopTimer"
         @timer-stopped="handleTimerStopped"
       />
-    </PromptGenarator>
+    </PromptGenerator>
     <TextField
       :clear-text-field="textPublished"
       :current-prompt="randomPrompt"
