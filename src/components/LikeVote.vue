@@ -40,14 +40,18 @@
         console.error("Error sending like", error);
       }
     } else {
-      cantVote.value.toggle(event);
+      togglePopover(event);
     }
   };
+
+  function togglePopover(event) {
+    cantVote.value.toggle(event);
+  }
 </script>
 
 <template>
-  <Popover ref="cantVote"
-    ><span class="w-20 bg-blue-100 p-4 rounded-lg shadow-lg z-index"
+  <Popover ref="cantVote" @click="togglePopover"
+    ><span class="w-20 bg-yellow-200 p-4 rounded-lg shadow-lg z-10"
       >Log in to star text</span
     ></Popover
   >
