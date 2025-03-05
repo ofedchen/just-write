@@ -5,17 +5,18 @@
   import { UserIcon } from "@heroicons/vue/24/solid";
   import axios from "axios";
   import { useInlogStatus } from "/src/store/";
+  import { useProfileStore } from "/src/storeProfile/";
 
   const inlog = useInlogStatus();
-  const startEdit = ref(false);
+  const profile = useProfileStore();
   const publishedTexts = ref("");
-  console.log(inlog.firstname);
-
-  const editBio = () => {
-    startEdit.value = true;
-  };
+  const bioText = ref("");
+  const authorText = ref("");
+  const genreText = ref("");
+  const bioSaved = ref(false);
 
   onMounted(async () => {
+    bioSaved.value = true;
     // function to fetch published texts from json
     try {
       const response = await axios.get(`/api/publishedTexts`);
@@ -33,6 +34,16 @@
       console.error("Error fetching texts", error);
     }
   });
+
+  const saveBio = () => {
+    profile.bio = bioText.value;
+    profile.favoriteAuthors = authorText.value;
+    profile.favoriteGenres = genreText.value;
+    bioSaved.value = true;
+  };
+  const editBio = () => {
+    bioSaved.value = false;
+  };
 </script>
 
 <template>
@@ -42,31 +53,44 @@
     <div class="ml-20 mt-10 text-lg">
       <p>{{ inlog.firstname }} {{ inlog.surname }}</p>
     </div>
-
-    <p class="ml-20">Dark Mode</p>
   </div>
 
-  <div
-    @click="editBio"
-    v-if="!startEdit"
-    class="m-auto text-white bg-gray-800 h-50 mt-30 w-50 ml-100 rounded-lg shadow-md p-5"
+  <form
+    class="flex flex-col mt-60 w-50 mb-10"
+    @submit.prevent="saveBio"
+    action=""
+    v-if="!bioSaved"
   >
-    Här låter vi användaren skriva en biografi om sig själva
+    <label>Tell us something about yourself </label>
+    <input v-model="bioText" class="border border-gray-800" type="text" />
+    <label>Favourite author? </label>
+    <input v-model="authorText" class="border border-gray-800" type="text" />
+    <label>Favourite genre? </label>
+    <input v-model="genreText" class="border border-gray-800" type="text" />
+    <button class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2">
+      Save
+    </button>
+  </form>
+  <div v-if="bioSaved" class="flex flex-col mt-60 w-50 mb-10">
+    <p class="border-b border-gray-800">{{ profile.bio }}</p>
+    <p class="border-b border-gray-800">{{ profile.favoriteAuthors }}</p>
+    <p class="border-b border-gray-800">{{ profile.favoriteGenres }}</p>
+    <button
+      class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
+      @click="editBio"
+    >
+      Edit Bio
+    </button>
   </div>
 
-  <textarea
-    v-if="startEdit"
-    class="m-auto bg-gray-100 h-50 mt-30 w-50 ml-100 rounded-lg shadow-md p-5"
-  />
+  <!-- <div>
+      <h2>Gillade texter</h2>
+      <ol>
+        <li />
+      </ol>
+    </div>
 
-  <div>
-    <h2>Gillade texter</h2>
-    <ol>
-      <li />
-    </ol>
-  </div>
-
-  <RouterLink to="/savedtexts" class="ml-auto">
-    <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
-  </RouterLink>
+    <RouterLink to="/savedtexts" class="ml-auto">
+      <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
+    </RouterLink> -->
 </template>

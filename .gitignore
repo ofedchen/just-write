@@ -20,3 +20,4 @@ node_modules
 database\ copy.json
 database.json
 database2.json
+src/database.json

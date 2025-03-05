@@ -104,41 +104,43 @@
   };
 
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
-  watch(
-    [username, password, termsChecked],
-    ([watchUsername, watchPassword, watchTerms]) => {
-      if (
-        watchUsername.length >= 6 &&
-        watchPassword.length >= 6 &&
-        watchTerms
-      ) {
-        completeInlog.value = "#2d3748";
-        completeInlogBoolean.value = true;
-        textColor.value = "white";
-      } else {
-        completeInlog.value = "#E2E8F0";
-        completeInlogBoolean.value = false;
-        textColor.value = "black";
-      }
+  watch([username, password], ([watchUsername, watchPassword]) => {
+    if (watchUsername.length >= 6 && watchPassword.length >= 6) {
+      completeInlog.value = "#2d3748";
+      completeInlogBoolean.value = true;
+      textColor.value = "white";
+    } else {
+      completeInlog.value = "#E2E8F0";
+      completeInlogBoolean.value = false;
+      textColor.value = "black";
     }
-  );
+  });
 
   // Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
   watch(
-    [firstname, surname, newUsername, newPasswordFirst, newPasswordSecond],
+    [
+      firstname,
+      surname,
+      newUsername,
+      newPasswordFirst,
+      newPasswordSecond,
+      termsChecked
+    ],
     ([
       checkFirstname,
       checkSurname,
       checkUsername,
       checkPasswordFirst,
-      checkPasswordSecond
+      checkPasswordSecond,
+      watchTerms
     ]) => {
       if (
-        checkFirstname.length > 0 &&
-        checkSurname.length > 0 &&
-        checkUsername.length >= 6 &&
-        checkPasswordFirst.length >= 6 &&
-        checkPasswordFirst === checkPasswordSecond
+        (checkFirstname.length > 0 &&
+          checkSurname.length > 0 &&
+          checkUsername.length >= 6 &&
+          checkPasswordFirst.length >= 6 &&
+          checkPasswordFirst === checkPasswordSecond,
+        watchTerms)
       ) {
         createAccountFilled.value = true;
         createAccountFilledColour.value = "#eab308";
@@ -229,10 +231,6 @@
     >
       Sign in
     </button>
-    <p class="m-auto pr-3 pl-3">
-      <input type="checkbox" v-model="termsChecked" />
-      By continuing, you agree to the Terms of Service, and Privacy Policy.
-    </p>
 
     <p
       @click="skipToCreateProfile"
@@ -324,6 +322,11 @@
     >
       Sign up!
     </button>
+
+    <p class="m-auto pr-3 pl-3">
+      <input type="checkbox" v-model="termsChecked" />
+      By continuing, you agree to the Terms of Service, and Privacy Policy.
+    </p>
 
     <p
       @click="skipCreate"
