@@ -30,14 +30,6 @@
       return;
     }
 
-    // const savedTexts = JSON.parse(sessionStorage.getItem("savedTexts"));
-    // console.log(savedTexts, "saving");
-    // let savedText;
-    // // nextTick(() => {
-    // if (savedTexts && savedTexts.length > 0) {
-    //   savedText = savedTexts[0];
-    //   console.log(savedText);
-    // } else {
     const savedText = {
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
@@ -46,7 +38,6 @@
       timedMinutes: inlog.minutes,
       timedSeconds: inlog.seconds
     };
-    // }
 
     if (inlog.status) {
       emit("stopTimer");
@@ -72,7 +63,6 @@
 
       router.push({ path: "/login" });
     }
-    // });
   }
 
   const emit = defineEmits(["textStarted", "stopTimer"]);
@@ -112,8 +102,6 @@
       }
     } else {
       emit("stopTimer");
-
-      // console.log(props.timePushedLogin);
 
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
