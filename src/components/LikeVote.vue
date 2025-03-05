@@ -1,13 +1,10 @@
 <script setup>
-  import { ref } from "vue";
+  import { ref, computed } from "vue";
   import axios from "axios";
-  import { useToast } from "vue-toastification";
-
   import Popover from "primevue/popover";
   import { useInlogStatus } from "../store/";
 
   const inlog = useInlogStatus();
-  // const toast = useToast();
   const cantVote = ref(false);
 
   const props = defineProps({
@@ -44,6 +41,8 @@
     }
   };
 
+  const starsCount = computed(() => props.text.likesList.length);
+
   function togglePopover(event) {
     cantVote.value.toggle(event);
   }
@@ -57,15 +56,20 @@
   >
   <figure
     @click="addRemoveLike(text.id, $event)"
-    :class="[
-      text.likesList.includes(inlog.user) ? 'bg-yellow-400' : 'bg-gray-50',
-      'flex items-center justify-center w-8 h-8 rounded-full cursor-pointer'
-    ]"
+    class="flex flex-col items-center px-1"
   >
-    <i
-      :class="
-        text.likesList.includes(inlog.user) ? 'pi pi-star-fill' : 'pi pi-star'
-      "
-    />
+    <div
+      :class="[
+        text.likesList.includes(inlog.user) ? 'bg-yellow-400' : 'bg-gray-50',
+        'flex items-center justify-center w-8 h-8 rounded-full cursor-pointer'
+      ]"
+    >
+      <i
+        :class="
+          text.likesList.includes(inlog.user) ? 'pi pi-star-fill' : 'pi pi-star'
+        "
+      />
+    </div>
+    <figcaption>{{ starsCount }}</figcaption>
   </figure>
 </template>

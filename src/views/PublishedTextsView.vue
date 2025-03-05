@@ -111,7 +111,7 @@
     Published by community
   </h2>
   <main
-    class="grid grid-cols-1 lg:grid-cols-4 gap-4 px-4 lg:px-[0.5em] mx-4 lg:mx-10"
+    class="grid grid-cols-1 lg:grid-cols-4 gap-4 px-4 lg:px-[0.5em] mx-2 md:mx-4 lg:mx-10"
   >
     <section class="py-8 bg-gray-50 mb-4 lg:col-span-3">
       <SortAndSearch
