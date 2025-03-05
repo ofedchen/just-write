@@ -21,12 +21,17 @@
   const elapsedSeconds = ref(0);
 
   onMounted(async () => {
-    try {
-      const response = await axios.get(`/api/randomPrompts`);
-      prompts.value = response.data;
-      generatePrompt();
-    } catch (error) {
-      console.error("Error fetching prompts", error);
+    const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+    if (sessionText.length > 0) {
+      randomPrompt.value = sessionText[0].prompt;
+    } else {
+      try {
+        const response = await axios.get(`/api/randomPrompts`);
+        prompts.value = response.data;
+        generatePrompt();
+      } catch (error) {
+        console.error("Error fetching prompts", error);
+      }
     }
   });
 

@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, defineEmits, watch, onMounted } from "vue";
+  import { ref, onMounted } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -24,46 +24,55 @@
   });
 
   function saveText() {
-    emit("stopTimer");
-
     if (!userText.value.trim()) {
-      toast.error("There's nothing to save yet - keep writing!");
+      if (showToast.value)
+        toast.error("There's nothing to save yet - keep writing!");
       return;
     }
-    nextTick(() => {
-      const savedText = {
-        id: Date.now(),
-        prompt: props.hidden ? "Free writing" : props.currentPrompt,
-        text: userText.value,
-        date: new Date().toLocaleDateString("se-SV"),
-        timedMinutes: inlog.minutes,
-        timedSeconds: inlog.seconds
-      };
 
-      if (inlog.status) {
-        storedTexts.value =
-          JSON.parse(localStorage.getItem("savedTexts")) || [];
-        storedTexts.value.push(savedText);
-        localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+    // const savedTexts = JSON.parse(sessionStorage.getItem("savedTexts"));
+    // console.log(savedTexts, "saving");
+    // let savedText;
+    // // nextTick(() => {
+    // if (savedTexts && savedTexts.length > 0) {
+    //   savedText = savedTexts[0];
+    //   console.log(savedText);
+    // } else {
+    const savedText = {
+      id: Date.now(),
+      prompt: props.hidden ? "Free writing" : props.currentPrompt,
+      text: userText.value,
+      date: new Date().toLocaleDateString("se-SV"),
+      timedMinutes: inlog.minutes,
+      timedSeconds: inlog.seconds
+    };
+    // }
 
-        if (showToast.value) toast.success("Your text is now saved!");
-        userText.value = "";
+    if (inlog.status) {
+      emit("stopTimer");
+      storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
+      storedTexts.value.push(savedText);
+      localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+      sessionStorage.removeItem("savedTexts");
 
-        inlog.userReturned = false;
-        // inlog.minutes = null;
-        // inlog.seconds = null;
+      if (showToast.value) toast.success("Your text is now saved!");
+      userText.value = "";
 
-        router.push({ path: "/savedtexts" });
-      } else {
-        emit("stopTimer");
-        const sessionText =
-          JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-        sessionText.push(savedText);
-        sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+      inlog.userReturned = false;
+      // inlog.minutes = null;
+      // inlog.seconds = null;
 
-        router.push({ path: "/login" });
-      }
-    });
+      router.push({ path: "/savedtexts" });
+    } else {
+      emit("stopTimer");
+      const sessionText = [];
+      sessionText.push(savedText);
+      console.log(sessionText);
+      sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
+      router.push({ path: "/login" });
+    }
+    // });
   }
 
   const emit = defineEmits(["textStarted", "stopTimer"]);
@@ -95,7 +104,8 @@
         const response = await axios.post(`/api/publishedTexts`, savedText);
         toast.success("Your text has been published successfully");
 
-        /*         router.push({ path: "/published" }); */
+        router.push({ path: "/published" });
+        sessionStorage.removeItem("savedTexts");
       } catch (error) {
         console.error("Error publishing text", error);
         toast.error("Text hasn't been published");
@@ -118,7 +128,7 @@
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
       inlog.userReturned = true;
-      sessionStorage.removeItem("savedTexts");
+      // sessionStorage.removeItem("savedTexts");
       sessionStorage.removeItem("savedMinutes");
       sessionStorage.removeItem("savedSeconds");
     }
