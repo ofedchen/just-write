@@ -97,7 +97,7 @@
     </div>
     <!-- Edit-button, navigates to EditTextView -->
     <button
-      v-if="!isActiveLink('/published' && '/profile')"
+      v-if="!isActiveLink('/published' || '/profile')"
       @click="goToEdit(text.id)"
       class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
     >
