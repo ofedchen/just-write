@@ -9,18 +9,14 @@
   const editedText = ref("");
   const textData = ref(null);
 
-  console.log(textId);
-
   onMounted(() => {
     const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
     console.log(savedTexts);
     textData.value = savedTexts.find((t) => t.id === textId);
-    console.log(textData.value);
     if (textData.value) {
       editedText.value = textData.value.text;
-      console.log(editedText.value);
     } else {
-      // router.push("/savedtexts"); // If error
+      router.push("/savedtexts"); // If error
     }
   });
 
@@ -35,7 +31,6 @@
   }
 </script>
 
-<!-- använd samma writing component som för home -->
 <template>
   <div class="flex center flex-col max-w-220 m-auto">
     <textarea
