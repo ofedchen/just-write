@@ -9,8 +9,6 @@
   const editedText = ref("");
   const textData = ref(null);
 
-  console.log(textId);
-
   onMounted(() => {
     const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
     console.log(savedTexts);
@@ -18,7 +16,7 @@
     if (textData.value) {
       editedText.value = textData.value.text;
     } else {
-      // router.push("/savedtexts"); // If error
+      router.push("/savedtexts"); // If error
     }
   });
 
