@@ -48,7 +48,7 @@
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString("se-SV"),
+      date: new Date().toLocaleDateString("en-US"),
       timedMinutes: inlog.minutes,
       timedSeconds: inlog.seconds
     };
@@ -91,7 +91,7 @@
       name: inlog.user,
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString("se-SV"),
+      date: new Date().toLocaleDateString("en-US"),
       likesList: []
     };
     if (inlog.status) {
