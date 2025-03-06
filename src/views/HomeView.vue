@@ -106,7 +106,7 @@
   >
     <p
       v-show="!inlog.status"
-      class="font-[Special_Elite] text-[14px] text-left w-[80%] lg:w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
+      class="font-[Special_Elite] text-[18px] text-left w-[80%] lg:w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
     >
       “Small habits, when repeated consistently, lead to remarkable results.” -
       James Clear
