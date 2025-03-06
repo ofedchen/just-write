@@ -15,7 +15,6 @@
     try {
       const response = await axios.get(`/api/publishedTexts`);
       publishedTexts.value = response.data.toReversed();
-      console.log(publishedTexts.value);
       // setting an Object with texts id as keys and false as default value to show short version of text
       for (const text of publishedTexts.value) {
         expandedText.value[text.id] = false;
@@ -33,14 +32,12 @@
   const filtered = computed(() => {
     if (publishedTexts.value.length > 0) {
       return publishedTexts.value.filter((text) => {
-        console.log(searchValue.value);
         const searchMatch =
           text.prompt.toLowerCase().includes(searchValue.value.toLowerCase()) ||
           text.name.toLowerCase().includes(searchValue.value.toLowerCase()) ||
           text.text.toLowerCase().includes(searchValue.value.toLowerCase()) ||
           text.date.toLowerCase().includes(searchValue.value.toLowerCase());
 
-        console.log(searchMatch);
         const monthMatch =
           searchMonth.value === "" ||
           text.date.startsWith(searchMonth.value + "/");

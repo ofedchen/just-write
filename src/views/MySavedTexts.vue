@@ -2,13 +2,11 @@
   import { ref, onMounted, computed } from "vue";
   import SortAndSearch from "../components/SortAndSearch.vue";
   import TextDisplayed from "../components/TextDisplayed.vue";
-  // import { useInlogStatus } from "../store/";
 
   const savedTexts = ref([]);
   const expandedText = ref({});
   const searchValue = ref("");
   const sorted = ref(false);
-  // const inlog = useInlogStatus();
 
   onMounted(() => {
     // function to sync saved texts with the local storage
@@ -64,6 +62,5 @@
       :texts="filtered"
       @expand="readMoreLess"
     />
-    <!-- <TimerComponent @timer-stopped="handleTimerStopped" /> -->
   </main>
 </template>

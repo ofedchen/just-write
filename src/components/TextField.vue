@@ -25,16 +25,11 @@
 
   onMounted(() => {
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-    // inlog.minutes = JSON.parse(sessionStorage.getItem("savedMinutes")) || null;
-    // inlog.seconds = JSON.parse(sessionStorage.getItem("savedSeconds")) || null;
+
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
       inlog.userReturned = true;
-      // sessionStorage.removeItem("savedTexts");
-      // sessionStorage.removeItem("savedMinutes");
-      // sessionStorage.removeItem("savedSeconds");
     }
-    console.log("min", inlog.minutes, "sec", inlog.seconds);
 
     showToast.value = true;
   });
