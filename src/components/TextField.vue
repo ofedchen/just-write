@@ -52,17 +52,21 @@
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
       date: new Date().toLocaleDateString("en-US"),
-      timedMinutes: inlog.minutes,
-      timedSeconds: inlog.seconds
+      timedMinutes: [inlog.minutes],
+      timedSeconds: [inlog.seconds]
     };
 
     console.log(savedText);
 
     if (inlog.status) {
-      savedText.timedMinutes =
-        JSON.parse(sessionStorage.getItem("savedMinutes")) || inlog.minutes;
-      savedText.timedSeconds =
-        JSON.parse(sessionStorage.getItem("savedSeconds")) || inlog.seconds;
+      if (sessionStorage.getItem("savedMinutes")) {
+        savedText.timedMinutes = JSON.parse(
+          sessionStorage.getItem("savedMinutes")
+        );
+        savedText.timedSeconds = JSON.parse(
+          sessionStorage.getItem("savedSeconds")
+        );
+      }
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
