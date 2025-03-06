@@ -13,7 +13,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
   const emit = defineEmits(["timerStopped"]);
 
-  const startTime = 1000; /* 120200; */
+  const startTime = 120200;
   const now = ref(0);
   const countDownTime = ref(startTime);
   const timeRemaining = ref(startTime);
@@ -79,7 +79,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
       if (newTimeRemaining === 0) {
         timerEnded.value = true;
 
-        let audio = new Audio("public/sounds/buzz.wav");
+        let audio = new Audio("public/sounds/singing-bowl.wav");
         audio.play();
       }
     }
@@ -111,13 +111,13 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 <template>
   <div
     class="font-[Special_Elite] bg-gray-800 text-white text-center rounded-lg text-lg font-semibold p-2 w-auto shadow-lg shadow-gray-900/50"
-    :class="{ 'bg-gray-800 opacity-10': timerEnded }"
+    :class="{ 'bg-red-800': timerEnded }"
   >
     <p v-if="!timerEnded" class="text-[1.12em]">
       {{ countDownMin }}<span class="text-sm text-gray-400">m</span>
       {{ ": " + countDownSec }}<span class="text-sm text-gray-400">s</span>
     </p>
-    <p v-if="timerEnded">0m:0s</p>
+    <p v-if="timerEnded">Times up</p>
   </div>
   <p v-show="showTotalElapsedTime">
     Congrats you wrote for {{ totalElapsedMin }} min {{ totalElapsedSec }} sec

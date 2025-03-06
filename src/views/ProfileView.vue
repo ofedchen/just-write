@@ -43,7 +43,8 @@
     profile.bio = bioText.value;
     profile.favoriteAuthors = authorText.value;
     profile.favoriteGenres = genreText.value;
-    profile.favoriteBook = bookText.value.vale;
+    profile.favoriteBook = bookText.value;
+
     bioSaved.value = true;
   };
   const editBio = () => {
@@ -87,10 +88,18 @@
     </button>
   </form>
   <div v-if="bioSaved" class="flex flex-col mt-60 w-50 mb-10">
-    <p class="border-b border-gray-800">{{ profile.bio }}</p>
-    <p class="border-b border-gray-800">{{ profile.favoriteAuthors }}</p>
-    <p class="border-b border-gray-800">{{ profile.favoriteGenres }}</p>
-    <p class="border-b border-gray-800">{{ profile.favoriteBook }}</p>
+    <label>About me </label>
+
+    <p class="border-b border-gray-800 p-3">{{ profile.bio }}</p>
+    <label>Favourite author? </label>
+
+    <p class="border-b border-gray-800 p-3">{{ profile.favoriteAuthors }}</p>
+    <label>Favourite genre? </label>
+
+    <p class="border-b border-gray-800 p-3">{{ profile.favoriteGenres }}</p>
+    <label>Favourite book? </label>
+
+    <p class="border-b border-gray-800 p-3">{{ profile.favoriteBook }}</p>
 
     <button
       class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
@@ -100,7 +109,12 @@
     </button>
   </div>
 
-  <button @click="showLikedTexts" class="text-lg">Look at liked texts</button>
+  <button
+    @click="showLikedTexts"
+    class="text-lg bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
+  >
+    Look at liked texts
+  </button>
 
   <TextDisplayed
     v-if="displayLikedTexts"
