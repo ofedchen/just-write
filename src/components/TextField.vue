@@ -25,8 +25,8 @@
 
   onMounted(() => {
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-    inlog.minutes = JSON.parse(sessionStorage.getItem("savedMinutes")) || null;
-    inlog.seconds = JSON.parse(sessionStorage.getItem("savedSeconds")) || null;
+    // inlog.minutes = JSON.parse(sessionStorage.getItem("savedMinutes")) || null;
+    // inlog.seconds = JSON.parse(sessionStorage.getItem("savedSeconds")) || null;
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
       inlog.userReturned = true;
@@ -65,6 +65,10 @@
     console.log(savedText);
 
     if (inlog.status) {
+      savedText.timedMinutes =
+        JSON.parse(sessionStorage.getItem("savedMinutes"))[0] || inlog.minutes;
+      savedText.timedSeconds =
+        JSON.parse(sessionStorage.getItem("savedSeconds"))[0] || inlog.seconds;
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
@@ -77,12 +81,9 @@
       userText.value = "";
 
       inlog.userReturned = false;
-      // inlog.minutes = null;
-      // inlog.seconds = null;
 
       router.push({ path: "/savedtexts" });
     } else {
-      // emit("stopTimer");
       const sessionText = [];
       sessionText.push(savedText);
       console.log(sessionText);
