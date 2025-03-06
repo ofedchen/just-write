@@ -7,6 +7,7 @@ export const useProfileStore = defineStore(
     const bio = ref("");
     const favoriteAuthors = ref("");
     const favoriteGenres = ref("");
+    const favoriteBook = ref("");
 
     const updateProfile = (data) => {
       bio.value = data.bio;
@@ -18,6 +19,7 @@ export const useProfileStore = defineStore(
       bio,
       favoriteAuthors,
       favoriteGenres,
+      favoriteBook,
       updateProfile
     };
   },
