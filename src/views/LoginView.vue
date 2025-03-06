@@ -29,6 +29,7 @@
   const passwordIsVisible = ref(false);
   const firstname = ref("");
   const surname = ref("");
+  const errorCreatingProfile = ref(false);
 
   // Här skapar vi profil
 
@@ -37,9 +38,9 @@
   async function sendUserData() {
     const users = {
       username: newUsername.value,
-      password: newPasswordSecond.value,
-      firstname: firstname.value,
-      surname: surname.value
+      password: newPasswordSecond.value
+      // firstname: firstname.value,
+      // surname: surname.value
     };
 
     try {
@@ -158,7 +159,7 @@
         } else {
           borderRedGreen.value = "#991b1b";
         }
-        borderWidth.value = "3px";
+        borderWidth.value = "1px";
       } else {
         borderRedGreen.value = "";
         borderWidth.value = "1px";
@@ -191,7 +192,7 @@
     @submit.prevent="loginFunction"
     class="flex flex-col max-w-md mb-8 space-y-4 m-auto flex"
   >
-    <p class="text-blue-800 mb-1" v-if="username">Username</p>
+    <p class="text-blue-800 mb-1">Username</p>
 
     <input
       type="text"
@@ -201,7 +202,7 @@
       class="w-[80vw] lg:w-full border-b border-gray-400 p-[0.3em] max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="username"
     />
-    <p class="text-blue-800 mb-1" v-if="password">Password</p>
+    <p class="text-blue-800 mb-1">Password</p>
 
     <div
       class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
@@ -239,13 +240,13 @@
       Not yet a member? Create your profile here!
     </p>
   </form>
-
-  <form
-    v-if="!profileCreated"
-    @submit.prevent="createProfile"
-    class="flex flex-col"
-  >
-    <input
+  <div class="flex place-content-center m-auto">
+    <form
+      v-if="!profileCreated"
+      @submit.prevent="createProfile"
+      class="flex flex-col"
+    >
+      <!-- <input
       type="text"
       name=""
       id=""
@@ -261,78 +262,92 @@
       placeholder="Enter your surname here"
       class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="surname"
-    />
+    /> -->
 
-    <input
-      type="text"
-      name=""
-      id=""
-      placeholder="Enter your new username here"
-      class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
-      v-model="newUsername"
-    />
+      <!-- Lägg till id och name till input-fält -->
+      <!-- Flytta för och efternamn till profil -->
+      <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
+        Username
+      </p>
 
-    <div
-      class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
-    >
       <input
-        :type="!passwordIsVisible ? 'password' : 'text'"
+        type="text"
         name=""
         id=""
-        placeholder="Enter your password here"
-        :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-        class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
-        v-model="newPasswordFirst"
+        placeholder="Enter your new username here"
+        class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-4 space-y-4 m-auto outline-none"
+        v-model="newUsername"
       />
+      <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
+        Password
+      </p>
 
-      <button
-        type="button"
-        @click="togglePasswordVisibility"
-        class="cursor-pointer"
+      <div class="w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
+        <input
+          :type="!passwordIsVisible ? 'password' : 'text'"
+          name=""
+          id=""
+          placeholder="Minimum 6 characters"
+          :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
+          class="border-b border-gray-400 mb-5 p-[0.3em] w-full -mr-10 outline-none"
+          v-model="newPasswordFirst"
+        />
+
+        <button
+          type="button"
+          @click="togglePasswordVisibility"
+          class="cursor-pointer"
+        >
+          <EyeIcon class="w-8 h-8 -mb-2" />
+        </button>
+      </div>
+      <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
+        Password
+      </p>
+
+      <div
+        class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
       >
-        <EyeIcon class="w-8 h-8 mb-4" />
-      </button>
-    </div>
+        <input
+          :type="!passwordIsVisible ? 'password' : 'text'"
+          name=""
+          id=""
+          placeholder="Enter your password again"
+          :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
+          class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
+          v-model="newPasswordSecond"
+        />
 
-    <div
-      class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
-    >
-      <input
-        :type="!passwordIsVisible ? 'password' : 'text'"
-        name=""
-        id=""
-        placeholder="Enter your password again"
-        :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
-        class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
-        v-model="newPasswordSecond"
-      />
+        <button
+          type="button"
+          @click="togglePasswordVisibility"
+          class="cursor-pointer"
+        >
+          <EyeIcon class="w-8 h-8 mb-4" />
+        </button>
+      </div>
+      <p class="text-gray-600 m-auto text-sm mb-3">
+        Password and username must contain atleast 6 characters
+      </p>
       <button
-        type="button"
-        @click="togglePasswordVisibility"
-        class="cursor-pointer"
+        :disabled="createAccountFilled"
+        :style="{ backgroundColor: createAccountFilledColour }"
+        class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
       >
-        <EyeIcon class="w-8 h-8 mb-4" />
+        Sign up!
       </button>
-    </div>
 
-    <button
-      :disabled="!createAccountFilled"
-      :style="{ backgroundColor: createAccountFilledColour }"
-      class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
-    >
-      Sign up!
-    </button>
+      <p class="m-auto pr-3 pl-3">
+        <input type="checkbox" v-model="termsChecked" />
+        By continuing, you agree to the Terms of Service, and Privacy Policy.
+      </p>
 
-    <p class="m-auto pr-3 pl-3">
-      <input type="checkbox" v-model="termsChecked" />
-      By continuing, you agree to the Terms of Service, and Privacy Policy.
-    </p>
-
-    <p
-      @click="skipCreate"
-      class="text-blue-800 cursor-pointer m-auto pr-3 pl-3 mb-50"
-    >
-      Already a member? Sign in here!
-    </p>
-  </form>
+      <p
+        @click="skipCreate"
+        class="text-blue-800 cursor-pointer m-auto pr-3 pl-3 mb-50"
+      >
+        Already a member? Sign in here!
+      </p>
+    </form>
+  </div>
 </template>
