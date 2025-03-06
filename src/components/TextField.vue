@@ -1,5 +1,5 @@
 <script setup>
-  import { defineExpose, ref, onMounted, watch } from "vue";
+  import { ref, onMounted, watch } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -23,18 +23,25 @@
   });
 
   onMounted(() => {
+    showToast.value = true;
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-
+    console.log(inlog.returningUser);
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
-      inlog.userReturned = true;
+      inlog.returningUser.status = true;
+      if (inlog.returningUser.action === "save") setTimeout(f, 800);
+      if (inlog.returningUser.action === "publish") {
+        setTimeout(publishText, 800);
+        setTimeout(f, 801);
+      }
+    } else {
+      inlog.returningUser.status = false;
     }
-
-    showToast.value = true;
   });
 
   // SAVE TEXT
   function saveText() {
+    console.log("started saving");
     if (!userText.value.trim()) {
       if (showToast.value)
         toast.error("There's nothing to save yet - keep writing!");
@@ -46,14 +53,13 @@
   function f() {
     console.log(inlog.minutes, inlog.seconds, inlog.status);
 
-    console.log("creating saved text");
     const savedText = {
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
       date: new Date().toLocaleDateString("en-US"),
-      timedMinutes: [inlog.minutes],
-      timedSeconds: [inlog.seconds]
+      timedMinutes: inlog.minutes,
+      timedSeconds: inlog.seconds
     };
 
     console.log(savedText);
@@ -62,23 +68,26 @@
       if (sessionStorage.getItem("savedMinutes")) {
         savedText.timedMinutes = JSON.parse(
           sessionStorage.getItem("savedMinutes")
-        );
+        )[0];
         savedText.timedSeconds = JSON.parse(
           sessionStorage.getItem("savedSeconds")
-        );
+        )[0];
       }
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
-      sessionStorage.removeItem("savedTexts");
-      sessionStorage.removeItem("savedMinutes");
-      sessionStorage.removeItem("savedSeconds");
+      if (inlog.returningUser.action !== "publish") {
+        sessionStorage.removeItem("savedTexts");
+        sessionStorage.removeItem("savedMinutes");
+        sessionStorage.removeItem("savedSeconds");
+      }
 
       if (showToast.value) toast.success("Your text is now saved!");
       userText.value = "";
 
-      inlog.userReturned = false;
+      inlog.returningUser.status = false;
+      inlog.returningUser.action = "";
 
       router.push({ path: "/savedtexts" });
     } else {
@@ -86,6 +95,8 @@
       sessionText.push(savedText);
       console.log(sessionText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+      inlog.returningUser.action = "save";
+      inlog.returningUser.status = true;
 
       router.push({ path: "/login" });
     }
@@ -112,19 +123,21 @@
         toast.success("Your text has been published successfully");
 
         router.push({ path: "/published" });
-        inlog.userReturned = false;
+        inlog.returningUser.status = false;
         sessionStorage.removeItem("savedTexts");
       } catch (error) {
         console.error("Error publishing text", error);
         toast.error("Text hasn't been published");
       }
     } else {
-      emit("stopTimer");
-
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+      inlog.returningUser.action = "publish";
+      inlog.returningUser.status = true;
+
+      emit("stopTimer");
 
       router.push({ path: "/login" });
     }
@@ -141,7 +154,7 @@
   function clearAll() {
     sessionStorage.removeItem("savedTexts");
     userText.value = "";
-    inlog.userReturned = false;
+    inlog.returningUser.status = false;
   }
 
   defineExpose({ f });
@@ -174,7 +187,7 @@
       </button>
     </div>
     <div
-      v-if="inlog.userReturned"
+      v-if="inlog.returningUser.status"
       @click="clearAll"
       class="cursor-pointer flex items-center"
     >

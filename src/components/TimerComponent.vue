@@ -122,7 +122,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   <p v-show="showTotalElapsedTime">
     Congrats you wrote for {{ totalElapsedMin }} min {{ totalElapsedSec }} sec
   </p>
-  <p v-if="inlog.userReturned">
+  <p v-if="inlog.returningUser.status">
     Congrats you wrote for {{ sessionMinutes[0] }} min
     {{ sessionSeconds[0] }} sec
   </p>

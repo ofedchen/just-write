@@ -96,7 +96,7 @@
     inlog.minutes = minutes;
     inlog.seconds = seconds;
 
-    textField.value.f();
+    if (inlog.returningUser.action === "") textField.value.f();
   }
 </script>
 
