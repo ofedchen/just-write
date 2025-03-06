@@ -27,8 +27,9 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
-  const firstname = ref("");
-  const surname = ref("");
+  // const firstname = ref("");
+  // const surname = ref("");
+  // const errorCreatingProfile = ref(false);
 
   // Här skapar vi profil
 
@@ -43,7 +44,7 @@
     };
 
     try {
-      const response = await axios.post(`/api/userInfo`, users);
+      await axios.post(`/api/userInfo`, users);
       toast.success("You have successfully created a profile");
     } catch (error) {
       console.error("Error creating profile", error);
@@ -118,26 +119,10 @@
 
   // Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
   watch(
-    [
-      firstname,
-      surname,
-      newUsername,
-      newPasswordFirst,
-      newPasswordSecond,
-      termsChecked
-    ],
-    ([
-      checkFirstname,
-      checkSurname,
-      checkUsername,
-      checkPasswordFirst,
-      checkPasswordSecond,
-      watchTerms
-    ]) => {
+    [newUsername, newPasswordFirst, newPasswordSecond, termsChecked],
+    ([checkUsername, checkPasswordFirst, checkPasswordSecond, watchTerms]) => {
       if (
-        (checkFirstname.length > 0 &&
-          checkSurname.length > 0 &&
-          checkUsername.length >= 6 &&
+        (checkUsername.length >= 6 &&
           checkPasswordFirst.length >= 6 &&
           checkPasswordFirst === checkPasswordSecond,
         watchTerms)
@@ -329,7 +314,7 @@
         Password and username must contain atleast 6 characters
       </p>
       <button
-        :disabled="createAccountFilled"
+        :disabled="!createAccountFilled"
         :style="{ backgroundColor: createAccountFilledColour }"
         class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
       >
