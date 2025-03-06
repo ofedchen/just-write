@@ -16,6 +16,7 @@
   const bioText = ref("");
   const authorText = ref("");
   const genreText = ref("");
+  const bookText = ref("");
   const bioSaved = ref(false);
   const displayLikedTexts = ref(false);
 
@@ -42,6 +43,7 @@
     profile.bio = bioText.value;
     profile.favoriteAuthors = authorText.value;
     profile.favoriteGenres = genreText.value;
+    profile.favoriteBook = bookText.value.vale;
     bioSaved.value = true;
   };
   const editBio = () => {
@@ -78,6 +80,8 @@
     <input v-model="authorText" class="border border-gray-800" type="text" />
     <label>Favourite genre? </label>
     <input v-model="genreText" class="border border-gray-800" type="text" />
+    <label>Favourite book? </label>
+    <input v-model="bookText" class="border border-gray-800" type="text" />
     <button class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2">
       Save
     </button>
@@ -86,6 +90,8 @@
     <p class="border-b border-gray-800">{{ profile.bio }}</p>
     <p class="border-b border-gray-800">{{ profile.favoriteAuthors }}</p>
     <p class="border-b border-gray-800">{{ profile.favoriteGenres }}</p>
+    <p class="border-b border-gray-800">{{ profile.favoriteBook }}</p>
+
     <button
       class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
       @click="editBio"
