@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted } from "vue";
+  import { defineExpose, ref, onMounted } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -25,13 +25,16 @@
 
   onMounted(() => {
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
+    inlog.minutes = JSON.parse(sessionStorage.getItem("savedMinutes")) || null;
+    inlog.seconds = JSON.parse(sessionStorage.getItem("savedSeconds")) || null;
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
       inlog.userReturned = true;
       // sessionStorage.removeItem("savedTexts");
-      sessionStorage.removeItem("savedMinutes");
-      sessionStorage.removeItem("savedSeconds");
+      // sessionStorage.removeItem("savedMinutes");
+      // sessionStorage.removeItem("savedSeconds");
     }
+    console.log("min", inlog.minutes, "sec", inlog.seconds);
 
     showToast.value = true;
   });
@@ -43,7 +46,13 @@
         toast.error("There's nothing to save yet - keep writing!");
       return;
     }
+    emit("stopTimer");
+  }
 
+  function f() {
+    console.log(inlog.minutes, inlog.seconds, inlog.status);
+
+    console.log("creating saved text");
     const savedText = {
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
@@ -53,12 +62,16 @@
       timedSeconds: inlog.seconds
     };
 
+    console.log(savedText);
+
     if (inlog.status) {
-      emit("stopTimer");
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
+
       sessionStorage.removeItem("savedTexts");
+      sessionStorage.removeItem("savedMinutes");
+      sessionStorage.removeItem("savedSeconds");
 
       if (showToast.value) toast.success("Your text is now saved!");
       userText.value = "";
@@ -69,7 +82,7 @@
 
       router.push({ path: "/savedtexts" });
     } else {
-      emit("stopTimer");
+      // emit("stopTimer");
       const sessionText = [];
       sessionText.push(savedText);
       console.log(sessionText);
@@ -131,6 +144,8 @@
     userText.value = "";
     inlog.userReturned = false;
   }
+
+  defineExpose({ f });
 </script>
 
 <template>

@@ -18,6 +18,7 @@
   const stopTimer = ref(false);
   const elapsedMinutes = ref(0);
   const elapsedSeconds = ref(0);
+  const textField = ref(null);
 
   onMounted(async () => {
     try {
@@ -94,6 +95,8 @@
 
     inlog.minutes = minutes;
     inlog.seconds = seconds;
+
+    textField.value.f();
   }
 </script>
 
@@ -132,6 +135,7 @@
       :clear-text-field="textPublished"
       :current-prompt="randomPrompt"
       :hidden="hidden"
+      ref="textField"
       @text-started="handleText"
       @stop-timer="handleStopTimer"
       :class="hidden ? 'lg:col-span-3' : 'lg:col-span-2 lg:row-span-2'"
