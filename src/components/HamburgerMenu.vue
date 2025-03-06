@@ -29,7 +29,7 @@
     <div>
       <button
         @click="toggleMenu"
-        class="cursor-pointer m-4 absolute top-20 right-5"
+        class="cursor-pointer mr-4 absolute top-20 right-5"
       >
         <svg
           v-if="!isMenuOpen"
@@ -67,7 +67,7 @@
 
     <div
       v-if="isMenuOpen"
-      class="flex flex-col absolute z-1 bg-gray-800 text-white p-4 top-35 right-5"
+      class="flex flex-col absolute z-1 bg-gray-800 text-white p-4 top-30 right-5"
     >
       <!-- <RouterLink to="/login" class="ml-0" @click="toggleMenu">
         <h2

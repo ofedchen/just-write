@@ -29,7 +29,6 @@
   const passwordIsVisible = ref(false);
   const firstname = ref("");
   const surname = ref("");
-  const errorCreatingProfile = ref(false);
 
   // Här skapar vi profil
 
@@ -78,8 +77,8 @@
 
       if (foundUser) {
         inlog.user = foundUser.username;
-        inlog.firstname = foundUser.firstname;
-        inlog.surname = foundUser.surname;
+        // inlog.firstname = foundUser.firstname;
+        // inlog.surname = foundUser.surname;
       }
     } catch (error) {
       console.error("Error fetching userData", error);
@@ -159,10 +158,10 @@
         } else {
           borderRedGreen.value = "#991b1b";
         }
-        borderWidth.value = "1px";
+        borderWidth.value = "2px";
       } else {
         borderRedGreen.value = "";
-        borderWidth.value = "1px";
+        borderWidth.value = "2px";
       }
     }
   );
@@ -306,7 +305,7 @@
       </p>
 
       <div
-        class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
+        class="w-[80vw] lg:w-full max-w-md mb-1 space-y-4 m-auto flex items-center"
       >
         <input
           :type="!passwordIsVisible ? 'password' : 'text'"
@@ -326,7 +325,7 @@
           <EyeIcon class="w-8 h-8 mb-4" />
         </button>
       </div>
-      <p class="text-gray-600 m-auto text-sm mb-3">
+      <p class="text-gray-600 m-auto text-sm mb-5">
         Password and username must contain atleast 6 characters
       </p>
       <button
