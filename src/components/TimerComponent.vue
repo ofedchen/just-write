@@ -111,7 +111,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 <template>
   <div
     class="font-[Special_Elite] bg-gray-800 text-white text-center rounded-lg text-lg font-semibold p-2 w-auto shadow-lg shadow-gray-900/50"
-    :class="{ 'bg-red-800': timerEnded }"
+    :class="{ 'bg-gray-800 opacity-10': timerEnded }"
   >
     <p v-if="!timerEnded" class="text-[1.12em]">
       {{ countDownMin }}<span class="text-sm text-gray-400">m</span>
