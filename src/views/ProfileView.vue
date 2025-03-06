@@ -65,7 +65,7 @@
     <UserIcon class="h-30 w-30 border mt-35 bg-white rounded-full ml-20" />
 
     <div class="ml-20 mt-10 text-lg">
-      <p>{{ inlog.firstname }} {{ inlog.surname }}</p>
+      <!-- <p>{{ inlog.firstname }} {{ inlog.surname }}</p> -->
     </div>
   </div>
 

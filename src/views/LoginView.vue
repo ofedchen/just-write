@@ -27,9 +27,9 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
-  const firstname = ref("");
-  const surname = ref("");
-  const errorCreatingProfile = ref(false);
+  // const firstname = ref("");
+  // const surname = ref("");
+  // const errorCreatingProfile = ref(false);
 
   // Här skapar vi profil
 
@@ -44,7 +44,7 @@
     };
 
     try {
-      const response = await axios.post(`/api/userInfo`, users);
+      await axios.post(`/api/userInfo`, users);
       toast.success("You have successfully created a profile");
     } catch (error) {
       console.error("Error creating profile", error);
@@ -78,8 +78,8 @@
 
       if (foundUser) {
         inlog.user = foundUser.username;
-        inlog.firstname = foundUser.firstname;
-        inlog.surname = foundUser.surname;
+        // inlog.firstname = foundUser.firstname;
+        // inlog.surname = foundUser.surname;
       }
     } catch (error) {
       console.error("Error fetching userData", error);
@@ -119,26 +119,10 @@
 
   // Skapa konto del: Kolla så att användarnamn och lösenord är över 6 tecken och att lösenorden är samma.
   watch(
-    [
-      firstname,
-      surname,
-      newUsername,
-      newPasswordFirst,
-      newPasswordSecond,
-      termsChecked
-    ],
-    ([
-      checkFirstname,
-      checkSurname,
-      checkUsername,
-      checkPasswordFirst,
-      checkPasswordSecond,
-      watchTerms
-    ]) => {
+    [newUsername, newPasswordFirst, newPasswordSecond, termsChecked],
+    ([checkUsername, checkPasswordFirst, checkPasswordSecond, watchTerms]) => {
       if (
-        (checkFirstname.length > 0 &&
-          checkSurname.length > 0 &&
-          checkUsername.length >= 6 &&
+        (checkUsername.length >= 6 &&
           checkPasswordFirst.length >= 6 &&
           checkPasswordFirst === checkPasswordSecond,
         watchTerms)
@@ -159,10 +143,10 @@
         } else {
           borderRedGreen.value = "#991b1b";
         }
-        borderWidth.value = "1px";
+        borderWidth.value = "2px";
       } else {
         borderRedGreen.value = "";
-        borderWidth.value = "1px";
+        borderWidth.value = "2px";
       }
     }
   );
@@ -306,7 +290,7 @@
       </p>
 
       <div
-        class="w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto flex items-center"
+        class="w-[80vw] lg:w-full max-w-md mb-1 space-y-4 m-auto flex items-center"
       >
         <input
           :type="!passwordIsVisible ? 'password' : 'text'"
@@ -326,11 +310,11 @@
           <EyeIcon class="w-8 h-8 mb-4" />
         </button>
       </div>
-      <p class="text-gray-600 m-auto text-sm mb-3">
+      <p class="text-gray-600 m-auto text-sm mb-5">
         Password and username must contain atleast 6 characters
       </p>
       <button
-        :disabled="createAccountFilled"
+        :disabled="!createAccountFilled"
         :style="{ backgroundColor: createAccountFilledColour }"
         class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
       >

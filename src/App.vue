@@ -19,18 +19,16 @@
 </script>
 
 <template>
-  <header class="py-8">
+  <header class="py-7">
     <RouterLink to="/">
       <h1 class="font-[Special_Elite] text-[42px] text-center">Just Write</h1>
     </RouterLink>
-    <nav
-      class="flex justify-between items-center py-2 md:pb-12 px-8 h-auto -mt-5"
-    >
+    <nav class="flex justify-between items-center py-2 md:pb-20 px-8 -mt-6.5">
       <RouterLink to="/" v-show="!isActiveLink('/')">
         <img
           src="../../assets/arrow.png"
           alt="Go to homepage"
-          class="w-[50px] m-4"
+          class="w-[50px]"
         />
       </RouterLink>
       <!-- <RouterLink to="/savedtexts" class="ml-auto">
@@ -43,7 +41,7 @@
       </RouterLink> -->
       <div
         v-if="inlog.user"
-        class="flex place-content-end mt-3 p-1 cursor-pointer"
+        class="flex place-content-end p-3 cursor-pointer"
         @click="redirectToProfile"
       >
         <h2 class="mr-3">Hello {{ inlog.user }}</h2>

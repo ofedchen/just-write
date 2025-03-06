@@ -13,6 +13,7 @@ export const useProfileStore = defineStore(
       bio.value = data.bio;
       favoriteAuthors.value = data.favoriteAuthors;
       favoriteGenres.value = data.favoriteGenres;
+      favoriteBook.value = data.favoriteBook;
     };
 
     return {
