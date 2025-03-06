@@ -1,9 +1,8 @@
 <script setup>
-  import { defineExpose, ref, onMounted } from "vue";
+  import { defineExpose, ref, onMounted, watch } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
-  import { nextTick } from "vue";
 
   import { useInlogStatus } from "../store/";
 
@@ -61,9 +60,9 @@
 
     if (inlog.status) {
       savedText.timedMinutes =
-        JSON.parse(sessionStorage.getItem("savedMinutes"))[0] || inlog.minutes;
+        JSON.parse(sessionStorage.getItem("savedMinutes")) || inlog.minutes;
       savedText.timedSeconds =
-        JSON.parse(sessionStorage.getItem("savedSeconds"))[0] || inlog.seconds;
+        JSON.parse(sessionStorage.getItem("savedSeconds")) || inlog.seconds;
       storedTexts.value = JSON.parse(localStorage.getItem("savedTexts")) || [];
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
