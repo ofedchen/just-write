@@ -165,7 +165,7 @@
         @click="publishText"
         class="w-1/2 px-5 py-2.5 text-sm font-medium text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-1 focus:ring-gray-300 rounded-lg cursor-pointer"
       >
-        Publish
+        Publish and save
       </button>
       <button
         type="submit"
