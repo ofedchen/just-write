@@ -108,8 +108,8 @@
       v-show="!inlog.status"
       class="font-[Special_Elite] text-[18px] text-left w-[80%] lg:w-[60%] text-gray-600 px-4 pb-8 lg:col-span-3"
     >
-      “Small habits, when repeated consistently, lead to remarkable results.” -
-      James Clear
+      Just start writing! Go for two minutes, keep going if you’re in the flow.
+      Use the prompt for ideas or close it for more space.
     </p>
     <p
       v-show="inlog.status"

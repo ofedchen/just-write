@@ -172,7 +172,7 @@
     <textarea
       @input="checkText"
       v-model="userText"
-      placeholder="Just start writing — anything at all. Aim for two minutes, and if you get into the flow, keep going!"
+      placeholder="“Small habits, when repeated consistently, lead to remarkable results.” - James Clear"
       name="userText"
       rows="13"
       cols="1"
