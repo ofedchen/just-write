@@ -1,6 +1,7 @@
 <script setup>
   import { ref, onMounted } from "vue";
   import { useRouter, useRoute } from "vue-router";
+  import { useToast } from "vue-toastification";
 
   const route = useRoute();
   const router = useRouter();
@@ -8,8 +9,11 @@
   const textId = Number(route.params.id);
   const editedText = ref("");
   const textData = ref(null);
+  const toast = useToast();
+  const showToast = ref(true);
 
   onMounted(() => {
+    showToast.value = true;
     const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
     console.log(savedTexts);
     textData.value = savedTexts.find((t) => t.id === textId);
@@ -26,6 +30,7 @@
     if (index !== -1) {
       savedTexts[index].text = editedText.value;
       localStorage.setItem("savedTexts", JSON.stringify(savedTexts));
+      toast.success("Your changes has been saved");
     }
     router.push("/savedtexts"); // Back to savedtexts after save edit
   }
