@@ -2,7 +2,6 @@
   import { ref } from "vue";
   import { useInlogStatus } from "/src/store/";
   import { useRouter } from "vue-router";
-
   const isMenuOpen = ref(false);
   const router = useRouter();
   const inlog = useInlogStatus();
@@ -18,6 +17,12 @@
     isMenuOpen.value = !isMenuOpen.value;
   }
 
+  function closeMenu() {
+    if ((isMenuOpen.value = true)) {
+      isMenuOpen.value = !isMenuOpen.value;
+    }
+  }
+
   const logOutFunction = () => {
     inlog.logOut();
     router.push("/");
@@ -26,10 +31,18 @@
 
 <template>
   <nav>
-    <div>
+    <div id="divMenu">
+      <div v-if="!isMenuOpen" class="collapse" id="backgroundOverlay" />
+      <div
+        v-if="isMenuOpen"
+        class="bg-transparent fixed top-0 left-0 right-0 bottom-0 block visible"
+        id="backgroundOverlay"
+        @click="closeMenu"
+      />
       <button
         @click="toggleMenu"
         class="cursor-pointer mr-4 absolute top-20 right-5"
+        id="toggleMenuBtn"
       >
         <svg
           v-if="!isMenuOpen"
@@ -129,15 +142,21 @@
       </RouterLink>
       <button
         v-if="inlog.status"
-        @click="logOutFunction"
+        @click="
+          logOutFunction();
+          toggleMenu();
+        "
         class="bg-white mt-4 text-gray-800 hover:bg-gray-100 rounded-lg p-1.5 cursor-pointer"
       >
         Log out
       </button>
-      <RouterLink to="/login" class="m-auto" @click="toggleMenu">
+      <RouterLink to="/login" class="m-auto">
         <button
           v-if="!inlog.status"
-          @click="logOutFunction"
+          @click="
+            logOutFunction();
+            toggleMenu();
+          "
           class="bg-white mt-6 font-medium text-gray-800 hover:bg-gray-200 rounded-lg py-2 px-8 cursor-pointer"
         >
           Log in
