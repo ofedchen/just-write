@@ -83,7 +83,14 @@
         sessionStorage.removeItem("savedSeconds");
       }
 
-      if (showToast.value) toast.success("Your text is now saved!");
+      if (showToast.value)
+        toast.success(
+          "Your text is now saved! You wrote for " +
+            inlog.minutes +
+            " minutes and " +
+            inlog.seconds +
+            " seconds"
+        );
       userText.value = "";
 
       inlog.returningUser.status = false;
