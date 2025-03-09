@@ -21,6 +21,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
   const timerEnded = ref(false);
   const showTotalElapsedTime = ref(false);
   const inlog = useInlogStatus();
+  const playSound = ref(true);
 
   const countDownMin = computed(() =>
     Math.floor((timeRemaining.value % (1000 * 60 * 60)) / (1000 * 60))
@@ -80,7 +81,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
         timerEnded.value = true;
 
         let audio = new Audio("public/sounds/buzz.wav");
-        audio.play();
+        if (playSound.value) audio.play();
       }
     }
   );
@@ -93,6 +94,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
         console.log("timer stopped");
         clearInterval(interval);
         timerEnded.value = true;
+        playSound.value = false;
 
         emit("timerStopped", {
           minutes: totalElapsedMin.value,

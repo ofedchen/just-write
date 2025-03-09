@@ -24,15 +24,15 @@
 
   onMounted(() => {
     showToast.value = true;
+
     const sessionText = JSON.parse(sessionStorage.getItem("savedTexts")) || [];
-    console.log(inlog.returningUser);
     if (sessionText.length > 0) {
       userText.value = sessionText[0].text;
       inlog.returningUser.status = true;
-      if (inlog.returningUser.action === "save") setTimeout(f, 800);
+      if (inlog.returningUser.action === "save") setTimeout(saveText, 800);
       if (inlog.returningUser.action === "publish") {
         setTimeout(publishText, 800);
-        setTimeout(f, 801);
+        setTimeout(saveText, 801);
       }
     } else {
       inlog.returningUser.status = false;
@@ -40,7 +40,8 @@
   });
 
   // SAVE TEXT
-  function saveText() {
+  //emiting stop timer to save the writing time to pinia variables
+  function stopThenSave() {
     console.log("started saving");
     if (!userText.value.trim()) {
       if (showToast.value)
@@ -50,7 +51,8 @@
     emit("stopTimer");
   }
 
-  function f() {
+  //saving to local storage here
+  function saveText() {
     console.log(inlog.minutes, inlog.seconds, inlog.status);
 
     const savedText = {
@@ -77,11 +79,11 @@
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
-      if (inlog.returningUser.action !== "publish") {
-        sessionStorage.removeItem("savedTexts");
-        sessionStorage.removeItem("savedMinutes");
-        sessionStorage.removeItem("savedSeconds");
-      }
+      // if (inlog.returningUser.action !== "publish") {
+      sessionStorage.removeItem("savedTexts");
+      sessionStorage.removeItem("savedMinutes");
+      sessionStorage.removeItem("savedSeconds");
+      // }
 
       if (showToast.value)
         toast.success(
@@ -158,17 +160,11 @@
     }
   }
 
-  function clearAll() {
-    sessionStorage.removeItem("savedTexts");
-    userText.value = "";
-    inlog.returningUser.status = false;
-  }
-
-  defineExpose({ f });
+  defineExpose({ saveText });
 </script>
 
 <template>
-  <form @submit.prevent="saveText" class="flex flex-col gap-4">
+  <form @submit.prevent="stopThenSave" class="flex flex-col gap-4">
     <textarea
       @input="checkText"
       v-model="userText"
@@ -192,14 +188,6 @@
       >
         Save text
       </button>
-    </div>
-    <div
-      v-if="inlog.returningUser.status"
-      @click="clearAll"
-      class="cursor-pointer flex items-center"
-    >
-      <p class="underline underline-offset-2 text-sm">Clear text</p>
-      <i class="pi pi-times text-sm px-2" />
     </div>
   </form>
 </template>
