@@ -253,11 +253,11 @@
         id="new-username"
         placeholder="Enter your new username here"
         class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-4 space-y-4 m-auto outline-none"
-        :class="
-          newUsername.length > 0 && newUsername.length < 6
-            ? 'border-red-700 border-b-2'
-            : 'border-green-800 border-b-2'
-        "
+        :class="{
+          'border-red-700 border-b-2':
+            newUsername.length > 0 && newUsername.length < 6,
+          'border-green-800 border-b-2': newUsername.length >= 6
+        }"
         v-model="newUsername"
       />
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
