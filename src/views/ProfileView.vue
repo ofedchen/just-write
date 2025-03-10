@@ -118,12 +118,9 @@
 </script>
 
 <template>
-  <div class="bg-gray-800 w-full h-50 absolute top-35 left-0">
-    <UserIcon class="h-30 w-30 border mt-35 bg-white rounded-full ml-20" />
-  </div>
   <div>
     <form
-      class="flex flex-col mt-60 w-50 mb-10"
+      class="flex flex-col w-50 mb-10"
       @submit.prevent="sendUserForm"
       action=""
       v-if="!foundUserInput"
@@ -149,35 +146,39 @@
     </form>
     <div
       v-if="foundUserInput && filterUserInput.length > 0"
-      class="flex flex-col mt-60 w-50 mb-10"
+      class="flex flex-col w-50 mb-10 bg-gray-100 border-gray-800 p-10 rounded-lg"
     >
-      <div>
-        <p class="border-b border-gray-800 p-3">
+      <UserIcon class="h-30 w-30 rounded-full m-auto" />
+
+      <div
+        class="text-xl font-bold font-[Special_Elite] bg-yellow-300 flex flex-row"
+      >
+        <p class="p-1">
           {{ filterUserInput[0].firstname || "" }}
         </p>
 
-        <p class="border-b border-gray-800 p-3">
+        <p class="p-1">
           {{ filterUserInput[0].surname || "" }}
         </p>
       </div>
       <label>About me </label>
 
-      <p class="border-b border-gray-800 p-3">
+      <p class="border-gray-800 p-3">
         {{ filterUserInput[0].profileBio || "" }}
       </p>
       <label>Favourite author? </label>
 
-      <p class="border-b border-gray-800 p-3">
+      <p class="border-gray-800 p-3">
         {{ filterUserInput[0].profileFavoriteAuthors || "" }}
       </p>
       <label>Favourite genre? </label>
 
-      <p class="border-b border-gray-800 p-3">
+      <p class="border-gray-800 p-3">
         {{ filterUserInput[0].profileFavoriteGenres || "" }}
       </p>
       <label>Favourite book? </label>
 
-      <p class="border-b border-gray-800 p-3">
+      <p class="border-gray-800 p-3">
         {{ filterUserInput[0].profileFavoriteBook || "" }}
       </p>
 
@@ -200,3 +201,9 @@
     </RouterLink> -->
   </div>
 </template>
+<!--
+<style scoped>
+  label {
+    color: darkblue;
+  }
+</style> -->
