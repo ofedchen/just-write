@@ -42,9 +42,20 @@
       // firstname: firstname.value,
       // surname: surname.value
     };
+    const form = {
+      user: inlog.user,
+      firstname: firstname.value,
+      user: newUsername.value,
+      profileBio: "",
+      profileFavoriteAuthors: "",
+      profileFavoriteGenres: "",
+      profileFavoriteBook: ""
+    };
 
     try {
       await axios.post(`/api/userInfo`, users);
+      await axios.post(`/api/userForm`, form);
+
       toast.success("You have successfully created a profile");
     } catch (error) {
       console.error("Error creating profile", error);
@@ -105,6 +116,8 @@
   };
 
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
+
+  // ändra så användarnamn inte behöver vara mer än 6 tecken???
   watch([username, password], ([watchUsername, watchPassword]) => {
     if (watchUsername.length >= 6 && watchPassword.length >= 6) {
       completeInlog.value = "#2d3748";
@@ -230,25 +243,6 @@
       @submit.prevent="createProfile"
       class="flex flex-col"
     >
-      <!-- <input
-      type="text"
-      name=""
-      id=""
-      placeholder="Enter your firstname here"
-      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
-      v-model="firstname"
-    />
-
-    <input
-      type="text"
-      name=""
-      id=""
-      placeholder="Enter your surname here"
-      class="border-b bg-gray-200 p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto outline-none"
-      v-model="surname"
-    /> -->
-
-      <!-- Flytta för och efternamn till profil -->
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
         Username
       </p>
