@@ -7,12 +7,10 @@
 
   import axios from "axios";
   import { useInlogStatus } from "/src/store/";
-  // import { useProfileStore } from "/src/storeProfile/";
   import TextDisplayed from "../components/TextDisplayed.vue";
 
   const inlog = useInlogStatus();
   const toast = useToast();
-  // const profile = useProfileStore();
   const publishedTexts = ref([]);
   const likedTexts = ref([]);
   const expandedText = ref({});
@@ -22,7 +20,6 @@
   const authorText = ref("");
   const genreText = ref("");
   const bookText = ref("");
-  // const bioSaved = ref(false);
   const userInput = ref([]);
   const foundUserInput = ref(false);
   const filterUserInput = ref([]);
@@ -50,8 +47,6 @@
   }
 
   // Skicka användarens input
-
-  // Hämta och logga användardata för att säkerställa att den finns
 
   async function sendUserForm() {
     const form = {
@@ -123,87 +118,117 @@
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col lg:flex-row gap-15 md:items-center">
     <form
-      class="flex flex-col w-50 mb-10"
+      class="flex flex-col w-full md:w-1/2 lg:w-1/3 p-5 mb-10"
       @submit.prevent="sendUserForm"
       action=""
       v-if="!foundUserInput"
     >
       <label>Firstname </label>
-      <input v-model="firstname" class="border border-gray-800" type="text" />
+      <input
+        v-model="firstname"
+        class="border p-3 border-gray-800"
+        type="text"
+      />
       <label>Surname </label>
       <input v-model="surname" class="border border-gray-800" type="text" />
       <label>Tell us something about yourself </label>
-      <input v-model="bioText" class="border border-gray-800" type="text" />
-      <label>Favourite author? </label>
+      <textarea v-model="bioText" class="border border-gray-800" type="text" />
+      <label>My favourite author? </label>
       <input v-model="authorText" class="border border-gray-800" type="text" />
-      <label>Favourite genre? </label>
+      <label>My favourite genre? </label>
       <input v-model="genreText" class="border border-gray-800" type="text" />
-      <label>Favourite book? </label>
+      <label>My favourite book? </label>
       <input v-model="bookText" class="border border-gray-800" type="text" />
       <button
         @click="saveBio"
-        class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
+        class="bg-gray-800 mt-2 text-xl text-white cursor-pointer rounded-sm p-2"
       >
         Save
       </button>
     </form>
     <div
       v-if="foundUserInput && filterUserInput.length > 0"
-      class="flex flex-col w-60 mb-10 bg-gray-100 bg-gray-800 text-white p-5 rounded-lg"
+      class="flex flex-col sm:w-2/3 md:w-1/2 lg:w-1/3 mb-10 bg-gray-100 bg-gray-800 text-white p-8 rounded-lg h-170"
     >
-      <UserIcon class="h-30 w-30 rounded-full m-auto" />
+      <UserIcon class="h-40 w-40 rounded-full m-auto" />
 
       <p
-        class="text-xl m-auto font-bold font-[Special_Elite] text-gray-900 bg-yellow-300 flex flex-row"
+        class="text-2xl m-auto font-bold font-[Special_Elite] text-gray-900 bg-yellow-300 flex flex-row"
       >
         {{ filterUserInput[0].firstname || "" }}
         {{ filterUserInput[0].surname || "" }}
       </p>
-      <label>About me </label>
+      <label>About me: </label>
 
-      <p class="border-gray-800 p-3">
+      <p class="text-md font-bold text-white break-words shadow-lg p-8">
         {{ filterUserInput[0].profileBio || "" }}
       </p>
-      <label>Favourite author? </label>
+      <label>My favourite author: </label>
 
-      <p class="border-gray-800 p-3">
+      <p class="text-lg font-semibold text-black bg-gray-200 p-2">
         {{ filterUserInput[0].profileFavoriteAuthors || "" }}
       </p>
-      <label>Favourite genre? </label>
+      <label>My favourite genre: </label>
 
-      <p class="border-gray-800 p-3">
+      <p class="text-lg font-semibold text-black bg-gray-200 p-2">
         {{ filterUserInput[0].profileFavoriteGenres || "" }}
       </p>
-      <label>Favourite book? </label>
+      <label>My favourite book </label>
 
-      <p class="border-gray-800 p-3">
+      <p class="text-lg font-semibold text-black bg-gray-200 p-2">
         {{ filterUserInput[0].profileFavoriteBook || "" }}
       </p>
 
       <button
-        class="bg-white mt-2 text-gray-800 cursor-pointer rounded-sm p-2"
+        class="bg-white mt-5 text-xl text-gray-800 cursor-pointer transition duration-300 hover:bg-gray-300 rounded-sm p-2"
         @click="editBio"
       >
         Edit Bio
       </button>
     </div>
+    <div class="flex flex-col w-2/3 place-content-end">
+      <h2
+        class="text-3xl m-auto font-bold font-[Special_Elite] text-white bg-gray-800"
+      >
+        My Favourite Texts
+      </h2>
+      <TextDisplayed
+        :expanded-text="expandedText"
+        :texts="likedTexts"
+        @expand="readMoreLess"
+      />
 
-    <TextDisplayed
-      :expanded-text="expandedText"
-      :texts="likedTexts"
-      @expand="readMoreLess"
-    />
-
-    <!-- <RouterLink to="/savedtexts" class="ml-auto">
+      <!-- <RouterLink to="/savedtexts" class="ml-auto">
       <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
     </RouterLink> -->
+    </div>
   </div>
 </template>
-<!--
+
 <style scoped>
   label {
-    color: darkblue;
+    font-weight: bold;
+    margin-bottom: 4px;
+    margin: 1vh;
   }
-</style> -->
+
+  input {
+    padding: 8px;
+    border: 2px solid #1f2937;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+  }
+
+  input:focus {
+    border-color: #facc15; /* Tailwind yellow-400 */
+    outline: none;
+    box-shadow: 0 0 5px rgba(250, 204, 21, 0.6);
+  }
+
+  form > label {
+    color: #1f2937;
+  }
+</style>

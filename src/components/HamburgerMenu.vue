@@ -146,7 +146,7 @@
           logOutFunction();
           toggleMenu();
         "
-        class="bg-white mt-4 text-gray-800 hover:bg-gray-100 rounded-lg p-1.5 cursor-pointer"
+        class="bg-white mt-4 text-gray-800 transition duration-300 hover:bg-gray-300 rounded-lg p-1.5 cursor-pointer"
       >
         Log out
       </button>
