@@ -82,13 +82,21 @@
     try {
       const response = await axios.get(`/api/userForm`);
       userInput.value = response.data;
+      console.log(userInput.value);
 
       filterUserInput.value = userInput.value.filter((input) =>
         input.user.includes(inlog.user)
       );
+      console.log(filterUserInput.value);
 
-      if (filterUserInput.value > 0) {
+      if (filterUserInput.value.length > 0) {
         foundUserInput.value = true;
+        firstname.value = filterUserInput.value[0].firstname;
+        surname.value = filterUserInput.value[0].surname;
+        bioText.value = filterUserInput.value[0].profileBio;
+        authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
+        genreText.value = filterUserInput.value[0].profileFavoriteGenres;
+        bookText.value = filterUserInput.value[0].profileFavoriteBook;
       }
     } catch (error) {
       console.error("Error fetching userForm", error);

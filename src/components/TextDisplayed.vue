@@ -99,7 +99,7 @@
     <button
       v-if="isActiveLink('/savedtexts')"
       @click="goToEdit(text.id)"
-      class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900"
+      class="bg-gray-800 text-white px-3 py-1 rounded hover:bg-gray-900 cursor-pointer"
     >
       Edit
     </button>
