@@ -41,7 +41,7 @@
       </RouterLink> -->
       <div
         v-if="inlog.user"
-        class="flex place-content-end p-3 cursor-pointer"
+        class="flex place-content-end p-3 cursor-pointer hidden md:flex"
         @click="redirectToProfile"
       >
         <h2 class="mr-3">Hello {{ inlog.user }}</h2>
