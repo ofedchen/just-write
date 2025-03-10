@@ -27,9 +27,6 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
-  // const firstname = ref("");
-  // const surname = ref("");
-  // const errorCreatingProfile = ref(false);
 
   // Här skapar vi profil
 
@@ -39,8 +36,6 @@
     const users = {
       username: newUsername.value,
       password: newPasswordSecond.value
-      // firstname: firstname.value,
-      // surname: surname.value
     };
     const form = {
       user: newUsername.value,
@@ -89,8 +84,6 @@
 
       if (foundUser) {
         inlog.user = foundUser.username;
-        // inlog.firstname = foundUser.firstname;
-        // inlog.surname = foundUser.surname;
       }
     } catch (error) {
       console.error("Error fetching userData", error);
@@ -117,7 +110,6 @@
 
   // Logga in del: Kolla så att användarnnamn och lösenord är över 6 tecken
 
-  // ändra så användarnamn inte behöver vara mer än 6 tecken???
   watch([username, password], ([watchUsername, watchPassword]) => {
     if (watchUsername.length >= 6 && watchPassword.length >= 6) {
       completeInlog.value = "#2d3748";
@@ -135,10 +127,10 @@
     [newUsername, newPasswordFirst, newPasswordSecond, termsChecked],
     ([checkUsername, checkPasswordFirst, checkPasswordSecond, watchTerms]) => {
       if (
-        (checkUsername.length >= 6 &&
-          checkPasswordFirst.length >= 6 &&
-          checkPasswordFirst === checkPasswordSecond,
-        watchTerms)
+        checkUsername.length >= 6 &&
+        checkPasswordFirst.length >= 6 &&
+        checkPasswordFirst === checkPasswordSecond &&
+        watchTerms
       ) {
         createAccountFilled.value = true;
         createAccountFilledColour.value = "#FDD835";
