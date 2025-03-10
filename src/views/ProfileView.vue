@@ -118,7 +118,7 @@
 </script>
 
 <template>
-  <div class="flex flex-col lg:flex-row gap-15 md:items-center">
+  <div class="flex flex-col lg:flex-row gap-15">
     <form
       class="flex flex-col w-full md:w-1/2 lg:w-1/3 p-5 mb-10"
       @submit.prevent="sendUserForm"
@@ -150,7 +150,7 @@
     </form>
     <div
       v-if="foundUserInput && filterUserInput.length > 0"
-      class="flex flex-col sm:w-2/3 md:w-1/2 lg:w-1/3 mb-10 bg-gray-100 bg-gray-800 text-white p-8 rounded-lg h-170"
+      class="flex flex-col sm:w-2/3 md:w-1/2 lg:w-1/3 bg-gray-100 bg-gray-800 text-white p-8 rounded-lg min-h-130 max-h-180 flex-shrink-0"
     >
       <UserIcon class="h-40 w-40 rounded-full m-auto" />
 
@@ -188,7 +188,7 @@
         Edit Bio
       </button>
     </div>
-    <div class="flex flex-col w-2/3 place-content-end">
+    <div class="flex flex-col w-2/3">
       <h2
         class="text-3xl m-auto font-bold font-[Special_Elite] text-white bg-gray-800"
       >
