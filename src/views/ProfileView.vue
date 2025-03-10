@@ -1,7 +1,5 @@
 <script setup>
-  import { RouterLink, RouterView } from "vue-router";
   import { onMounted, ref, watch } from "vue";
-  // import { useRoute } from "vue-router";
   import { UserIcon } from "@heroicons/vue/24/solid";
   import { useToast } from "vue-toastification";
 
@@ -197,10 +195,6 @@
         :texts="likedTexts"
         @expand="readMoreLess"
       />
-
-      <!-- <RouterLink to="/savedtexts" class="ml-auto">
-      <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
-    </RouterLink> -->
     </div>
   </div>
 </template>
@@ -212,7 +206,8 @@
     margin: 1vh;
   }
 
-  input {
+  input,
+  textarea {
     padding: 8px;
     border: 2px solid #1f2937;
     border-radius: 8px;
@@ -220,10 +215,11 @@
     transition: border-color 0.3s ease-in-out;
   }
 
-  input:focus {
-    border-color: #facc15; /* Tailwind yellow-400 */
+  input:focus,
+  textarea:focus {
+    border-color: #facc15;
     outline: none;
-    box-shadow: 0 0 5px rgba(250, 204, 21, 0.6);
+    box-shadow: 0 0 5px rgba(143, 114, 1, 0.6);
   }
 
   form > label {
