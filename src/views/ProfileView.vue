@@ -95,7 +95,12 @@
 
       if (filterUserInput.value.length > 0) {
         foundUserInput.value = true;
-        console.log(foundUserInput.value);
+        firstname.value = filterUserInput.value[0].firstname;
+        surname.value = filterUserInput.value[0].surname;
+        bioText.value = filterUserInput.value[0].profileBio;
+        authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
+        genreText.value = filterUserInput.value[0].profileFavoriteGenres;
+        bookText.value = filterUserInput.value[0].profileFavoriteBook;
       }
     } catch (error) {
       console.error("Error fetching userForm", error);
