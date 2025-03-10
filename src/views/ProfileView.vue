@@ -1,6 +1,6 @@
 <script setup>
   import { RouterLink, RouterView } from "vue-router";
-  import { onMounted, ref, watch, computed } from "vue";
+  import { onMounted, ref, watch } from "vue";
   // import { useRoute } from "vue-router";
   import { UserIcon } from "@heroicons/vue/24/solid";
   import { useToast } from "vue-toastification";
@@ -28,17 +28,6 @@
   const filterUserInput = ref([]);
   const id = ref("");
 
-  onMounted(async () => {
-    foundUserInput.value = true;
-
-    try {
-      const response = await axios.get(`/api/publishedTexts`);
-      publishedTexts.value = response.data;
-    } catch (error) {
-      console.error("Error fetching texts", error);
-    }
-  });
-
   watch(publishedTexts, (newPublishedTexts) => {
     likedTexts.value = newPublishedTexts.filter((text) =>
       text.likesList.includes(inlog.user)
@@ -47,6 +36,13 @@
 
   const editBio = () => {
     foundUserInput.value = false;
+
+    firstname.value = filterUserInput.value[0].firstname;
+    surname.value = filterUserInput.value[0].surname;
+    bioText.value = filterUserInput.value[0].profileBio;
+    authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
+    genreText.value = filterUserInput.value[0].profileFavoriteGenres;
+    bookText.value = filterUserInput.value[0].profileFavoriteBook;
   };
   function readMoreLess(id) {
     // function to expand and minimize saved texts
@@ -72,7 +68,7 @@
     id.value = filterUserInput.value[0].id;
     try {
       await axios({
-        method: "put",
+        method: "patch",
         url: `/api/userForm/${id.value}`,
         data: form
       });
@@ -100,7 +96,8 @@
   };
 
   onMounted(async () => {
-    // Hämta användardata när komponenten laddas
+    foundUserInput.value = true;
+
     await fetchUserForm();
 
     try {
@@ -146,21 +143,16 @@
     </form>
     <div
       v-if="foundUserInput && filterUserInput.length > 0"
-      class="flex flex-col w-50 mb-10 bg-gray-100 border-gray-800 p-10 rounded-lg"
+      class="flex flex-col w-60 mb-10 bg-gray-100 bg-gray-800 text-white p-5 rounded-lg"
     >
       <UserIcon class="h-30 w-30 rounded-full m-auto" />
 
-      <div
-        class="text-xl font-bold font-[Special_Elite] bg-yellow-300 flex flex-row"
+      <p
+        class="text-xl m-auto font-bold font-[Special_Elite] text-gray-900 bg-yellow-300 flex flex-row"
       >
-        <p class="p-1">
-          {{ filterUserInput[0].firstname || "" }}
-        </p>
-
-        <p class="p-1">
-          {{ filterUserInput[0].surname || "" }}
-        </p>
-      </div>
+        {{ filterUserInput[0].firstname || "" }}
+        {{ filterUserInput[0].surname || "" }}
+      </p>
       <label>About me </label>
 
       <p class="border-gray-800 p-3">
@@ -183,7 +175,7 @@
       </p>
 
       <button
-        class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
+        class="bg-white mt-2 text-gray-800 cursor-pointer rounded-sm p-2"
         @click="editBio"
       >
         Edit Bio

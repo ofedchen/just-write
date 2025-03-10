@@ -6,8 +6,8 @@ export const useInlogStatus = defineStore(
   () => {
     const status = ref(false);
     const user = ref("");
-    const firstname = ref("");
-    const surname = ref("");
+    // const firstname = ref("");
+    // const surname = ref("");
     // const userReturned = ref({ status: false, action: "" });
     const returningUser = ref({ status: false, action: "" });
     const minutes = ref(null);
@@ -20,8 +20,8 @@ export const useInlogStatus = defineStore(
     const logOut = () => {
       status.value = false;
       user.value = "";
-      firstname.value = "";
-      surname.value = "";
+      // firstname.value = "";
+      // surname.value = "";
       minutes.value = null;
       seconds.value = null;
       // userReturned.value = { status: false, action: "" };
@@ -31,8 +31,8 @@ export const useInlogStatus = defineStore(
     return {
       status,
       user,
-      firstname,
-      surname,
+      // firstname,
+      // surname,
       // userReturned,
       returningUser,
       minutes,

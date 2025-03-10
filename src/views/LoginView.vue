@@ -43,9 +43,9 @@
       // surname: surname.value
     };
     const form = {
-      user: inlog.user,
-      firstname: firstname.value,
       user: newUsername.value,
+      firstname: "",
+      surname: "",
       profileBio: "",
       profileFavoriteAuthors: "",
       profileFavoriteGenres: "",
