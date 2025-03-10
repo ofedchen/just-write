@@ -13,7 +13,7 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/setInterval
 
   const emit = defineEmits(["timerStopped"]);
 
-  const startTime = 10000; /* 120200; */
+  const startTime = 120200; /* 120200; */
   const now = ref(0);
   const countDownTime = ref(startTime);
   const timeRemaining = ref(startTime);

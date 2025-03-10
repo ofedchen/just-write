@@ -77,12 +77,10 @@
     try {
       const response = await axios.get(`/api/userForm`);
       userInput.value = response.data;
-      console.log(userInput.value);
 
       filterUserInput.value = userInput.value.filter((input) =>
         input.user.includes(inlog.user)
       );
-      console.log(filterUserInput.value);
 
       if (filterUserInput.value.length > 0) {
         foundUserInput.value = true;
@@ -118,9 +116,9 @@
 </script>
 
 <template>
-  <div class="flex flex-col lg:flex-row gap-15">
+  <div class="flex flex-col lg:flex-row gap-15 sm:items-center lg:items-start">
     <form
-      class="flex flex-col w-full md:w-1/2 lg:w-1/3 p-5 mb-10"
+      class="flex flex-col sm:w-2/3 md:w-2/3 lg:w-1/3 p-8 rounded-lg min-h-130 max-h-180"
       @submit.prevent="sendUserForm"
       action=""
       v-if="!foundUserInput"
@@ -150,17 +148,16 @@
     </form>
     <div
       v-if="foundUserInput && filterUserInput.length > 0"
-      class="flex flex-col sm:w-2/3 md:w-1/2 lg:w-1/3 bg-gray-100 bg-gray-800 text-white p-8 rounded-lg min-h-130 max-h-180 flex-shrink-0"
+      class="flex flex-col sm:w-2/3 md:w-2/3 lg:w-1/3 bg-gray-100 bg-gray-800 text-white p-8 rounded-lg min-h-130 max-h-180"
     >
       <UserIcon class="h-40 w-40 rounded-full m-auto" />
 
       <p
-        class="text-2xl m-auto font-bold font-[Special_Elite] text-gray-900 bg-yellow-300 flex flex-row"
+        class="text-2xl m-auto font-bold font-[Special_Elite] text-gray-900 bg-yellow-300 mt-2 mb-2 flex flex-row"
       >
         {{ filterUserInput[0].firstname || "" }}
         {{ filterUserInput[0].surname || "" }}
       </p>
-      <label>About me: </label>
 
       <p class="text-md font-bold text-white break-words shadow-lg p-8">
         {{ filterUserInput[0].profileBio || "" }}
@@ -188,9 +185,10 @@
         Edit Bio
       </button>
     </div>
-    <div class="flex flex-col w-2/3">
+    <div class="flex flex-col justify-start w-3/3 lg:w-2/3">
       <h2
         class="text-3xl m-auto font-bold font-[Special_Elite] text-white bg-gray-800"
+        v-if="likedTexts.length > 0"
       >
         My Favourite Texts
       </h2>
