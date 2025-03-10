@@ -44,7 +44,7 @@
     };
     const form = {
       user: inlog.user,
-      firstname: firstname.value,
+      firstname: "",
       user: newUsername.value,
       profileBio: "",
       profileFavoriteAuthors: "",

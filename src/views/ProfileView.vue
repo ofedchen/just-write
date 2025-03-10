@@ -28,16 +28,16 @@
   const filterUserInput = ref([]);
   const id = ref("");
 
-  onMounted(async () => {
-    foundUserInput.value = true;
+  // onMounted(async () => {
+  //   foundUserInput.value = true;
 
-    try {
-      const response = await axios.get(`/api/publishedTexts`);
-      publishedTexts.value = response.data;
-    } catch (error) {
-      console.error("Error fetching texts", error);
-    }
-  });
+  //   try {
+  //     const response = await axios.get(`/api/publishedTexts`);
+  //     publishedTexts.value = response.data;
+  //   } catch (error) {
+  //     console.error("Error fetching texts", error);
+  //   }
+  // });
 
   watch(publishedTexts, (newPublishedTexts) => {
     likedTexts.value = newPublishedTexts.filter((text) =>
@@ -86,13 +86,16 @@
     try {
       const response = await axios.get(`/api/userForm`);
       userInput.value = response.data;
+      console.log(userInput.value);
 
       filterUserInput.value = userInput.value.filter((input) =>
         input.user.includes(inlog.user)
       );
+      console.log(filterUserInput.value);
 
-      if (filterUserInput.value > 0) {
+      if (filterUserInput.value.length > 0) {
         foundUserInput.value = true;
+        console.log(foundUserInput.value);
       }
     } catch (error) {
       console.error("Error fetching userForm", error);
