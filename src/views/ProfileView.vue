@@ -23,7 +23,6 @@
   const genreText = ref("");
   const bookText = ref("");
   // const bioSaved = ref(false);
-  const displayLikedTexts = ref(false);
   const userInput = ref([]);
   const foundUserInput = ref(false);
   const filterUserInput = ref([]);
@@ -73,7 +72,7 @@
     id.value = filterUserInput.value[0].id;
     try {
       await axios({
-        method: "patch",
+        method: "put",
         url: `/api/userForm/${id.value}`,
         data: form
       });
@@ -81,7 +80,6 @@
       console.error("Error filling form", error);
       toast.error("User form has not been filled");
     }
-    fetchUserForm();
   }
   // hämta användarens input
   const fetchUserForm = async () => {
@@ -112,6 +110,11 @@
       console.error("Error fetching texts", error);
     }
   });
+
+  const saveBio = async () => {
+    await sendUserForm();
+    await fetchUserForm();
+  };
 </script>
 
 <template>
@@ -138,20 +141,25 @@
       <label>Favourite book? </label>
       <input v-model="bookText" class="border border-gray-800" type="text" />
       <button
-        @click="sendUserForm"
+        @click="saveBio"
         class="bg-gray-800 mt-2 text-white cursor-pointer rounded-sm p-2"
       >
         Save
       </button>
     </form>
-    <div v-if="foundUserInput" class="flex flex-col mt-60 w-50 mb-10">
-      <p class="border-b border-gray-800 p-3">
-        {{ filterUserInput[0].firstname || "" }}
-      </p>
+    <div
+      v-if="foundUserInput && filterUserInput.length > 0"
+      class="flex flex-col mt-60 w-50 mb-10"
+    >
+      <div>
+        <p class="border-b border-gray-800 p-3">
+          {{ filterUserInput[0].firstname || "" }}
+        </p>
 
-      <p class="border-b border-gray-800 p-3">
-        {{ filterUserInput[0].surname || "" }}
-      </p>
+        <p class="border-b border-gray-800 p-3">
+          {{ filterUserInput[0].surname || "" }}
+        </p>
+      </div>
       <label>About me </label>
 
       <p class="border-b border-gray-800 p-3">
