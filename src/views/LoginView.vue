@@ -68,17 +68,12 @@
     profileCreated.value = true;
   };
 
-  const checkUserNameIsTaken = () => {
-    console.log("clix");
-
+  const checkUserNameIsTaken = (newName) => {
     takenName.value = userInfo.userInfo.some(
-      (user) => user.username === newUsername.value
+      (user) => user.username === newName
     );
 
     console.log("username taken?", takenName.value);
-
-    if (takenName.value) {
-    }
   };
 
   const skipCreate = () => {
@@ -89,19 +84,14 @@
   const password = ref("");
 
   // hämta användardata från json
+  onMounted(() => {
+    fetchUserData();
+  });
 
   const fetchUserData = async () => {
     try {
       const response = await axios.get(`/api/userInfo`);
       jsonUserData.value = response.data;
-      const foundUser = jsonUserData.value.find(
-        (user) =>
-          user.username === username.value && user.password === password.value
-      );
-
-      if (foundUser) {
-        inlog.user = foundUser.username;
-      }
     } catch (error) {
       console.error("Error fetching userData", error);
     }
@@ -110,6 +100,14 @@
   const loginFunction = async () => {
     await fetchUserData();
 
+    const foundUser = jsonUserData.value.find(
+      (user) =>
+        user.username === username.value && user.password === password.value
+    );
+
+    if (foundUser) {
+      inlog.user = foundUser.username;
+    }
     const userDataCheck = jsonUserData.value.some(
       (user) =>
         user.username === username.value && user.password === password.value
@@ -143,8 +141,10 @@
   watch(
     [newUsername, newPasswordFirst, newPasswordSecond, termsChecked],
     ([checkUsername, checkPasswordFirst, checkPasswordSecond, watchTerms]) => {
+      checkUserNameIsTaken(checkUsername);
       if (
         checkUsername.length >= 6 &&
+        !takenName.value &&
         checkPasswordFirst.length >= 6 &&
         checkPasswordFirst === checkPasswordSecond &&
         watchTerms
@@ -264,11 +264,14 @@
         class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-4 space-y-4 m-auto outline-none"
         :class="{
           'border-red-700 border-b-2':
-            newUsername.length > 0 && newUsername.length < 6,
+            (newUsername.length > 0 && newUsername.length < 6) || takenName,
           'border-green-800 border-b-2': newUsername.length >= 6
         }"
         v-model="newUsername"
       />
+      <p class="text-gray-600 m-auto text-sm mb-5" v-if="takenName">
+        Sorry, this username is taken
+      </p>
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
         Password
       </p>
@@ -325,7 +328,6 @@
         :style="{ backgroundColor: createAccountFilledColour }"
         class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
         :class="createAccountFilled ? '' : 'text-gray-700'"
-        @click="checkUserNameIsTaken"
       >
         Sign up!
       </button>
