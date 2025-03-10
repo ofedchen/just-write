@@ -6,6 +6,9 @@
   import { useToast } from "vue-toastification";
   import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
   import { EyeIcon } from "@heroicons/vue/24/solid";
+  import userInfo from "../database.json";
+
+  console.log(userInfo);
 
   const router = useRouter();
   const route = useRoute();
@@ -27,6 +30,7 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
+  let takenName = ref(false);
 
   // Här skapar vi profil
 
@@ -64,6 +68,14 @@
     profileCreated.value = true;
   };
 
+  const checkUserNameIsTaken = (newName) => {
+    takenName.value = userInfo.userInfo.some(
+      (user) => user.username === newName
+    );
+
+    console.log("username taken?", takenName.value);
+  };
+
   const skipCreate = () => {
     profileCreated.value = true;
   };
@@ -72,19 +84,14 @@
   const password = ref("");
 
   // hämta användardata från json
+  onMounted(() => {
+    fetchUserData();
+  });
 
   const fetchUserData = async () => {
     try {
       const response = await axios.get(`/api/userInfo`);
       jsonUserData.value = response.data;
-      const foundUser = jsonUserData.value.find(
-        (user) =>
-          user.username === username.value && user.password === password.value
-      );
-
-      if (foundUser) {
-        inlog.user = foundUser.username;
-      }
     } catch (error) {
       console.error("Error fetching userData", error);
     }
@@ -93,6 +100,14 @@
   const loginFunction = async () => {
     await fetchUserData();
 
+    const foundUser = jsonUserData.value.find(
+      (user) =>
+        user.username === username.value && user.password === password.value
+    );
+
+    if (foundUser) {
+      inlog.user = foundUser.username;
+    }
     const userDataCheck = jsonUserData.value.some(
       (user) =>
         user.username === username.value && user.password === password.value
@@ -126,8 +141,10 @@
   watch(
     [newUsername, newPasswordFirst, newPasswordSecond, termsChecked],
     ([checkUsername, checkPasswordFirst, checkPasswordSecond, watchTerms]) => {
+      checkUserNameIsTaken(checkUsername);
       if (
         checkUsername.length >= 6 &&
+        !takenName.value &&
         checkPasswordFirst.length >= 6 &&
         checkPasswordFirst === checkPasswordSecond &&
         watchTerms
@@ -247,11 +264,14 @@
         class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-4 space-y-4 m-auto outline-none"
         :class="{
           'border-red-700 border-b-2':
-            newUsername.length > 0 && newUsername.length < 6,
+            (newUsername.length > 0 && newUsername.length < 6) || takenName,
           'border-green-800 border-b-2': newUsername.length >= 6
         }"
         v-model="newUsername"
       />
+      <p class="text-gray-600 m-auto text-sm mb-5" v-if="takenName">
+        Sorry, this username is taken
+      </p>
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
         Password
       </p>
