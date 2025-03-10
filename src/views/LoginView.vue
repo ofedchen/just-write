@@ -70,9 +70,14 @@
 
   const checkUserNameIsTaken = () => {
     console.log("clix");
-    if (newUsername.value === userInfo.username) {
-      takenName.value = true;
-      console.log(takenName);
+
+    takenName.value = userInfo.userInfo.some(
+      (user) => user.username === newUsername.value
+    );
+
+    console.log("username taken?", takenName.value);
+
+    if (takenName.value) {
     }
   };
 
