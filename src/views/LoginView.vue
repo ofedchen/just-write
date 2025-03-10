@@ -6,6 +6,9 @@
   import { useToast } from "vue-toastification";
   import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
   import { EyeIcon } from "@heroicons/vue/24/solid";
+  import userInfo from "../database.json";
+
+  console.log(userInfo);
 
   const router = useRouter();
   const route = useRoute();
@@ -27,6 +30,7 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
+  let takenName = ref(false);
 
   // Här skapar vi profil
 
@@ -62,6 +66,14 @@
   const createProfile = async () => {
     await sendUserData();
     profileCreated.value = true;
+  };
+
+  const checkUserNameIsTaken = () => {
+    console.log("clix");
+    if (newUsername.value === userInfo.username) {
+      takenName.value = true;
+      console.log(takenName);
+    }
   };
 
   const skipCreate = () => {
@@ -308,6 +320,7 @@
         :style="{ backgroundColor: createAccountFilledColour }"
         class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
         :class="createAccountFilled ? '' : 'text-gray-700'"
+        @click="checkUserNameIsTaken"
       >
         Sign up!
       </button>
