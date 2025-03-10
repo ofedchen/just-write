@@ -48,13 +48,13 @@
     <div class="mt-4 flex space-x-2">
       <button
         @click="saveEdit"
-        class="w-1/2 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900"
+        class="w-1/2 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-900 cursor-pointer"
       >
         Save changes
       </button>
       <button
         @click="router.push('/savedtexts')"
-        class="w-1/2 border border-solid border-gray-400 text-gray px-4 py-2 rounded hover:bg-gray-100"
+        class="w-1/2 border border-solid border-gray-400 text-gray px-4 py-2 rounded hover:bg-gray-100 cursor-pointer"
       >
         Cancel
       </button>
