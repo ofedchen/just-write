@@ -22,7 +22,7 @@
   const borderWidth = ref("1");
   const jsonUserData = ref([]);
   const createAccountFilled = ref(false);
-  const createAccountFilledColour = ref("#fef08a");
+  const createAccountFilledColour = ref("#FFF9C4");
   const termsChecked = ref(false);
   const textColor = ref("");
   const loginError = ref(false);
@@ -141,10 +141,10 @@
         watchTerms)
       ) {
         createAccountFilled.value = true;
-        createAccountFilledColour.value = "#eab308";
+        createAccountFilledColour.value = "#FDD835";
       } else {
         createAccountFilled.value = false;
-        createAccountFilledColour.value = "#fef9c3";
+        createAccountFilledColour.value = "#FFF9C4";
       }
 
       if (checkPasswordFirst && checkPasswordSecond) {
@@ -193,8 +193,8 @@
 
     <input
       type="text"
-      name=""
-      id=""
+      name="username"
+      id="username"
       placeholder="Username"
       class="w-[80vw] lg:w-full border-b border-gray-400 p-[0.3em] max-w-md mb-8 space-y-4 m-auto outline-none"
       v-model="username"
@@ -206,8 +206,8 @@
     >
       <input
         :type="!passwordIsVisible ? 'password' : 'text'"
-        name=""
-        id=""
+        name="password"
+        id="password"
         placeholder="Password"
         class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
         v-model="password"
@@ -249,10 +249,15 @@
 
       <input
         type="text"
-        name=""
-        id=""
+        name="new-username"
+        id="new-username"
         placeholder="Enter your new username here"
         class="border-b p-[0.3em] w-[80vw] lg:w-full max-w-md mb-4 space-y-4 m-auto outline-none"
+        :class="{
+          'border-red-700 border-b-2':
+            newUsername.length > 0 && newUsername.length < 6,
+          'border-green-800 border-b-2': newUsername.length >= 6
+        }"
         v-model="newUsername"
       />
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
@@ -262,8 +267,8 @@
       <div class="w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
         <input
           :type="!passwordIsVisible ? 'password' : 'text'"
-          name=""
-          id=""
+          name="new-password"
+          id="new-password"
           placeholder="Minimum 6 characters"
           :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
           class="border-b border-gray-400 mb-5 p-[0.3em] w-full -mr-10 outline-none"
@@ -287,8 +292,8 @@
       >
         <input
           :type="!passwordIsVisible ? 'password' : 'text'"
-          name=""
-          id=""
+          name="repeat-password"
+          id="repeat-password"
           placeholder="Enter your password again"
           :style="{ borderColor: borderRedGreen, borderWidth: borderWidth }"
           class="border-b border-gray-400 p-[0.3em] w-full -mr-10 outline-none"
@@ -310,6 +315,7 @@
         :disabled="!createAccountFilled"
         :style="{ backgroundColor: createAccountFilledColour }"
         class="cursor-pointer p-[0.3em] w-[80vw] lg:w-full max-w-md mb-8 space-y-4 m-auto pr-3 pl-3"
+        :class="createAccountFilled ? '' : 'text-gray-700'"
       >
         Sign up!
       </button>
