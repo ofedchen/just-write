@@ -18,7 +18,4 @@ node_modules
 *.code-workspace
 
 #database
-database\ copy.json
-database.json
 database2.json
-src/database.json
