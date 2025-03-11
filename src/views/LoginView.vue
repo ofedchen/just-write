@@ -272,6 +272,12 @@
       <p class="text-gray-600 m-auto text-sm mb-5" v-if="takenName">
         Sorry, this username is taken
       </p>
+      <p
+        class="text-gray-600 m-auto text-sm mb-5"
+        v-if="newUsername.length < 6 && newUsername.length > 1"
+      >
+        The username is too short
+      </p>
       <p class="text-blue-800 w-[80vw] lg:w-full max-w-md space-y-4 m-auto">
         Password
       </p>
@@ -332,9 +338,17 @@
         Sign up!
       </button>
 
-      <p class="m-auto pr-3 pl-3">
-        <input type="checkbox" v-model="termsChecked" />
-        By continuing, you agree to the Terms of Service, and Privacy Policy.
+      <p class="m-auto flex pr-3 pl-3">
+        <input
+          id="checkbox"
+          name="checkbox"
+          type="checkbox"
+          v-model="termsChecked"
+        />
+        <label for="checkbox" class="m-auto pr-3 pl-3 cursor-pointer">
+          By continuing, you agree to the Terms of Service, and Privacy
+          Policy.</label
+        >
       </p>
 
       <p
