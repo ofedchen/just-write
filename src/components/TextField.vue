@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted, watch } from "vue";
+  import { onMounted, ref } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
   import axios from "axios";
@@ -42,7 +42,6 @@
   // SAVE TEXT
   //emiting stop timer to save the writing time to pinia variables
   function stopThenSave() {
-    console.log("started saving");
     if (!userText.value.trim()) {
       if (showToast.value)
         toast.error("There's nothing to save yet - keep writing!");
@@ -53,8 +52,6 @@
 
   //saving to local storage here
   function saveText() {
-    console.log(inlog.minutes, inlog.seconds, inlog.status);
-
     const savedText = {
       id: Date.now(),
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
@@ -63,8 +60,6 @@
       timedMinutes: inlog.minutes,
       timedSeconds: inlog.seconds
     };
-
-    console.log(savedText);
 
     if (inlog.status) {
       if (sessionStorage.getItem("savedMinutes")) {
@@ -79,11 +74,9 @@
       storedTexts.value.push(savedText);
       localStorage.setItem("savedTexts", JSON.stringify(storedTexts.value));
 
-      // if (inlog.returningUser.action !== "publish") {
       sessionStorage.removeItem("savedTexts");
       sessionStorage.removeItem("savedMinutes");
       sessionStorage.removeItem("savedSeconds");
-      // }
 
       if (showToast.value)
         toast.success(
@@ -102,8 +95,8 @@
     } else {
       const sessionText = [];
       sessionText.push(savedText);
-      console.log(sessionText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
       inlog.returningUser.action = "save";
       inlog.returningUser.status = true;
 
@@ -143,6 +136,7 @@
         JSON.parse(sessionStorage.getItem("savedTexts")) || [];
       sessionText.push(savedText);
       sessionStorage.setItem("savedTexts", JSON.stringify(sessionText));
+
       inlog.returningUser.action = "publish";
       inlog.returningUser.status = true;
 

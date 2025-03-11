@@ -5,9 +5,6 @@
   import { ref, onMounted, computed } from "vue";
   import axios from "axios";
   import { useInlogStatus } from "../store/";
-  import { useRouter } from "vue-router";
-
-  const router = useRouter();
 
   const textPublished = ref(false);
   const prompts = ref([]);

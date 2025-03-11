@@ -82,15 +82,6 @@
       v-if="isMenuOpen"
       class="flex flex-col absolute z-1 bg-gray-800 text-white p-4 top-30 right-5"
     >
-      <!-- <RouterLink to="/login" class="ml-0" @click="toggleMenu">
-        <h2
-          class="font-[Overpass] text-[20px] text-left flex hover:bg-gray-200 hover:text-gray-800 p-1"
-          v-if="!inlog.status"
-        > -->
-      <!-- (före inlogg) -->
-      <!-- Profile
-        </h2>
-      </RouterLink> -->
       <RouterLink
         v-show="!isActiveLink('/')"
         to="/"
@@ -162,7 +153,6 @@
           Log in
         </button>
       </RouterLink>
-      <!-- published router link -->
     </div>
   </nav>
 </template>

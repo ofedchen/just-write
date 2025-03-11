@@ -305,6 +305,11 @@
       "id": "fd2c",
       "username": "vanjaf",
       "password": "abc123"
+    },
+    {
+      "id": "fafe",
+      "username": "olalala",
+      "password": "papapap"
     }
   ],
   "userForm": [
@@ -523,6 +528,16 @@
       "user": "vanjaf",
       "firstname": "Vanja",
       "surname": "Ferhatovic",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "fantasy",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "eb6c",
+      "user": "olalala",
+      "firstname": "",
+      "surname": "",
       "profileBio": "",
       "profileFavoriteAuthors": "",
       "profileFavoriteGenres": "",

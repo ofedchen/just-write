@@ -31,14 +31,8 @@
           class="w-[50px]"
         />
       </RouterLink>
-      <!-- <RouterLink to="/savedtexts" class="ml-auto">
-        <h2 class="font-[Overpass] text-[20px]">My saved writings</h2>
-      </RouterLink> -->
 
       <HamburgerMenu class="ml-auto" :is-active-link="isActiveLink" />
-      <!-- <RouterLink to="/login" class="ml-auto">
-        <h2 class="font-[Overpass] text-[20px]">Profil</h2>
-      </RouterLink> -->
       <div
         v-if="inlog.user"
         class="flex place-content-end p-3 text-xl cursor-pointer hidden md:flex"

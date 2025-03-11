@@ -23,53 +23,19 @@
   const filterUserInput = ref([]);
   const id = ref("");
 
-  watch(publishedTexts, (newPublishedTexts) => {
-    likedTexts.value = newPublishedTexts.filter((text) =>
-      text.likesList.includes(inlog.user)
-    );
-  });
-
-  const editBio = () => {
-    foundUserInput.value = false;
-
-    firstname.value = filterUserInput.value[0].firstname;
-    surname.value = filterUserInput.value[0].surname;
-    bioText.value = filterUserInput.value[0].profileBio;
-    authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
-    genreText.value = filterUserInput.value[0].profileFavoriteGenres;
-    bookText.value = filterUserInput.value[0].profileFavoriteBook;
-  };
-  function readMoreLess(id) {
-    // function to expand and minimize saved texts
-    expandedText.value[id] = !expandedText.value[id];
-  }
-
-  // Skicka användarens input
-
-  async function sendUserForm() {
-    const form = {
-      user: inlog.user,
-      firstname: firstname.value,
-      surname: surname.value,
-      profileBio: bioText.value,
-      profileFavoriteAuthors: authorText.value,
-      profileFavoriteGenres: genreText.value,
-      profileFavoriteBook: bookText.value
-    };
+  onMounted(async () => {
     foundUserInput.value = true;
 
-    id.value = filterUserInput.value[0].id;
+    await fetchUserForm();
+
     try {
-      await axios({
-        method: "patch",
-        url: `/api/userForm/${id.value}`,
-        data: form
-      });
+      const response = await axios.get(`/api/publishedTexts`);
+      publishedTexts.value = response.data;
     } catch (error) {
-      console.error("Error filling form", error);
-      toast.error("User form has not been filled");
+      console.error("Error fetching texts", error);
     }
-  }
+  });
+
   // hämta användarens input
   const fetchUserForm = async () => {
     try {
@@ -94,18 +60,53 @@
     }
   };
 
-  onMounted(async () => {
+  watch(publishedTexts, (newPublishedTexts) => {
+    likedTexts.value = newPublishedTexts.filter((text) =>
+      text.likesList.includes(inlog.user)
+    );
+  });
+
+  const editBio = () => {
+    foundUserInput.value = false;
+
+    // firstname.value = filterUserInput.value[0].firstname;
+    // surname.value = filterUserInput.value[0].surname;
+    // bioText.value = filterUserInput.value[0].profileBio;
+    // authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
+    // genreText.value = filterUserInput.value[0].profileFavoriteGenres;
+    // bookText.value = filterUserInput.value[0].profileFavoriteBook;
+  };
+
+  // function to expand and minimize saved texts
+  function readMoreLess(id) {
+    expandedText.value[id] = !expandedText.value[id];
+  }
+
+  // Skicka användarens input
+  async function sendUserForm() {
+    const form = {
+      user: inlog.user,
+      firstname: firstname.value,
+      surname: surname.value,
+      profileBio: bioText.value,
+      profileFavoriteAuthors: authorText.value,
+      profileFavoriteGenres: genreText.value,
+      profileFavoriteBook: bookText.value
+    };
     foundUserInput.value = true;
 
-    await fetchUserForm();
-
+    id.value = filterUserInput.value[0].id;
     try {
-      const response = await axios.get(`/api/publishedTexts`);
-      publishedTexts.value = response.data;
+      await axios({
+        method: "patch",
+        url: `/api/userForm/${id.value}`,
+        data: form
+      });
     } catch (error) {
-      console.error("Error fetching texts", error);
+      console.error("Error filling form", error);
+      toast.error("User form has not been filled");
     }
-  });
+  }
 
   const saveBio = async () => {
     await sendUserForm();

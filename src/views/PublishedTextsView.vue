@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, onMounted, computed } from "vue";
+  import { computed, onMounted, ref } from "vue";
   import SortAndSearch from "../components/SortAndSearch.vue";
   import TextDisplayed from "../components/TextDisplayed.vue";
   import axios from "axios";
@@ -24,8 +24,8 @@
     }
   });
 
+  // function to expand and minimize saved texts
   function readMoreLess(id) {
-    // function to expand and minimize saved texts
     expandedText.value[id] = !expandedText.value[id];
   }
 

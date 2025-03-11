@@ -6,9 +6,6 @@
   import { useToast } from "vue-toastification";
   import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
   import { EyeIcon } from "@heroicons/vue/24/solid";
-  import userInfo from "../database.json";
-
-  console.log(userInfo);
 
   const router = useRouter();
   const route = useRoute();
@@ -30,7 +27,7 @@
   const textColor = ref("");
   const loginError = ref(false);
   const passwordIsVisible = ref(false);
-  let takenName = ref(false);
+  const takenName = ref(false);
 
   // Här skapar vi profil
 
@@ -61,7 +58,6 @@
       toast.error("Profile has not been created");
     }
   }
-  // spara användardata även lokalt
 
   const createProfile = async () => {
     await sendUserData();
@@ -69,11 +65,9 @@
   };
 
   const checkUserNameIsTaken = (newName) => {
-    takenName.value = userInfo.userInfo.some(
+    takenName.value = jsonUserData.value.some(
       (user) => user.username === newName
     );
-
-    console.log("username taken?", takenName.value);
   };
 
   const skipCreate = () => {
@@ -97,6 +91,7 @@
     }
   };
 
+  //LOG IN
   const loginFunction = async () => {
     await fetchUserData();
 
@@ -338,7 +333,7 @@
         Sign up!
       </button>
 
-      <p class="m-auto flex pr-3 pl-3">
+      <div class="m-auto flex pr-3 pl-3">
         <input
           id="checkbox"
           name="checkbox"
@@ -349,7 +344,7 @@
           By continuing, you agree to the Terms of Service, and Privacy
           Policy.</label
         >
-      </p>
+      </div>
 
       <p
         @click="skipCreate"

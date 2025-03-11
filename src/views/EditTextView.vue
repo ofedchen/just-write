@@ -15,7 +15,6 @@
   onMounted(() => {
     showToast.value = true;
     const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
-    console.log(savedTexts);
     textData.value = savedTexts.find((t) => t.id === textId);
     if (textData.value) {
       editedText.value = textData.value.text;

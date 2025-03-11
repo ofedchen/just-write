@@ -20,17 +20,6 @@
       required: true,
       default: null
     }
-
-    // totalElapsedMin: {
-    //   type: Number,
-    //   required: false,
-    //   default: 0
-    // },
-    // totalElapsedSec: {
-    //   type: Number,
-    //   required: false,
-    //   default: 0
-    // }
   });
 
   const emit = defineEmits(["expand"]);
