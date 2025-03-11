@@ -240,6 +240,71 @@
       "id": "cc8d",
       "username": "hampus",
       "password": "Pass1234"
+    },
+    {
+      "id": "6be4",
+      "username": "lollo91",
+      "password": "lollo91"
+    },
+    {
+      "id": "0985",
+      "username": "jerryjohansson",
+      "password": "jerrytest"
+    },
+    {
+      "id": "9945",
+      "username": "Linn777",
+      "password": "linnlinn"
+    },
+    {
+      "id": "3fe7",
+      "username": "BobbyTheGoat",
+      "password": "bobbythegoat"
+    },
+    {
+      "id": "9857",
+      "username": "jonkri2",
+      "password": "secret"
+    },
+    {
+      "id": "d445",
+      "username": "ibrahim",
+      "password": "abc123"
+    },
+    {
+      "id": "d2db",
+      "username": "jossankossan",
+      "password": "123456"
+    },
+    {
+      "id": "7ef2",
+      "username": "Alfred",
+      "password": "123456789"
+    },
+    {
+      "id": "c82a",
+      "username": "Richard",
+      "password": "123456"
+    },
+    {
+      "id": "d70f",
+      "username": "tummen",
+      "password": "bigtoe"
+    },
+    {
+      "id": "dd65",
+      "username": "william",
+      "password": "1234abc"
+    },
+    {
+      "id": "7dd4",
+      "username": "survivorgeorge",
+      "password": "mayday"
+    },
+    {
+      "id": "fd2c",
+      "username": "vanjaf",
+      "password": "abc123"
     }
   ],
   "userForm": [
@@ -332,6 +397,136 @@
       "profileFavoriteAuthors": "",
       "profileFavoriteGenres": "",
       "profileFavoriteBook": ""
+    },
+    {
+      "id": "6c97",
+      "user": "lollo91",
+      "firstname": "louise",
+      "surname": "unknown",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": "Tomorrow when the war began"
+    },
+    {
+      "id": "78b0",
+      "user": "jerryjohansson",
+      "firstname": "",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "2253",
+      "user": "Linn777",
+      "firstname": "",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "348c",
+      "user": "BobbyTheGoat",
+      "firstname": "Bobby",
+      "surname": "The Goat",
+      "profileBio": "I am a Villain",
+      "profileFavoriteAuthors": "Stephan King",
+      "profileFavoriteGenres": "Thriller",
+      "profileFavoriteBook": "Harry Potter"
+    },
+    {
+      "id": "738c",
+      "user": "jonkri2",
+      "firstname": "Jon",
+      "surname": "Kristensen",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "eaad",
+      "user": "ibrahim",
+      "firstname": "",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "1671",
+      "user": "jossankossan",
+      "firstname": "",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "7b98",
+      "user": "Alfred",
+      "firstname": "Alfred",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": "r'ven raskar ;ver isen"
+    },
+    {
+      "id": "c644",
+      "user": "Richard",
+      "firstname": "Richard",
+      "surname": "Mattsson",
+      "profileBio": "sdfdf",
+      "profileFavoriteAuthors": "tolkien",
+      "profileFavoriteGenres": "fantasy",
+      "profileFavoriteBook": "lord of the rings"
+    },
+    {
+      "id": "10ee",
+      "user": "tummen",
+      "firstname": "tummen",
+      "surname": "lisa",
+      "profileBio": "im on the right hand",
+      "profileFavoriteAuthors": "left pinky",
+      "profileFavoriteGenres": "Naildrama",
+      "profileFavoriteBook": "Toepain"
+    },
+    {
+      "id": "0810",
+      "user": "william",
+      "firstname": "",
+      "surname": "",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "6647",
+      "user": "survivorgeorge",
+      "firstname": "george",
+      "surname": "postman",
+      "profileBio": "almost died in a planecrash",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
+    },
+    {
+      "id": "a7d1",
+      "user": "vanjaf",
+      "firstname": "Vanja",
+      "surname": "Ferhatovic",
+      "profileBio": "",
+      "profileFavoriteAuthors": "",
+      "profileFavoriteGenres": "",
+      "profileFavoriteBook": ""
     }
   ],
   "publishedTexts": [
@@ -407,7 +602,8 @@
         "kajsaduvet",
         "15252",
         "ererere",
-        "hampus"
+        "hampus",
+        "jerryjohansson"
       ]
     },
     {
@@ -422,7 +618,10 @@
         "kajsaduvet",
         "rasmus",
         "ererere",
-        "testuser"
+        "testuser",
+        "lollo91",
+        "jerryjohansson",
+        "survivorgeorge"
       ]
     },
     {
@@ -457,7 +656,8 @@
         "akdkjf",
         "ajdyyvv",
         "kajsaduvet",
-        "newtest"
+        "newtest",
+        "Richard"
       ]
     },
     {
@@ -482,7 +682,8 @@
       "date": "3/4/2025",
       "likesList": [
         "kajsaduvet",
-        "ofedchen"
+        "ofedchen",
+        "Linn777"
       ]
     },
     {
@@ -495,7 +696,8 @@
         "ajdyyvv",
         "ererere",
         "ajjdhd",
-        "laa"
+        "laa",
+        "Linn777"
       ]
     },
     {
@@ -529,7 +731,8 @@
         "ererere",
         "morin",
         "testuser",
-        "newtest"
+        "newtest",
+        "survivorgeorge"
       ]
     },
     {
@@ -547,8 +750,91 @@
         "ofedchen",
         "morin",
         "testuser",
-        "newtest"
+        "newtest",
+        "lollo91",
+        "survivorgeorge"
       ]
+    },
+    {
+      "id": "c80b",
+      "name": "lollo91",
+      "prompt": "Write a story from the perspective of a villain who believes they are the hero.",
+      "text": "jhsdhjhdjhjhjshjhddsnjkdkskdjkshdjkand,nakdkadnldnalkkndlkna",
+      "date": "3/11/2025",
+      "likesList": []
+    },
+    {
+      "id": "b861",
+      "name": "Linn777",
+      "prompt": "Describe the first contact between humans and an alien species.",
+      "text": "för lange sen sa levde vi ihop pa en annan planet, sen akte vi till olika och utforskade universum.nu har vi glomt varandra",
+      "date": "3/11/2025",
+      "likesList": [
+        "ibrahim"
+      ]
+    },
+    {
+      "id": "f2b1",
+      "name": "BobbyTheGoat",
+      "prompt": "Write a journal entry from the perspective of a villain reflecting on their biggest regret.",
+      "text": "My biggest regret is that i became a villain",
+      "date": "3/11/2025",
+      "likesList": [
+        "jonkri2"
+      ]
+    },
+    {
+      "id": "3ff1",
+      "name": "ibrahim",
+      "prompt": "Imagine a magical school where students train to control dreams.",
+      "text": "in a school where students controll dreams, there are also students who controll feelings. ",
+      "date": "3/11/2025",
+      "likesList": []
+    },
+    {
+      "id": "943e",
+      "name": "jossankossan",
+      "prompt": "Imagine a society where people are matched with their soulmates by an algorithm—but one person refuses to follow it.",
+      "text": "Jag fick en matchning pa mobilen. Det var tydligen min soulmate. Jag oppnade profilen och tankte ew vad fan ar det har.",
+      "date": "3/11/2025",
+      "likesList": []
+    },
+    {
+      "id": "fc71",
+      "name": "tummen",
+      "prompt": "Describe a heist planned by a group of misfits with unique abilities.",
+      "text": "lill tummen planerade sin stora plan med sina sm[ kottar,. Inget gick som det ska, alla var f;r h[rda p[ utsidan. MEN! S[ kom lille daggmaksken och erbj;d sin tj'nst, genomg[end kroppsmasassage f;r uppjuknadshetens skull, efter det blev kottarna slemmiga snigar och kunde pressa sig genom sbankens tunna gallar. lill tummen 'r nu pensionerad och bor p[ sin egna tropiska ;. Slitet gott! ",
+      "date": "3/11/2025",
+      "likesList": [
+        "tummen",
+        "vanjaf"
+      ]
+    },
+    {
+      "id": "1445",
+      "name": "william",
+      "prompt": "Describe a world where everyone has a unique superpower—but no one knows their power until they turn 18.",
+      "text": "The year is 3025 and the earth has become unhabitable and human race has settle down on Mars. The humans there have evolved to be more resistant and stronger. Every individual got an unique superpower",
+      "date": "3/11/2025",
+      "likesList": []
+    },
+    {
+      "id": "38fe",
+      "name": "survivorgeorge",
+      "prompt": "Describe a conversation between two strangers who are the only survivors of a plane crash.",
+      "text": "MAYDAY MAYDAY!!! We are two people stuck on an island. we cant find any other survivors. we found the radio in the cockpit of the plane it seems to still be working, may day  may day!! Is anyone out there?!!  My name is george and i have my wife lisa here. we live in michigan and were on our way to sydney. we seem to be somewhere out in the pacific ocean, theres alot of palms around us. something is coming from the tress",
+      "date": "3/11/2025",
+      "likesList": [
+        "vanjaf"
+      ]
+    },
+    {
+      "id": "05aa",
+      "name": "vanjaf",
+      "prompt": "Write a story where someone receives a letter from their future self.",
+      "text": "I just saw this letter in my mail box, I opened it and read the first lite that said that I should jump out the window. So I did :).. .",
+      "date": "3/11/2025",
+      "likesList": []
     }
   ]
 }
