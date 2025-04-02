@@ -26,7 +26,7 @@
     <nav class="flex justify-between items-center py-2 md:pb-20 px-8 -mt-6.5">
       <RouterLink to="/" v-show="!isActiveLink('/')">
         <img
-          src="../../assets/arrow.png"
+          src="../assets/arrow.png"
           alt="Go to homepage"
           class="w-[50px]"
         />
