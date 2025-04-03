@@ -10,8 +10,18 @@ export default defineConfig({
       "/api": {
         target: "http://localhost:5000",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "")
-      }
-    }
-  }
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+  define: {
+    API_URL: JSON.stringify(
+      process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}/api`
+        : "http://localhost:5000"
+    ),
+  },
+  build: {
+    outDir: "dist",
+  },
 });
