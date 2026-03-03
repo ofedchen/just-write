@@ -4,7 +4,7 @@
     "@heroicons/vue": "^2.2.0",
     "@primeuix/themes": "^1.0.0",
     "@tailwindcss/vite": "^4.0.6",
-    "axios": "^1.8.4",
+    "axios": "^1.13.5",
     "esbuild": "^0.25.2",
     "json-server": "^1.0.0-beta.3",
     "next-tick": "^1.1.0",
