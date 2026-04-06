@@ -5,6 +5,7 @@ import LoginView from "./views/LoginView.vue";
 import ProfileView from "./views/ProfileView.vue";
 import PublishedTextsView from "./views/PublishedTextsView.vue";
 import EditTextView from "./views/EditTextView.vue";
+import { useInlogStatus } from "./store";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,9 +30,19 @@ const router = createRouter({
       component: PublishedTextsView,
       path: "/published"
     },
-    { component: EditTextView,
-      path: "/edit/:id" }
+    { component: EditTextView, path: "/edit/:id" }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  const protectedRoutes = ["/savedtexts", "/profile"];
+  const inlog = useInlogStatus();
+
+  if (protectedRoutes.includes(to.path) && !inlog.status) {
+    next({ path: "/login", query: { endpoint: to.path } });
+  } else {
+    next();
+  }
 });
 
 export default router;

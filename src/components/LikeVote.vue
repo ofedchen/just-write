@@ -1,6 +1,6 @@
 <script setup>
   import { ref, computed } from "vue";
-  import axios from "axios";
+  import api from "../api.js";
   import Popover from "primevue/popover";
   import { useInlogStatus } from "../store/";
 
@@ -15,26 +15,13 @@
     }
   });
 
-  console.log(inlog.user);
-
   const addRemoveLike = async (id, event) => {
     if (inlog.status) {
-      const likes = props.text.likesList;
-      const index = likes.indexOf(inlog.user);
-
-      if (index >= 0) likes.splice(index, 1);
-      else likes.push(inlog.user);
-
       try {
-        await axios({
-          method: "patch",
-          url: `/api/publishedTexts/${id}`,
-          data: {
-            likesList: likes
-          }
-        });
+        const response = await api.post(`/texts/${id}/like`);
+        props.text.likesList = response.data.likesList;
       } catch (error) {
-        console.error("Error sending like", error);
+        console.error("Error toggling like", error);
       }
     } else {
       togglePopover(event);

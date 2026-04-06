@@ -1,8 +1,8 @@
 <script setup>
-  import { ref, watch, onMounted } from "vue";
+  import { ref, watch } from "vue";
   import { useInlogStatus } from "../store/";
   import { useRouter, useRoute } from "vue-router";
-  import axios from "axios";
+  import api from "../api.js";
   import { useToast } from "vue-toastification";
   import { ExclamationCircleIcon } from "@heroicons/vue/24/solid";
   import { EyeIcon } from "@heroicons/vue/24/solid";
@@ -20,7 +20,6 @@
   const completeInlogBoolean = ref(false);
   const borderRedGreen = ref("");
   const borderWidth = ref("1");
-  const jsonUserData = ref([]);
   const createAccountFilled = ref(false);
   const createAccountFilledColour = ref("#FFF9C4");
   const termsChecked = ref(false);
@@ -31,29 +30,22 @@
 
   // Här skapar vi profil
 
-  // skicka data till json
+  // skicka data till backend
 
   async function sendUserData() {
-    const users = {
-      username: newUsername.value,
-      password: newPasswordSecond.value
-    };
-    const form = {
-      user: newUsername.value,
-      firstname: "",
-      surname: "",
-      profileBio: "",
-      profileFavoriteAuthors: "",
-      profileFavoriteGenres: "",
-      profileFavoriteBook: ""
-    };
-
     try {
-      await axios.post(`/api/userInfo`, users);
-      await axios.post(`/api/userForm`, form);
-
+      const response = await api.post(`/auth/signup`, {
+        username: newUsername.value,
+        password: newPasswordSecond.value
+      });
+      inlog.logIn(response.data.token, response.data.user.username);
       toast.success("You have successfully created a profile");
+      profileCreated.value = true;
     } catch (error) {
+      if (error.response?.status === 409) {
+        toast.error("Username taken");
+        return;
+      }
       console.error("Error creating profile", error);
       toast.error("Profile has not been created");
     }
@@ -61,13 +53,23 @@
 
   const createProfile = async () => {
     await sendUserData();
-    profileCreated.value = true;
   };
 
-  const checkUserNameIsTaken = (newName) => {
-    takenName.value = jsonUserData.value.some(
-      (user) => user.username === newName
-    );
+  const checkUserNameIsTaken = async (newName) => {
+    if (!newName || newName.length < 6) {
+      takenName.value = false;
+      return;
+    }
+
+    try {
+      const response = await api.get(
+        `/auth/check-username/${encodeURIComponent(newName)}`
+      );
+      takenName.value = !response.data.available;
+    } catch (error) {
+      console.error("Error checking username", error);
+      takenName.value = false;
+    }
   };
 
   const skipCreate = () => {
@@ -77,43 +79,25 @@
   const username = ref("");
   const password = ref("");
 
-  // hämta användardata från json
-  onMounted(() => {
-    fetchUserData();
-  });
-
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get(`/api/userInfo`);
-      jsonUserData.value = response.data;
-    } catch (error) {
-      console.error("Error fetching userData", error);
-    }
-  };
-
   //LOG IN
   const loginFunction = async () => {
-    await fetchUserData();
+    try {
+      const response = await api.post(`/auth/login`, {
+        username: username.value,
+        password: password.value
+      });
 
-    const foundUser = jsonUserData.value.find(
-      (user) =>
-        user.username === username.value && user.password === password.value
-    );
+      inlog.logIn(response.data.token, response.data.user.username);
 
-    if (foundUser) {
-      inlog.user = foundUser.username;
-    }
-    const userDataCheck = jsonUserData.value.some(
-      (user) =>
-        user.username === username.value && user.password === password.value
-    );
-
-    if (userDataCheck) {
-      inlog.logIn();
-
-      const toPage = route.query.endpoint ? "/savedtexts" : "/";
+      const toPage =
+        typeof route.query.endpoint === "string" ? route.query.endpoint : "/";
       router.push({ path: toPage });
-    } else {
+    } catch (error) {
+      if (error.response?.status === 401) {
+        loginError.value = true;
+        return;
+      }
+      console.error("Error logging in", error);
       loginError.value = true;
     }
   };

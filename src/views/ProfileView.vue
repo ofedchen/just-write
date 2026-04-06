@@ -3,7 +3,7 @@
   import { UserIcon } from "@heroicons/vue/24/solid";
   import { useToast } from "vue-toastification";
 
-  import axios from "axios";
+  import api from "../api.js";
   import { useInlogStatus } from "/src/store/";
   import TextDisplayed from "../components/TextDisplayed.vue";
 
@@ -21,7 +21,6 @@
   const userInput = ref([]);
   const foundUserInput = ref(false);
   const filterUserInput = ref([]);
-  const id = ref("");
 
   onMounted(async () => {
     foundUserInput.value = true;
@@ -29,7 +28,7 @@
     await fetchUserForm();
 
     try {
-      const response = await axios.get(`/api/publishedTexts`);
+      const response = await api.get(`/texts`);
       publishedTexts.value = response.data;
     } catch (error) {
       console.error("Error fetching texts", error);
@@ -39,22 +38,17 @@
   // hämta användarens input
   const fetchUserForm = async () => {
     try {
-      const response = await axios.get(`/api/userForm`);
-      userInput.value = response.data;
+      const response = await api.get(`/profile`);
+      userInput.value = [response.data];
+      filterUserInput.value = [response.data];
 
-      filterUserInput.value = userInput.value.filter((input) =>
-        input.user.includes(inlog.user)
-      );
-
-      if (filterUserInput.value.length > 0) {
-        foundUserInput.value = true;
-        firstname.value = filterUserInput.value[0].firstname;
-        surname.value = filterUserInput.value[0].surname;
-        bioText.value = filterUserInput.value[0].profileBio;
-        authorText.value = filterUserInput.value[0].profileFavoriteAuthors;
-        genreText.value = filterUserInput.value[0].profileFavoriteGenres;
-        bookText.value = filterUserInput.value[0].profileFavoriteBook;
-      }
+      foundUserInput.value = true;
+      firstname.value = response.data.firstname || "";
+      surname.value = response.data.surname || "";
+      bioText.value = response.data.profileBio || "";
+      authorText.value = response.data.profileFavoriteAuthors || "";
+      genreText.value = response.data.profileFavoriteGenres || "";
+      bookText.value = response.data.profileFavoriteBook || "";
     } catch (error) {
       console.error("Error fetching userForm", error);
     }
@@ -85,7 +79,6 @@
   // Skicka användarens input
   async function sendUserForm() {
     const form = {
-      user: inlog.user,
       firstname: firstname.value,
       surname: surname.value,
       profileBio: bioText.value,
@@ -95,13 +88,8 @@
     };
     foundUserInput.value = true;
 
-    id.value = filterUserInput.value[0].id;
     try {
-      await axios({
-        method: "patch",
-        url: `/api/userForm/${id.value}`,
-        data: form
-      });
+      await api.patch(`/profile`, form);
     } catch (error) {
       console.error("Error filling form", error);
       toast.error("User form has not been filled");
