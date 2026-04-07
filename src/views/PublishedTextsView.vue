@@ -2,7 +2,7 @@
   import { computed, onMounted, ref } from "vue";
   import SortAndSearch from "../components/SortAndSearch.vue";
   import TextDisplayed from "../components/TextDisplayed.vue";
-  import axios from "axios";
+  import api from "../api.js";
 
   const publishedTexts = ref([]);
   const expandedText = ref({});
@@ -13,7 +13,7 @@
   onMounted(async () => {
     // function to fetch published texts from json
     try {
-      const response = await axios.get(`/api/publishedTexts`);
+      const response = await api.get(`/texts`);
       publishedTexts.value = response.data.toReversed();
       // setting an Object with texts id as keys and false as default value to show short version of text
       for (const text of publishedTexts.value) {

@@ -2,7 +2,7 @@
   import { onMounted, ref } from "vue";
   import { useToast } from "vue-toastification";
   import { useRouter } from "vue-router";
-  import axios from "axios";
+  import api from "../api.js";
 
   import { useInlogStatus } from "../store/";
 
@@ -113,15 +113,13 @@
       return;
     }
     const savedText = {
-      name: inlog.user,
       prompt: props.hidden ? "Free writing" : props.currentPrompt,
       text: userText.value,
-      date: new Date().toLocaleDateString("en-US"),
-      likesList: []
+      date: new Date().toLocaleDateString("en-US")
     };
     if (inlog.status) {
       try {
-        const response = await axios.post(`/api/publishedTexts`, savedText);
+        await api.post(`/texts`, savedText);
         toast.success("Your text has been published successfully");
 
         router.push({ path: "/published" });

@@ -3,7 +3,7 @@
   import TextField from "../components/TextField.vue";
   import TimerComponent from "../components/TimerComponent.vue";
   import { ref, onMounted, computed } from "vue";
-  import axios from "axios";
+  import api from "../api.js";
   import { useInlogStatus } from "../store/";
 
   const textPublished = ref(false);
@@ -19,7 +19,7 @@
 
   onMounted(async () => {
     try {
-      const response = await axios.get(`/api/randomPrompts`);
+      const response = await api.get(`/prompts`);
       prompts.value = response.data;
       const sessionText =
         JSON.parse(sessionStorage.getItem("savedTexts")) || null;
@@ -35,7 +35,7 @@
 
   function generatePrompt() {
     const index = Math.floor(Math.random() * prompts.value.length);
-    randomPrompt.value = prompts.value[index].prompt;
+    randomPrompt.value = prompts.value[index].text;
   }
 
   function hidePromptTimer() {
